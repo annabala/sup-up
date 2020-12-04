@@ -72,6 +72,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
       });
       let cell = row.insertCell();
       let delete_icon = create_form("", "delete_icon");
+      delete_icon.style.cursor = "pointer";
       cell.appendChild(delete_icon);
     });
 
@@ -172,16 +173,25 @@ document.addEventListener("DOMContentLoaded", function (event) {
     link.id = "nsc_bar_cookietypes_add_new_link";
     link.text = "add new cookie type";
     link.onclick = add_empty_row;
+    link.style.cursor = "pointer";
     return link;
   }
 
   function add_empty_row() {
     var tbody = document.querySelector("#nsc_bar_cookietypes_table > tbody");
     var row = tbody.insertRow();
+    var first = true;
     Object.keys(table_config).forEach(function (field_key) {
       let cell = row.insertCell();
       let input_field = create_form("", field_key);
+      if (field_key === "delete_icon") {
+        input_field.style.cursor = "pointer";
+      }
       cell.appendChild(input_field);
+      if (first) {
+        first = false;
+        cell.childNodes[0].focus();
+      }
     });
   }
 

@@ -83,8 +83,9 @@
 	}
 
 	function hook_meta_length_enforcement() {
+		$(enforce_meta_desc_limit);
+
 		$(document)
-			.on('ready', enforce_meta_desc_limit)
 			.on('input propertychange', '#wds_metadesc', enforce_meta_desc_limit);
 	}
 

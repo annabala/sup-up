@@ -12,11 +12,12 @@
 
 		$(document)
 			.on('change', '.wds-schema-toggleable input[type="checkbox"]', update_schema_sub_section_visbility)
-			.on('ready', update_schema_sub_section_visbility)
 			.on('click', '.wds-disabled-component [type="submit"]', activate_schema_component)
 			.on('click', '#wds-deactivate-schema-component', deactivate_schema_component)
 			.on('click', '#wds-authorize-api-key', authorize_youtube_api_key)
 		;
+
+		$(update_schema_sub_section_visbility);
 	}
 
 	function deactivate_schema_component(e) {

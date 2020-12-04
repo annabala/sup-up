@@ -11,6 +11,7 @@ return array(
 	'Smartcrawl_Controller_Analysis'              => '/core/class-wds-controller-analysis.php',
 	'Smartcrawl_Controller_Analysis_Content'      => '/core/class-wds-controller-analysis-content.php',
 	'Smartcrawl_Controller_Assets'                => '/core/class-wds-controller-assets.php',
+	'SmartCrawl_Controller_Black_Friday'          => '/core/class-wds-controller-black-friday.php',
 	'Smartcrawl_Controller_Checkup'               => '/core/class-wds-controller-checkup.php',
 	'Smartcrawl_Controller_Checkup_Progress'      => '/core/class-wds-controller-checkup-progress.php',
 	'Smartcrawl_Controller_Cron'                  => '/core/class-wds-controller-cron.php',

@@ -41,7 +41,7 @@ $social_options = empty( $social_options ) ? array() : $social_options;
 			</div>
 
 			<div class="sui-form-field">
-				<label for="facebook_url" class="sui-label"><?php esc_html_e( 'Facebook Page Url', 'wds' ); ?></label>
+				<label for="facebook_url" class="sui-label"><?php esc_html_e( 'Facebook Page URL', 'wds' ); ?></label>
 
 				<div class="sui-control-with-icon">
 					<span class="sui-icon-social-facebook" aria-hidden="true"></span>

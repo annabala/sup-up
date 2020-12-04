@@ -23,11 +23,20 @@ class Smartcrawl_Controller_Plugin_Links extends Smartcrawl_Base_Controller {
 			return $links;
 		}
 
-		array_unshift( $links, sprintf(
-			'<a href="%s" style="color: #8D00B1;">%s</a>',
-			'https://premium.wpmudev.org/project/smartcrawl-wordpress-seo/?utm_source=smartcrawl&utm_medium=plugin&utm_campaign=smartcrawl_pluginlist_upgrade',
-			esc_html( __( 'Upgrade', 'wds' ) )
-		) );
+		$bf_sale_time_left = SmartCrawl_Controller_Black_Friday::get()->get_time_left();
+		if ( ! empty( $bf_sale_time_left ) ) {
+			array_unshift( $links, sprintf(
+				'<a target="_blank" href="%s" style="color: #8D00B1;">%s</a>',
+				'https://premium.wpmudev.org/project/smartcrawl-wordpress-seo/?coupon=BF2020SMARTCRAWL&checkout=0&utm_medium=plugin&utm_campaign=smartcrawl_pluginlist_upgrade',
+				esc_html( __( 'Upgrade *60% OFF Sale*', 'wds' ) )
+			) );
+		} else {
+			array_unshift( $links, sprintf(
+				'<a href="%s" style="color: #8D00B1;">%s</a>',
+				'https://premium.wpmudev.org/project/smartcrawl-wordpress-seo/?utm_source=smartcrawl&utm_medium=plugin&utm_campaign=smartcrawl_pluginlist_upgrade',
+				esc_html( __( 'Upgrade', 'wds' ) )
+			) );
+		}
 
 		array_unshift( $links, sprintf(
 			'<a href="%s">%s</a>',

@@ -1,10 +1,10 @@
 === ACF: Better Search ===
 Contributors: mateuszgbiorczyk
-Donate link: https://ko-fi.com/gbiorczyk/
+Donate link: https://ko-fi.com/gbiorczyk/?utm_source=acf-better-search&utm_medium=readme-donate
 Tags: acf search, advanced custom fields, better search, extended search, search
 Requires at least: 5.0
 Tested up to: 5.5
-Requires PHP: 5.6
+Requires PHP: 7.0
 Stable tag: trunk
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -27,7 +27,7 @@ We modified the code of search engine. Content search is now faster by about 75%
 
 We spend hours working on the development of this plugin. Technical support also requires a lot of time, but we do it because we want to offer you the best plugin. We enjoy every new plugin installation.
 
-If you would like to appreciate it, you can [provide us a coffee](https://ko-fi.com/gbiorczyk/). **If every user bought at least one, we could work on the plugin 24 hours a day!**
+If you would like to appreciate it, you can [provide us a coffee](https://ko-fi.com/gbiorczyk/?utm_source=acf-better-search&utm_medium=readme-content). **If every user bought at least one, we could work on the plugin 24 hours a day!**
 
 #### Please also read the FAQ below. Thank you for being with us!
 
@@ -81,7 +81,7 @@ In this mode, the plugin does not check the field types. Phrases are searched in
 
 Yes. The plugin is completely free.
 
-However, working on plugins and technical support requires many hours of work. If you want to appreciate it, you can [provide us a coffee](https://ko-fi.com/gbiorczyk/). Thanks everyone!
+However, working on plugins and technical support requires many hours of work. If you want to appreciate it, you can [provide us a coffee](https://ko-fi.com/gbiorczyk/?utm_source=acf-better-search&utm_medium=readme-faq). Thanks everyone!
 
 Thank you for all the ratings and reviews.
 
@@ -94,6 +94,9 @@ This is all very important to us and allows us to do even better things for you!
 1. Screenshot of the options panel
 
 == Changelog ==
+
+= 3.6.0 (2020-10-28) =
+* `[Changed]` Required PHP version to 7.0
 
 = 3.5.3 (2020-04-05) =
 * `[Removed]` Support for inverted values in `_postmeta` table

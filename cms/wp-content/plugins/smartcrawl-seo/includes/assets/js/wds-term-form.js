@@ -31,11 +31,12 @@
 		Wds.hook_toggleables();
 
 		$(document)
-			.on('ready', refresh_preview)
 			.on('input propertychange', '.wds-meta-field', _.debounce(refresh_preview, 2000))
 			.on('click', '.wds-edit-meta .sui-button', function () {
-				$(this).closest('.wds-edit-meta').find('.sui-border-frame').toggle();	
+				$(this).closest('.wds-edit-meta').find('.sui-border-frame').toggle();
 			});
+
+		$(refresh_preview);
 	}
 
 	$(init);

@@ -23,7 +23,7 @@
       ));
       $links[] = sprintf(
         __('%sProvide us a coffee%s', 'acf-better-search'),
-        '<a href="https://ko-fi.com/gbiorczyk/" target="_blank">',
+        '<a href="https://ko-fi.com/gbiorczyk/?utm_source=acf-better-search&utm_medium=plugin-links" target="_blank">',
         '</a>'
       );
       return $links;

@@ -89,11 +89,12 @@ class Smartcrawl_Check_Keyword_Density extends Smartcrawl_Check_Abstract {
 	}
 
 	public function get_more_info() {
-		$message = __( "Keyword density is all about making sure your content is populated with enough keywords to give it a better chance of appearing higher in search results. One way of making sure people will be able to find our content is using particular focus keywords, and using them as much as naturally possible in our content. In doing this we are trying to match up the keywords that people are likely to use when searching for this article or page, so try to get into your visitors mind and picture them typing a search into Google. While we recommend aiming for 1-3% density, remember content is king and you don't your article ending up sounding like a robot. Get creative and utilize the page title, image caption, and subheadings.", 'wds' );
+		$message = __( 'Keyword density is all about making sure your content is populated with enough keywords to give it a better chance of appearing higher in search results. One way of making sure people will be able to find our content is using particular focus keywords, and using them as much as naturally possible in our content. In doing this we are trying to match up the keywords that people are likely to use when searching for this article or page, so try to get into your visitors mind and picture them typing a search into Google. While we recommend aiming for %1$d-%2$d%% density, remember content is king and you don\'t want your article to end up sounding like a robot. Get creative and utilize the page title, image caption, and subheadings.', 'wds' );
 
 		return sprintf(
 			$message,
-			$this->get_min()
+			$this->get_min(),
+			$this->get_max()
 		);
 	}
 }

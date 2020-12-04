@@ -69,6 +69,7 @@
 			$.post(ajaxurl, {
 				action: "wds-boarding-skip"
 			}).always(function () {
+				window.location.reload();
 				SUI.closeModal();
 			});
 		},

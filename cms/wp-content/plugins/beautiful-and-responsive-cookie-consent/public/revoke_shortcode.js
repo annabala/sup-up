@@ -6,8 +6,7 @@
   }
 
   element.text = element.dataset.link_text_after_click;
-  element.dataset.link_text_after_click =
-    element.dataset.link_text_before_click;
+  element.dataset.link_text_after_click = element.dataset.link_text_before_click;
   element.dataset.link_text_before_click = element.text;
 
   document.cookie =
@@ -20,7 +19,6 @@
     cookiedomain;
 
   var current_cookie_value = element.dataset.current_cookie_value;
-  element.dataset.current_cookie_value =
-    element.dataset.cookie_value_after_click;
+  element.dataset.current_cookie_value = element.dataset.cookie_value_after_click;
   element.dataset.cookie_value_after_click = current_cookie_value;
 })(this);

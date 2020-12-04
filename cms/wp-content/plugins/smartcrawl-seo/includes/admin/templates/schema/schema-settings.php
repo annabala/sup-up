@@ -90,4 +90,6 @@ $this->_render( 'before-page-container' );
 			</div>
 		</form>
 	<?php } ?>
+
+	<?php $this->_render( 'footer' ); ?>
 </div>

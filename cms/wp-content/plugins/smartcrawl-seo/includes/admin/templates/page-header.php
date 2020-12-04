@@ -26,4 +26,6 @@ $extra_actions_args = empty( $extra_actions_args ) ? array() : $extra_actions_ar
 			</a>
 		</div>
 	<?php endif; ?>
+
+	<?php $this->_render( 'black-friday/black-friday-notice' ); ?>
 </div>

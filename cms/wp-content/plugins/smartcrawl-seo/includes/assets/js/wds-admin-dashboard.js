@@ -151,9 +151,9 @@
 		window.Wds.dismissible_message();
 
 		$(document)
-			.on('ready', update_checkup_progress)
 			.on('click', '.wds-activate-component', activate_component);
 
+		$(update_checkup_progress);
 		hook_checkup_accordion_item_click();
 	}
 

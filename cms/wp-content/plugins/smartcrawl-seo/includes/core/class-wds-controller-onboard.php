@@ -31,7 +31,7 @@ class Smartcrawl_Controller_Onboard extends Smartcrawl_Base_Controller {
 	}
 
 	public function process_boarding_skip() {
-		Smartcrawl_Settings::update_specific_options( self::ONBOARDING_DONE_OPTION, true );
+		$this->mark_onboarding_done();
 
 		wp_send_json_success();
 	}
@@ -47,7 +47,7 @@ class Smartcrawl_Controller_Onboard extends Smartcrawl_Base_Controller {
 		}
 
 		// Throw the switch on onboarding
-		Smartcrawl_Settings::update_specific_options( self::ONBOARDING_DONE_OPTION, true );
+		$this->mark_onboarding_done();
 
 		switch ( $target ) {
 			case 'checkup-run':
@@ -97,8 +97,7 @@ class Smartcrawl_Controller_Onboard extends Smartcrawl_Base_Controller {
 	}
 
 	public function add_onboarding() {
-		$done = (boolean) Smartcrawl_Settings::get_specific_options( self::ONBOARDING_DONE_OPTION );
-		if ( $done ) {
+		if ( $this->onboarding_done() ) {
 			return false;
 		}
 
@@ -129,5 +128,18 @@ class Smartcrawl_Controller_Onboard extends Smartcrawl_Base_Controller {
 
 	private function get_request_data() {
 		return isset( $_POST['_wds_nonce'] ) && wp_verify_nonce( $_POST['_wds_nonce'], 'wds-onboard-nonce' ) ? stripslashes_deep( $_POST ) : array();
+	}
+
+	public function get_onboarding_done_version() {
+		return Smartcrawl_Settings::get_specific_options( self::ONBOARDING_DONE_OPTION );
+	}
+
+	public function onboarding_done() {
+		$version = $this->get_onboarding_done_version();
+		return ! empty( $version );
+	}
+
+	private function mark_onboarding_done() {
+		Smartcrawl_Settings::update_specific_options( self::ONBOARDING_DONE_OPTION, SMARTCRAWL_VERSION );
 	}
 }

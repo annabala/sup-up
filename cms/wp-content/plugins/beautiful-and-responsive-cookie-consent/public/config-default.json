@@ -5,7 +5,8 @@
     "allow": "Allow",
     "link": "Learn more",
     "href": "http://yourdomain/dataprivacy",
-    "message": "This website uses cookies to ensure you get the best experience on our website."
+    "message": "This website uses cookies to ensure you get the best experience on our website.",
+    "policy": "Cookie Settings"
   },
   "type": "info",
   "palette": {

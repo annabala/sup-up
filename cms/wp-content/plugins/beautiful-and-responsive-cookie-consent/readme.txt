@@ -90,6 +90,11 @@ Just install this plugin and go to Settings > Cookie Consent Banner to change th
 
 == Changelog ==
 
+= 2.2.1 =
+* IMPROVEMENT: Default Setting name of "cookie settings"
+* IMPROVEMENT: When adding cookie types the added form is now in focus.
+* FIX: length of "cookie_suffix" not correct validated.
+
 = 2.2 =
 * ADDED: Google Tag Manager support: dataLayer pushes - events: beautiful_cookie_consent_initialized and beautiful_cookie_consent_updated
 * ADDED: setting for font customisation.

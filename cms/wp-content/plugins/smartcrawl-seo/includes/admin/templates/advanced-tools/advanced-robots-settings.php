@@ -67,7 +67,7 @@ $robots_output = Smartcrawl_Controller_Robots::get()->get_robot_file_contents();
 			<p class="sui-description">
 				<?php echo smartcrawl_format_link(
 					esc_html__( 'Customize the robots.txt output here. We have %s on a range of examples and options for your robots.txt file.', 'wds' ),
-					'https://premium.wpmudev.org/docs/wpmu-dev-plugins/smartcrawl/#Robots-txt',
+					'https://premium.wpmudev.org/docs/wpmu-dev-plugins/smartcrawl/#robots-txt-editor',
 					esc_html__( 'full documentation' ),
 					'_blank'
 				); ?>

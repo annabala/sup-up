@@ -125,7 +125,7 @@ class nsc_bar_input_validation
                 $this->admin_error_obj->nsc_bar_set_admin_error("Cookie suffix must be only lowercase letter and underscores.");
                 return $this->get_old_cookietype_value();
             }
-            if (strlen($arr_cookietype["cookie_suffix"]) > 9) {
+            if (strlen($arr_cookietype["cookie_suffix"]) > 10) {
                 $this->admin_error_obj->nsc_bar_set_admin_error("Cookie suffix must only have ten characters.");
                 return $this->get_old_cookietype_value();
             }

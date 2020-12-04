@@ -31,9 +31,7 @@ settings_fields($objSettings->plugin_slug . $objSettings->setting_page_fields->t
   </th>
   <td>
     <fieldset>
-     <label>
       <?php echo $form_fields->nsc_bar_return_form_field($field_configs, $objSettings->plugin_prefix); ?>
-     </label>
      <p class="description"><?php echo $field_configs->helpertext ?></p>
     </fieldset>
   </td>

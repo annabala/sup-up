@@ -98,11 +98,11 @@ class Smartcrawl_Checkup_Result_Processor {
 	}
 
 	private function process_microdata( $item ) {
-		$social_url = $this->get_social_url();
+		$schema_url = Smartcrawl_Settings_Admin::admin_url( Smartcrawl_Settings::TAB_SCHEMA );
 
 		return $this->button_markup(
 			esc_html__( 'Add Schema Markup', 'wds' ),
-			$social_url,
+			$schema_url,
 			'sui-icon-plus'
 		);
 	}

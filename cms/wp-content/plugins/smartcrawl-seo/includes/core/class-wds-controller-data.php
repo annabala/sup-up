@@ -130,6 +130,7 @@ class Smartcrawl_Controller_Data extends Smartcrawl_Base_Controller {
 		}
 
 		$this->remove_post_meta();
+		$this->remove_user_meta();
 	}
 
 	/**
@@ -165,6 +166,11 @@ class Smartcrawl_Controller_Data extends Smartcrawl_Base_Controller {
 	private function remove_post_meta() {
 		global $wpdb;
 		return $wpdb->query( "DELETE FROM {$wpdb->postmeta} WHERE meta_key LIKE '_wds%'" );
+	}
+
+	private function remove_user_meta() {
+		global $wpdb;
+		return $wpdb->query( "DELETE FROM {$wpdb->usermeta} WHERE meta_key LIKE 'wds_%'" );
 	}
 
 	private function get_service_model_key() {

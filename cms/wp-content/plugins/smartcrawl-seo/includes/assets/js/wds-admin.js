@@ -115,8 +115,7 @@
 
 				if ($conditional_el.data('conditional-val') == $select.val()) {
 					$conditional_el.show();
-				}
-				else {
+				} else {
 					$conditional_el.hide();
 				}
 			});
@@ -176,8 +175,7 @@
 
 			if ($el.length == 0) {
 				close_all_dropdowns();
-			}
-			else if ($this.is('a')) {
+			} else if ($this.is('a')) {
 				e.preventDefault();
 				close_all_dropdowns($el);
 
@@ -306,8 +304,9 @@
 
 		$(document)
 			.on('click', '.sui-upload .sui-upload-file button', handle_clear_button_click)
-			.on('change', '.sui-upload input[type="file"]', handle_file_input_change)
-			.on('ready', set_defaults_on_page_load);
+			.on('change', '.sui-upload input[type="file"]', handle_file_input_change);
+
+		$(set_defaults_on_page_load);
 	};
 
 	window.Wds.styleable_checkbox = function ($element) {
@@ -449,15 +448,13 @@
 
 			if (parent_val.indexOf(',') !== -1) {
 				values = parent_val.split(',');
-			}
-			else {
+			} else {
 				values.push(parent_val);
 			}
 
 			if (values.indexOf(el_value($parent)) === -1) {
 				$child.hide();
-			}
-			else {
+			} else {
 				$child.show();
 			}
 		}
@@ -565,6 +562,38 @@
 	function init() {
 		window.Wds.floating_message();
 		window.Wds.inverted_toggle();
+
+		hook_black_friday_2020();
+	}
+
+	function hook_black_friday_2020() {
+		if ($('#wds-black-friday-modal').length) {
+			SUI.openModal(
+				'wds-black-friday-modal',
+				'container',
+				'wds-check-all-plans-modal-button',
+				false,
+				false
+			);
+
+			$('#wds-black-friday-modal-close-button').off().click(function () {
+				$(this)
+					.prop('disabled', true)
+					.find('.sui-icon-close')
+					.removeClass('sui-icon-close')
+					.addClass('sui-icon-more');
+
+				$.post(ajaxurl, {action: 'wds-black-friday-skip'}, function () {
+					SUI.closeModal();
+				});
+			});
+		}
+		$('.wds-black-notice-dismiss').click(function () {
+			$(this).prop('disabled', true).html('...');
+			$.post(ajaxurl, {action: 'wds-black-friday-skip-notice'}, function () {
+				$('#wds-black-notice-content').remove();
+			});
+		});
 	}
 
 	$(init);

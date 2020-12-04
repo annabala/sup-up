@@ -25,10 +25,9 @@ if ( $is_member ) {
 		<p><?php esc_html_e( 'Get our full WordPress Search Engine Optimization suite with SmartCrawl Pro and additional benefits of a WPMU DEV membership.', 'wds' ); ?></p>
 
 		<ul>
-			<li><?php esc_html_e( 'Scheduled SEO Checkups & Sitemap Crawls', 'wds' ); ?></li>
+			<li><?php esc_html_e( 'Scheduled SEO Checkups & URL Crawls', 'wds' ); ?></li>
 			<li><?php esc_html_e( 'Automatic linking', 'wds' ); ?></li>
 			<li><?php esc_html_e( 'White label automated reporting', 'wds' ); ?></li>
-			<li><?php esc_html_e( 'Smush Pro for the best image optimization', 'wds' ); ?></li>
 			<li><?php esc_html_e( 'Premium WordPress plugins', 'wds' ); ?></li>
 			<li><?php esc_html_e( 'Manage unlimited WordPress sites', 'wds' ); ?></li>
 			<li><?php esc_html_e( '24/7 live WordPress support', 'wds' ); ?></li>

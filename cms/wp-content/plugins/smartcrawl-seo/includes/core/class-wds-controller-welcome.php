@@ -50,6 +50,9 @@ class Smartcrawl_Controller_Welcome extends Smartcrawl_Base_Controller {
 	}
 
 	public function add_welcome_modal() {
+		// Disabling welcome modal for version 2.8.4
+		return;
+
 		/**
 		 * @var $modal_dismissed_version string
 		 */

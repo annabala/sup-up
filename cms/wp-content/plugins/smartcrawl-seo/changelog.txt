@@ -2,6 +2,19 @@ Plugin Name: SmartCrawl SEO
 
 Change Log:
 ----------------------------------------------------------------------
+2.8.4 - 2020-11-20
+----------------------------------------------------------------------
+New: General code improvements
+
+----------------------------------------------------------------------
+2.8.3 - 2020-10-21
+----------------------------------------------------------------------
+Fix: Autolinks not working in certain scenarios
+Fix: Action button in microdata check pointing to social settings
+Fix: Deprecated jQuery function being used in Javascript files
+Fix: Miscellaneous typos and copy changes
+Fix: Incorrect documentation link in robots section
+
 2.8.2 - 2020-10-08
 ----------------------------------------------------------------------
 - Improvement: Performance improvements

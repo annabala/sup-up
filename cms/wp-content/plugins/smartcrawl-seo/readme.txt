@@ -7,7 +7,7 @@ Author URI: https://premium.wpmudev.org/
 Author: WPMU DEV
 Requires at least: 4.6
 Tested up to: 5.5
-Stable tag: 2.8.2
+Stable tag: 2.8.4
 
 SEO checker, content analysis & SEO optimizer. Rank higher on search engines with 301 redirects, XML sitemaps & one-click setup.
 
@@ -127,6 +127,17 @@ SmartCrawl works with any normal WP content and page builders shouldn’t be an 
 4. Use OpenGraph and Twitter Cards to optimize social sharing.
 
 == Changelog ==
+
+= 2.8.3 ( 2020-11-21 ) =
+
+- New: General code improvements
+
+= 2.8.3 ( 2020-10-21 ) =
+
+- Fix: Action button in microdata check pointing to social settings
+- Fix: Deprecated jQuery function being used in Javascript files
+- Fix: Miscellaneous typos and copy changes
+- Fix: Incorrect documentation link in robots section
 
 = 2.8.2 ( 2020-10-08 ) =
 

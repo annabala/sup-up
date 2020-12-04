@@ -1,4 +1,4 @@
-jQuery(document).ready(function ($) {
+jQuery(function ($) {
 	function open_pointer(id) {
 		var pointers = (_wds_pointers || {}).pointers;
 		if (!pointers || !pointers[id]) {

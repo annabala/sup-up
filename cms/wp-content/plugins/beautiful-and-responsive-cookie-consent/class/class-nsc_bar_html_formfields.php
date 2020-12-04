@@ -41,12 +41,12 @@ class nsc_bar_html_formfields
     {
         $checkbox = '<input id="ff_' . $this->prefix . $this->field->field_slug . '" type="checkbox" name="' . $this->prefix . $this->field->field_slug . '" id="' . $this->prefix . $this->field->field_slug . '" value="1" ' . checked(1, $this->field->pre_selected_value, false) . '>';
         $checkbox = '<input type="hidden" name="' . $this->prefix . $this->field->field_slug . '_hidden" value="0"/>' . $checkbox;
-        return $checkbox;
+        return '<label>' . $checkbox . '</label>';
     }
 
     private function create_textarea()
     {
-        return '<textarea id="ff_' . $this->prefix . $this->field->field_slug . '" cols="120"  id="' . $this->prefix . $this->field->field_slug . '" name="' . $this->prefix . $this->field->field_slug . '" rows="20" class="large-text code" type="textarea">' . $this->convert_to_string($this->field->pre_selected_value) . '</textarea>';
+        return '<label><textarea id="ff_' . $this->prefix . $this->field->field_slug . '" cols="120"  id="' . $this->prefix . $this->field->field_slug . '" name="' . $this->prefix . $this->field->field_slug . '" rows="20" class="large-text code" type="textarea">' . $this->convert_to_string($this->field->pre_selected_value) . '</textarea></label>';
     }
 
     private function create_hidden_field()
@@ -60,7 +60,7 @@ class nsc_bar_html_formfields
         if ($length == "long") {
             $size = 50;
         }
-        return '<input id="ff_' . $this->prefix . $this->field->field_slug . '" type="text"  id="' . $this->prefix . $this->field->field_slug . '" name="' . $this->prefix . $this->field->field_slug . '" size="' . $size . '" maxlength="200" value="' . $this->field->pre_selected_value . '">';
+        return '<label><input id="ff_' . $this->prefix . $this->field->field_slug . '" type="text"  id="' . $this->prefix . $this->field->field_slug . '" name="' . $this->prefix . $this->field->field_slug . '" size="' . $size . '" maxlength="200" value="' . $this->field->pre_selected_value . '"></label>';
     }
 
     private function create_select()
@@ -73,7 +73,7 @@ class nsc_bar_html_formfields
             $html .= '<option value="' . $selectable_value->value . '" ' . $select . '>' . $selectable_value->name . '</option>';
         }
         $html .= "</select>";
-        return $html;
+        return '<label>' . $html . '</label>';
     }
 
     private function create_radio()
@@ -84,7 +84,7 @@ class nsc_bar_html_formfields
             if ($selectable_value->value == $this->field->pre_selected_value) {$select = "checked";}
             $html .= '<input id="ff_' . $this->prefix . $this->field->field_slug . '"  type="radio" name="' . $this->prefix . $this->field->field_slug . '" value="' . $selectable_value->value . '" ' . $select . ' > ' . $selectable_value->name . ' ';
         }
-        return $html;
+        return '<label>' . $html . '</label>';
     }
 
     private function convert_to_string($input)

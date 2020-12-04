@@ -191,7 +191,6 @@
 		$(document)
 			.on('click', '.wds-links-dropdown a', close_links_dropdown)
 			.on('change', '.wds-sitemap-toggleable input[type="checkbox"]', update_sitemap_sub_section_visbility)
-			.on('ready', update_sitemap_sub_section_visbility)
 			.on('keydown', '.sui-modal', submit_dialog_form_on_enter)
 			.on('change', '.wds-crawler-frequency-radio', change_crawl_frequency)
 			.on('change', '#wds_sitemap_options-sitemap-disable-automatic-regeneration', function () {
@@ -215,6 +214,8 @@
 				.on('wds_url_crawler_report:reloaded', update_page_after_report_reload)
 				.on('wds_url_crawler_report:reloaded', initialize_components);
 		}
+
+		$(update_sitemap_sub_section_visbility);
 	}
 
 	$(init);

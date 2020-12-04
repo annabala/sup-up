@@ -1,0 +1,15 @@
+.blogList { $root: &;
+
+  &__inner {
+    margin-bottom: 116px;
+    margin-top: 40px;
+  }
+
+  &__item {
+    margin-bottom: 20px;
+
+    @include rwd('large-tablet') {
+      margin-bottom: 30px;
+    }
+  }
+}

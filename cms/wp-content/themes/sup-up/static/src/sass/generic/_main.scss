@@ -1,0 +1,38 @@
+* {
+  box-sizing: border-box;
+
+  &::before,
+  &::after {
+    box-sizing: border-box;
+  }
+
+  &::selection {
+    background-color: rgba(#55b2fc, 0.4);
+  }
+}
+
+html {
+  font-size: 100%;
+  line-height: 1;
+}
+
+body {
+  background-color: $c-white;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: 'JostBook';
+}
+
+.sections {
+  overflow: hidden;
+}
+
+a:focus {
+  outline-width: thick;
+  outline-color: $c-blue-5;
+}
+
+button:focus {
+  text-decoration: underline;
+}

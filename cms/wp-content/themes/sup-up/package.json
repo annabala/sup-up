@@ -1,0 +1,40 @@
+{
+  "name": "fis",
+  "version": "1.0.0",
+  "description": "",
+  "main": "webpack.mix.js",
+  "scripts": {
+    "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "dev": "npm run development",
+    "watch": "npm run development -- --watch",
+    "prod": "npm run production"
+  },
+  "author": "Anna Bała",
+  "license": "ISC",
+  "browserslist": [
+    "chrome 60",
+    "firefox 55",
+    "safari 10",
+    "edge 15",
+    "ie 11"
+  ],
+  "devDependencies": {
+    "browser-sync": "^2.26.7",
+    "browser-sync-webpack-plugin": "^2.0.1",
+    "cross-env": "^7.0.0",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.2.0",
+    "eslint-plugin-import": "^2.20.1",
+    "mati-mix": "^2.0.1",
+    "resolve-url-loader": "^3.1.0",
+    "sass": "^1.25.0",
+    "sass-loader": "^7.3.1",
+    "swiper": "^5.3.0",
+    "vue-template-compiler": "^2.6.11"
+  },
+  "dependencies": {
+    "aos": "^2.3.4",
+    "rellax": "^1.12.1"
+  }
+}

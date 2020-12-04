@@ -1,0 +1,11 @@
+.page404 { $root: &;
+
+  &__inner {
+    padding: 100px 0;
+    min-height: 600px;
+  }
+
+  & a {
+    margin: 30px 0;
+  }
+}

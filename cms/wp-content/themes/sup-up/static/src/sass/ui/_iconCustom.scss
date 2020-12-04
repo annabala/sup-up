@@ -1,0 +1,91 @@
+
+.iconCustomWrapper {
+
+  &:hover {
+
+    & a {
+      color: $c-blue-1;
+      border: 2px solid $c-blue-1;
+
+      &[data-icon="facebook"]::before,
+      &[data-icon="instagram"]::before,
+      &[data-icon="twitter"]::before,
+      &[data-icon="linkedin"]::before  {
+          left: 15px;
+      }
+    }
+
+    & .iconCustom--bigPadding {
+      &[data-icon="facebook"]::before,
+      &[data-icon="instagram"]::before,
+      &[data-icon="twitter"]::before,
+      &[data-icon="linkedin"]::before  {
+          left: 30px;
+      }
+    }
+
+  }
+
+  & .iconCustom {
+    $root: &;
+    position: relative;
+    font: 500 16px/23px JostMedium;
+    color: $c-blue-4;
+    border: 2px solid $c-blue-2;
+    text-transform: uppercase;
+    text-align: center;
+    display: block;
+    transition: border $tr, color $tr;
+    -webkit-transition: border $tr, color $tr;
+
+    &[data-icon="facebook"]::before,
+    &[data-icon="instagram"]::before,
+    &[data-icon="twitter"]::before,
+    &[data-icon="linkedin"]::before {
+      position: absolute;
+      left: 20px;
+      min-width: 16px;
+      transform-origin: 50%;
+      transition: left $tr;
+      -webkit-transition: left $tr;
+      -moz-transition: left $tr;
+      -o-transition: left $tr;
+  }
+
+  &--bigPadding {
+    padding: 18px 62px;
+    min-width: 255px;
+
+    &[data-icon="facebook"]::before,
+    &[data-icon="instagram"]::before,
+    &[data-icon="twitter"]::before,
+    &[data-icon="linkedin"]::before {
+      left: 35px;
+    }
+  }
+}
+}
+
+.iconCustom {
+
+  &[data-icon="facebook"]::before {
+    content: url("/wp-content/themes/fis/static/src/img/facebook.svg");
+    display: inline-block;
+  }
+
+  &[data-icon="instagram"]::before {
+    content: url("/wp-content/themes/fis/static/src/img/instagram.svg");
+    display: inline-block;
+  }
+
+  &[data-icon="linkedin"]::before {
+    content: url("/wp-content/themes/fis/static/src/img/linkedin.svg");
+    display: inline-block;
+  }
+
+  &[data-icon="twitter"]::before {
+    content: url("/wp-content/themes/fis/static/src/img/twitter.svg");
+    display: inline-block;
+    width: 20px;
+  }
+}

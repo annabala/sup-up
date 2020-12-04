@@ -1,0 +1,47 @@
+/**
+Animation for pins
+**/
+
+@keyframes pulse {
+  0% {
+    opacity: .8;
+    transform: translate(-50%, -50%) scale(.85);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes small-pulse {
+  0% {
+    opacity: .1;
+    transform: translate(-50%, -50%) scale(.2);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes draw {
+  from {
+    opacity: 0;
+    stroke-dashoffset: 1120;
+  }
+  to {
+    opacity: 1;
+    stroke-dashoffset: 2240;
+  }
+}
+
+@keyframes textShow {
+  0% {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}

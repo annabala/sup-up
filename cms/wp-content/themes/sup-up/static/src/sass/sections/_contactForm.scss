@@ -1,0 +1,269 @@
+.contactForm {
+  $root: &;
+  padding: 50px 70px;
+
+  &--popup {
+    padding: 0;
+  }
+
+  @include rwd('large-tablet') {
+    padding: 25px 0;
+  }
+
+  @include rwd('tablet') {
+    padding: 15px 0;
+  }
+
+  &__column {
+    position: relative;
+
+    &--noPadding {
+      @include rwd('tablet') {
+        padding-left: 0;
+        padding-right: 0;
+      }
+    }
+  }
+
+  &__title {
+    font: 400 30px/40px JostBook;
+    margin: 0 auto 75px;
+    text-align: center;
+  }
+
+  img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+  }
+
+  &__formWrapper {
+    height: 100%;
+
+    @include rwd('large-tablet') {
+      padding-top: 27px;
+    }
+  }
+
+  &__form {
+    background-color: $c-blue-10;
+    border: 1px solid $c-blue-12;
+    height: 100%;
+    padding: 5px 30px 15px;
+
+    @include rwd('tablet') {
+      padding: 30px 12px 15px;
+    }
+
+    &--popup {
+      border: 0;
+      height: 90%;
+
+      @include rwd('tablet', true) {
+        min-width: 540px;
+      }
+
+      @include rwd('tablet') {
+        padding: 0 12px 15px;
+        min-height: 95%;
+      }
+    }
+  }
+
+  &__formTitleBox {
+    padding: 15px 30px 0;
+  }
+
+  &__formTitle {
+    font: 500 30px/34px JostMedium;
+    color: $c-black;
+    letter-spacing: .6px;
+    margin-bottom: 4px;
+  }
+
+  &__formElementTitle {
+    align-items: center;
+    display: flex;
+    font: 400 16px/19px Lato;
+    letter-spacing: 2.4px;
+    margin-top: 25px;
+    text-transform: uppercase;
+
+    .icon {
+      margin-right: 10px;
+    }
+  }
+
+  select {
+    display: block;
+    background-image: linear-gradient(45deg, transparent 50%, $c-blue-1 50%), linear-gradient(135deg, $c-blue-1 50%, transparent 50%);
+    background-position: calc(100% - 20px) calc(1em + 2px), calc(100% - 15px) calc(1em + 2px), calc(100% - 2.5em) 0.5em;
+    background-repeat: no-repeat;
+    background-size: 5px 5px, 5px 5px, 1px 1.5em;
+  }
+
+  input:not([type='submit']),
+  select,
+  textarea {
+    background-color: $c-white;
+    border: 1px solid $c-blue-1;
+    font: 400 16px/21px Lato;
+    margin-top: 5px;
+    padding-right: 15px;
+    padding-left: 15px;
+    width: 100%;
+    transition: box-shadow $tr;
+
+    &:focus {
+      box-shadow: -2px -2px $c-blue-1 inset;
+      border-collapse: separate;
+    }
+  }
+
+  input:not([type='submit']),
+  select {
+    line-height: 46px;
+  }
+
+  input[type='submit'] {
+    cursor: pointer;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0 13px;
+    text-align: left;
+    color: inherit;
+
+    &:active,
+    &:focus {
+      box-shadow: -2px -2px $c-blue-1 inset;
+    }
+  }
+
+  textarea {
+    min-height: 310px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    resize: none;
+
+    &.textarea--short {
+      min-height: 150px;
+      height: 150px;
+      max-height: 150px;
+    }
+  }
+
+  span.wpcf7-not-valid-tip {
+    font: 400 16px/21px Lato;
+  }
+
+  div.wpcf7-mail-sent-ng,
+  div.wpcf7-aborted,
+  div.wpcf7-validation-errors,
+  div.wpcf7-acceptance-missing {
+    border: 0;
+    font: 400 16px/21px Lato;
+    margin: 0;
+    margin-top: 15px;
+    padding: 0;
+  }
+
+  .button {
+    display: flex;
+    margin-left: auto;
+    margin-top: 20px;
+    padding: 10px 13px;
+    position: relative;
+    min-width: 135px;
+
+    @include rwd('phone') {
+      margin-bottom: 20px;
+    }
+  }
+
+  &__pin {
+    display: inline-block;
+    position: absolute;
+    left: 46%;
+    right: auto;
+    top: 46%;
+    bottom: auto;
+    width: 68px;
+    height: 68px;
+    padding: 15px;
+    border-radius: 50%;
+    background-color: $c-pink-5;
+    cursor: pointer;
+    pointer-events: all;
+    transition: background-color $tr;
+    z-index: 10;
+    box-shadow: 0 0 20px 2px rgba($c-grey-2, .5);
+
+    @include rwd('large-phone') {
+      width: 46px;
+      height: 46px;
+      padding: 0;
+    }
+
+    &::before {
+      content: '';
+      display: inline-block;
+      width: 0;
+      height: 0;
+      padding: 50px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    &--outer,
+    &--inner {
+      animation-duration: 1.6s;
+      animation-name: pulse;
+      animation-timing-function: ease;
+      animation-iteration-count: infinite;
+      animation-direction: alternate-reverse;
+      animation-play-state: running;
+      display: inline-block;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      cursor: pointer;
+      pointer-events: none;
+      transition: background-color $tr;
+    }
+    @include rwd('laptop', true) {
+
+      &:hover {
+        & #{$root}__pin--inner {
+          background-color: $c-orange-2;
+        }
+      }
+    }
+
+    &--outer {
+      padding: 25px;
+      background: rgba(255, 255, 255, 0.7);
+
+      @include rwd('large-phone') {
+        padding: 14px;
+      }
+    }
+
+    &--inner {
+      width: 16px;
+      height: 16px;
+      background-color: $c-orange-5;
+
+      @include rwd('large-phone') {
+        width: 10px;
+        height: 10px;
+      }
+    }
+  }
+}

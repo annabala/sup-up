@@ -1,0 +1,63 @@
+.movedGrid {
+  $root: &;
+
+  &--smallTop {
+    #{$root}__inner {
+      padding-top: 15px;
+      padding-bottom: 50px;
+    }
+  }
+
+  &__inner {
+    padding-top: 30px;
+  }
+
+  &__item {
+    margin-top: 30px;
+
+    &:hover {
+
+      & #{$root}__itemTitle {
+        color: $c-blue-1;
+      }
+
+      & #{$root}__itemImg {
+        transform: scale(0.98);
+      }
+    }
+
+    &:nth-of-type(4n + 3) {
+      margin-left: auto;
+    }
+  }
+
+  &__itemTitle {
+    margin-top: 5px;
+    transition: color $tr;
+  }
+
+  &__itemImg {
+    display: inline-block;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    transition: transform $tr;
+
+    @include rwd('tablet', true) {
+      max-width: 445px;
+      max-height: 236px;
+    }
+  }
+
+  &__buttonRow {
+    margin-top: 50px;
+
+    @include flexSetup(row, center, center, nowrap);
+  }
+
+  &__button {
+    letter-spacing: 0.64px;
+    max-width: 360px;
+  }
+}
+

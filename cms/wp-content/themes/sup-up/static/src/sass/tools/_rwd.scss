@@ -1,0 +1,101 @@
+/* Example of use is at the bottom of file */
+
+$breakpointsDown : (
+  'phone'          : '(max-width:  359px)',
+  'large-phone'    : '(max-width:  475px)',
+  'small-tablet'   : '(max-width:  575px)',
+  'tablet'         : '(max-width:  767px)',
+  'large-tablet'   : '(max-width: 991px)',
+  'laptop'         : '(max-width: 1199px)',
+  'large-laptop'   : '(max-width: 1366px)',
+  'ultra'          : '(max-width: 1600px)'
+);
+
+$breakpointsUp   : (
+  'phone'        : '(min-width:  360px)',
+  'large-phone'  : '(min-width:  476px)',
+  'small-tablet' : '(min-width:  576px)',
+  'tablet'       : '(min-width:  768px)',
+  'large-tablet' : '(min-width: 992px)',
+  'laptop'       : '(min-width: 1200px)',
+  'large-laptop' : '(min-width: 1367px)',
+  'ultra'        : '(min-width: 1599px)'
+);
+
+$mobileFirst : false !default;
+@mixin rwd($breakpoint, $breakpointUp : $mobileFirst) {
+
+  @if ($breakpointUp != false) {
+
+    @if map-has-key($breakpointsUp, $breakpoint) {
+
+      @media #{(map-get($breakpointsUp, $breakpoint))} {
+        @content;
+      }
+
+    } @else {
+
+      @warn 'Unfortunately, not found breakpoint called `#{$breakpoint}`!';
+
+    }
+
+  } @else {
+
+    @if map-has-key($breakpointsDown, $breakpoint) {
+
+      @media #{(map-get($breakpointsDown, $breakpoint))} {
+        @content;
+      }
+
+    } @else {
+
+      @warn 'Unfortunately, not found breakpoint called `#{$breakpoint}`!';
+
+    }
+
+  }
+}
+
+/*
+
+  Example:
+
+    ul {
+      margin-bottom: 15px;
+
+      @include rwd(tablet, true) {
+        margin-bottom: 30px;
+      }
+
+      li {
+        margin-bottom: 20px;
+
+        @include rwd(tablet) {
+          margin-bottom: 10px;
+        }
+      }
+    }
+
+  Result:
+
+    ul {
+      margin-bottom: 15px;
+    }
+
+    ul li {
+      margin-bottom: 20px;
+    }
+
+    @media (min-width: 769px) {
+      ul {
+        margin-bottom: 30px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      ul li {
+        margin-bottom: 10px;
+      }
+    }
+
+*/

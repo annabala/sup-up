@@ -1,0 +1,49 @@
+.breadcrumbs {
+  margin-top: 15px;
+
+  @include rwd('large-tablet', true) {
+    margin-top: 30px;
+  }
+
+  &__inner {
+    width: 100%;
+    z-index: 10;
+
+    @include rwd('large-tablet', true) {
+      position: absolute;
+      top: 55px;
+    }
+  }
+
+  & span a {
+    color: $c-grey-8;
+    cursor: pointer;
+    font: 400 16px/19px Lato;
+    letter-spacing: 2.4px;
+    text-transform: uppercase;
+
+    &::after {
+      content: '';
+      border: solid $c-grey-8;
+      border-width: 0 1px 1px 0;
+      display: inline-block;
+      margin: 2px 4px;
+      padding: 3px;
+      transform: rotate(-45deg);
+      -webkit-transform: rotate(-45deg);
+    }
+  }
+}
+
+// Classes created by Yoast
+
+.breadcrumb_last {
+  color: $c-orange-1;
+  font: 400 16px/19px Lato;
+  letter-spacing: 2.4px;
+  text-transform: uppercase;
+
+  @include rwd("large-tablet") {
+    font: 400 14px/17px Lato;
+  }
+}

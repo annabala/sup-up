@@ -1,0 +1,74 @@
+.blogItem { $root: &;
+
+  &__inner {
+
+    &:hover {
+
+      & #{$root}__title {
+        color: $c-blue-1;
+      }
+    }
+  }
+
+  &__imageWrapper {
+    display: inline-block;
+    width: 100%;
+  }
+
+  &__image {
+    display: inline-block;
+    margin-bottom: 10px;
+    max-width: 100%;
+    width: 100%;
+    min-height: 236px;
+    object-fit: cover;
+    transition: transform $tr;
+
+    &:hover {
+      transform: scale(0.98);
+    }
+  }
+
+  &__date {
+    font: 400 14px/24px Lato;
+    padding-bottom: 5px;
+
+    @include rwd('large-phone', true) {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    &::before {
+      content: url('/wp-content/themes/fis/static/src/img/newspaper.svg');
+      display: inline-block;
+      height: 18px;
+      padding-right: 8px;
+    }
+  }
+
+  &__title {
+    font: 500 24px/30px JostMedium;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    transition: color $tr;
+
+    @include rwd('large-phone') {
+      font: 500 18px/30px JostMedium;
+    }
+  }
+
+  &__desc {
+
+    &--more {
+      display: block;
+      color: $c-orange-2;
+      font: 400 18px/24px Lato;
+      transition: opacity $tr;
+
+      &:hover {
+        opacity: .8;
+      }
+    }
+  }
+}

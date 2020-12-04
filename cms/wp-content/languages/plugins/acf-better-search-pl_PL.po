@@ -1,0 +1,208 @@
+# Translation of Plugins - ACF: Better Search - Development (trunk) in Polish
+# This file is distributed under the same license as the Plugins - ACF: Better Search - Development (trunk) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2020-07-24 22:09:43+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14)) ? 1 : 2);\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
+"Language: pl\n"
+"Project-Id-Version: Plugins - ACF: Better Search - Development (trunk)\n"
+
+#: resources/components/widgets/settings.php:24
+msgid "The configuration only for Developers."
+msgstr "Konfiguracja wyłącznie dla deweloperów."
+
+#: resources/components/widgets/settings.php:23
+msgid "Advanced settings"
+msgstr "Zaawansowane ustawienia"
+
+#: app/Settings/Options.php:63
+msgid "Use %s\"Incorrect Mode\"%s - supports incorrect data structure in %s_postmeta%s table %s(slower search, but improving search among others for imported and duplicated posts)%s"
+msgstr "Użyj %s\"trybu Incorrect\"%s - wsparcie dla niepoprawnej struktury danych w tabeli %s_postmeta%s %s(wolniejsze wyszukiwanie, ale poprawiające działanie m.in. dla importowanych i duplikowanych wpisów)%s"
+
+#: app/Settings/Options.php:56
+msgid "Use %s\"Selected Mode\"%s - use only selected fields for searching %s(edit group of ACF fields and check option for selected fields; it does not work in \"Lite Mode\")%s"
+msgstr "Użyj %s\"trybu Selected\"%s - używanie jedynie wybranych pól podczas wyszukiwania %s(edytuj grupę pól ACF i zaznacz opcję dla wybranych pól; nie obsługiwane w trybie Lite)%s"
+
+#: app/Settings/Options.php:45
+msgid "Use %s\"Lite Mode\"%s - does not check field types %s(faster search, but less accurate)%s"
+msgstr "Użyj %s\"trybu Lite\"%s - brak sprawdzania typów pól %s(szybsze wyszukiwanie, ale mniej dokładne)%s"
+
+#: app/Settings/Options.php:40
+msgid "Search for whole words instead of fragments within longer words %s(slower search)%s"
+msgstr "Użyj wyszukiwania całych wyrazów zamiast fragmentów dłuższych wyrazów %s(wolniejsze wyszukiwanie)%s"
+
+#: resources/components/widgets/support.php:11
+msgid "Please %scheck our FAQ%s before adding a thread with technical problem. If you do not find help there, %scheck support forum%s for similar problems."
+msgstr "Prosimy %ssprawdź nasze FAQ%s zanim dodasz wątek w dziale pomocy technicznej. Jeżeli nie znajdziesz tam pomocy, %ssprawdź forum pomocy%s w celu znalezienia podobnych problemów."
+
+#: resources/components/notices/thanks.php:8
+msgid "Please let us know what you think about our plugin. It is important that we can develop this tool. Thank you for all the ratings, reviews and donates. If you have a technical problem, please before you add a review %scheck our FAQ%s or contact us if you did not find help there. We will try to help you!"
+msgstr "Powiedz nam co myślisz o naszej wtyczce. To jest bardzo ważne dla nas i pozwoli nam ją rozwijać. Dziękujemy serdecznie za wszystkie oceny, recenzje i donacje. Jeżeli masz problem techniczny, prosimy zanim dodasz recenzję %ssprawdź nasze FAQ%s lub skontaktuj się z nami, jeżeli nie znajdziesz tam pomocy. Postaramy się tobie pomóc!"
+
+#: app/Admin/Plugin.php:25
+msgid "%sProvide us a coffee%s"
+msgstr "%sPostaw nam kawę%s"
+
+#: app/Admin/Plugin.php:20
+msgid "%sSettings%s"
+msgstr "%sUstawienia%s"
+
+#: resources/views/settings.php:10
+msgid "Changes were successfully saved!"
+msgstr "Zmiany zostały zapisane pomyślnie!"
+
+#: resources/components/widgets/settings.php:8
+msgid "Settings"
+msgstr "Ustawienia"
+
+#: resources/components/widgets/support.php:24
+msgid "Do you like our plugin? Could you rate him? Please let us know what you think about our plugin. It is important that we can develop this tool. Thank you for all the ratings, reviews and donates."
+msgstr "Czy podoba Ci się nasza wtyczka? Masz możliwość ją ocenić? Daj nam znać, co o niej myślisz. To dla nas bardzo ważne, aby móc ją rozwijać. Dziękujemy za wszystkie oceny, recenzje oraz dodatkowe wsparcie."
+
+#: resources/components/notices/thanks.php:16
+#: resources/components/widgets/support.php:20
+msgid "Get help"
+msgstr "Uzyskaj pomoc"
+
+#: resources/components/widgets/support.php:7
+msgid "Do you have a technical problem? Please contact us. We will be happy to help you. Or maybe you have an idea for a new feature? Please let us know about it by filling the support form. We will try to add it!"
+msgstr "Masz problem techniczny? Prosimy o kontakt z nami. Z przyjemnością tobie pomożemy. A może masz pomysł na nową funkcjonalność? Poinformuj nas o tym, dodając wątek na forum technicznym. Weźmiemy to pod uwagę!"
+
+#: resources/components/widgets/support.php:3
+msgid "We are waiting for your message"
+msgstr "Czekamy na twoją wiadomość"
+
+#: resources/components/notices/thanks.php:24
+#: resources/components/widgets/donate.php:11
+msgid "Provide us a coffee"
+msgstr "Postaw nam kawę"
+
+#: resources/components/widgets/donate.php:7
+msgid "However, working on plugins and technical support requires many hours of work. If you want to appreciate it, you can provide us a coffee. Thanks everyone!"
+msgstr "Jednak praca nam wtyczki oraz utrzymywanie wsparcia technicznego wymaga wielu godzin pracy. Jeżeli chcesz to docenić, możesz postawić nam kawę. Dziękujemy wszystkim!"
+
+#: resources/components/widgets/donate.php:3
+msgid "We love what we do!"
+msgstr "Kochamy to co robimy!"
+
+#: app/Settings/Acf.php:26
+msgid "Only values from fields with selected this option will be used by %sACF: Better Search%s plugin."
+msgstr "Tylko wartości pól z zaznaczoną tą opcją będą wykorzystywane przez wtyczkę %sACF: Better Search%s."
+
+#: app/Settings/Acf.php:24
+msgid "Allow use for search?"
+msgstr "Użyć do wyszukiwania?"
+
+#: resources/components/notices/acf.php:7
+msgid "Unfortunately, but this plugin requires the Advanced Custom Field plugin version 5 for all functionalities to work properly. Please install the latest version of the ACF plugin."
+msgstr "Niestety, ale ta wtyczka wymaga do prawidłowego działania wtyczki Advanced Custom Field w wersji 5. Zainstaluj najnowszą wersję wtyczki ACF."
+
+#: resources/components/notices/acf.php:4
+msgid "ACF: Better Search error!"
+msgstr "Błąd we wtyczce ACF: Better Search!"
+
+#: resources/components/notices/thanks.php:28
+msgid "I added review, do not show again"
+msgstr "Recenzja została dodana, nie pokazuj ponownie"
+
+#. Author URI of the plugin
+msgid "https://gbiorczyk.pl/"
+msgstr "https://gbiorczyk.pl/"
+
+#: resources/components/widgets/about.php:13
+msgid "For custom WP_Query loop and get_posts() function you must add %sSearch Parameter%s."
+msgstr "Dla własnej pętli WP_Query oraz funkcji get_posts() musisz dodać %sparametr z wyszukiwaną frazą%s."
+
+#: resources/components/widgets/about.php:10
+msgid "On search page and in admin panel everything works automatically. No need to add any additional code."
+msgstr "Na stronie wyszukiwania oraz w panelu administracyjnym wszystko działa automatycznie. Nie musisz dodawać żadnego dodatkowego kodu."
+
+#: resources/components/widgets/settings.php:16
+msgid "Additional features"
+msgstr "Dodatkowe funkcjonalności"
+
+#: resources/components/widgets/settings.php:12
+msgid "List of supported fields types"
+msgstr "Lista wspieranych typów pól"
+
+#: app/Settings/Options.php:38
+msgid "Search for whole phrases instead of each single word of phrase"
+msgstr "Szukaj całych fraz zamiast pojedynczych wyrazów frazy"
+
+#: app/Settings/Options.php:25
+msgid "File %s(it does not work in \"Lite Mode\")%s"
+msgstr "Plik %s(nie obsługiwane w trybie \"Lite\")%s"
+
+#: resources/components/notices/thanks.php:20
+#: resources/components/widgets/support.php:28
+msgid "Add review"
+msgstr "Dodaj recenzję"
+
+#: resources/components/notices/thanks.php:4
+msgid "Thank you for using our plugin ACF: Better Search!"
+msgstr "Dziękujemy za używanie naszej wtyczki ACF: Better Search!"
+
+#. Author of the plugin
+msgid "Mateusz Gbiorczyk"
+msgstr "Mateusz Gbiorczyk"
+
+#. Description of the plugin
+msgid "Adds to default WordPress search engine the ability to search by content from selected fields of Advanced Custom Fields plugin."
+msgstr "Wtyczka dodaje do domyślnego silnika wyszukiwania w WordPressie możliwość szukania na podstawie treści z pól z wtyczki Advanced Custom Fields."
+
+#. Plugin Name of the plugin
+#: resources/views/settings.php:6
+msgid "ACF: Better Search"
+msgstr "ACF: Better Search"
+
+#: resources/components/widgets/about.php:7
+msgid "Plugin changes all SQL queries by extending the standard search to selected fields of Advanced Custom Fields."
+msgstr "Wtyczka zmienia wszystkie zapytania SQL, rozszerzając standardowe wyszukiwanie o wybrane pola z wtyczki Advanced Custom Fields."
+
+#: resources/components/widgets/about.php:3
+msgid "How does this work?"
+msgstr "Jak to działa?"
+
+#: resources/components/widgets/settings.php:34
+msgid "Save Changes"
+msgstr "Zapisz zmiany"
+
+#: app/Settings/Options.php:29
+msgid "Radio Button"
+msgstr "Pole wyboru (radio)"
+
+#: app/Settings/Options.php:28
+msgid "Checkbox"
+msgstr "Pole wyboru (checkbox)"
+
+#: app/Settings/Options.php:27
+msgid "Select"
+msgstr "Lista rozwijana (select)"
+
+#: app/Settings/Options.php:26
+msgid "Wysiwyg Editor"
+msgstr "Edytor treści"
+
+#: app/Settings/Options.php:24
+msgid "Url"
+msgstr "Link"
+
+#: app/Settings/Options.php:23
+msgid "Email"
+msgstr "E-mail"
+
+#: app/Settings/Options.php:22
+msgid "Number"
+msgstr "Liczba"
+
+#: app/Settings/Options.php:21
+msgid "Text Area"
+msgstr "Obszar tekstowy"
+
+#: app/Settings/Options.php:20
+msgid "Text"
+msgstr "Tekst"

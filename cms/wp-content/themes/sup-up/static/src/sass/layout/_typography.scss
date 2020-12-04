@@ -1,0 +1,60 @@
+h1, .h1 {
+  font: 500 48px/54px JostMedium;
+
+  @include rwd('tablet') {
+    font: 500 30px/34px JostMedium;
+  }
+}
+
+h2, .h2 {
+  font: 500 48px/50px JostMedium;
+
+  @include rwd('tablet') {
+    font: 500 30px/34px JostMedium;
+  }
+}
+
+h3, .h3 {
+  font: 500 30px/44px JostMedium;
+
+  @include rwd('tablet') {
+    font: 500 24px/29px JostMedium;
+  }
+}
+
+h4, .h4 {
+  font: 500 26px/44px JostMedium;
+
+  @include rwd('large-phone') {
+    font: 500 14px/20px JostMedium;
+  }
+}
+
+h5, .h5 {
+
+}
+
+h6, .h6 {
+
+}
+
+.par {
+  font: 400 18px/27px Lato;
+}
+
+.grid {
+  &__heading {
+    color: $c-dark-2;
+
+    &--medium {
+      font: 500 26px/44px JostMedium;
+      letter-spacing: 0;
+    }
+  }
+
+  &__paragraph {
+    color: $c-dark-1;
+    font: 400 18px/27px Lato;
+    letter-spacing: 0;
+  }
+}

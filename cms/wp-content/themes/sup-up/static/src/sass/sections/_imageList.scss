@@ -1,0 +1,97 @@
+.imageList {
+  $root: &;
+
+  &__wrapper {
+    position: relative;
+    background-color: $c-grey-3;
+    padding: 100px 0 0;
+    overflow: hidden;
+    margin-bottom: 23px;
+
+    &--map {
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+  }
+
+  &__heading {
+    text-align: center;
+    margin-top: -54px;
+
+    &--small {
+      display: block;
+      padding-bottom: 4px;
+    }
+  }
+
+  &__container {
+    padding-top: 80px;
+
+    @include rwd("small-tablet") {
+      padding-top: 40px;
+    }
+  }
+
+  &__element {
+    position: relative;
+    margin-bottom: 38px;
+  }
+
+  &__elementHeading {
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.6px;
+    color: $c-black;
+    margin-bottom: 5px;
+    margin-left: 50px;
+
+    @include rwd('large-tablet', true) {
+      margin-left: 60px;
+    }
+
+    &[data-icon="heart"]::before,
+    &[data-icon="like"]::before,
+    &[data-icon="head"]::before {
+      margin-right: 16px;
+    }
+
+    &[data-icon="heart"]::before {
+      content: url('/wp-content/themes/fis/static/src/img/heart.svg');
+    }
+
+    &[data-icon="like"]::before {
+      content: url('/wp-content/themes/fis/static/src/img/like.svg');
+    }
+
+    &[data-icon="head"]::before {
+      content: url('/wp-content/themes/fis/static/src/img/head.svg');
+    }
+  }
+
+  &__elementIcon {
+    position: absolute;
+    top: -10px;
+    left: 0;
+    max-width: 40px;
+
+    @include rwd('large-tablet', true) {
+      max-width: 100%;
+    }
+  }
+
+  &__elementContent {
+    font: 400 18px/24px Lato;
+    color: $c-dark-1;
+  }
+
+  &__image {
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+
+    @include rwd('large-tablet', true) {
+      min-width: 622px;
+    }
+  }
+}

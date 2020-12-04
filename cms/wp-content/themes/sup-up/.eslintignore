@@ -1,0 +1,5 @@
+*.php
+node_modules
+vendors
+functions
+webpack.mix.js

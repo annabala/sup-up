@@ -1,0 +1,178 @@
+.popup {  $root: &;
+  display: none;
+  opacity: 0;
+  visibility: hidden;
+
+  &--open {
+    background-color: $c-grey-2;
+    bottom: 0;
+    opacity: 1;
+    visibility: visible;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 100%;
+    z-index: 5050;
+  }
+
+  &__inner {
+    background-color: $c-white;
+    margin: 0 auto;
+    max-width: 790px;
+    position: relative;
+    overflow: auto;
+
+    &--blue {
+      background-color: $c-blue-10;
+    }
+  }
+
+  &__icon {
+    margin-top: 20px;
+    position: relative;
+    text-align: center;
+    z-index: 10;
+
+    @include rwd('small-tablet', true) {
+      position: absolute;
+      right: 50px;
+      top: 32px;
+    }
+
+    &::after {
+      content: url('/wp-content/themes/fis/static/src/img/risk.png');
+    }
+
+    &::before {
+      background-color: $c-pink-3;
+      border-radius: 50%;
+      content: '';
+      height: 88px;
+      left: 50%;
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 88px;
+      z-index: -1;
+    }
+  }
+
+  &__content {
+    padding: 80px 90px 10px;
+
+    @include rwd('small-tablet') {
+      padding: 20px;
+    }
+  }
+
+  &__form {
+    align-items: center;
+    background-color: $c-grey-3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  &__checkbox {
+    font: 400 16px/21px Lato;
+    margin-bottom: 15px;
+    position: relative;
+  }
+
+  &__checkboxInput {
+    -webkit-appearance: checkbox;
+    left: 1px;
+    opacity: 0;
+    position: absolute;
+    top: 6px;
+  }
+
+  &__checkboxInput {
+
+    &:checked {
+
+      & + label::after {
+        border: solid $c-blue-1;
+        border-width: 0 2px 2px 0;
+        content: '';
+        display: block;
+        height: 12px;
+        left: 5px;
+        position: absolute;
+        top: 5px;
+        transform: rotate(45deg);
+        width: 6px;
+      }
+    }
+  }
+
+  &__checkboxLabel {
+    cursor: pointer;
+
+    &::before {
+      background-color: transparent;
+      border: 1px solid $c-grey-7;
+      content: '';
+      cursor: pointer;
+      display: inline-block;
+      margin-right: 12px;
+      padding: 7px;
+      position: relative;
+      vertical-align: middle;
+    }
+  }
+
+  &__close {
+    background-color: $c-blue-7;
+    box-shadow: 0 1rem 3rem rgba(255, 255, 255, .1);
+    cursor: pointer;
+    height: 40px;
+    padding: 10px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: transform $tr;
+    width: 40px;
+    z-index: 5000;
+
+    &--white {
+      background-color: $c-white;
+    }
+
+    &:hover {
+
+      &::before {
+        transform: rotate(90deg);
+      }
+
+      &::after {
+        transform: rotate(90deg);
+      }
+    }
+
+    &::before,
+    &::after {
+      background-color: $c-blue-4;
+      content: '';
+      height: 20px;
+      left: 18px;
+      position: absolute;
+      transition: transform $tr;
+      width: 2px;
+    }
+
+    &::before {
+      transform: rotate(45deg);
+    }
+
+    &::after {
+      transform: rotate(-45deg);
+    }
+  }
+}

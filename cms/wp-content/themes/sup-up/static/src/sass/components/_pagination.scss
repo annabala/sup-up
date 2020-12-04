@@ -1,0 +1,55 @@
+.pagination {
+  $root: &;
+
+  &__inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 64px;
+  }
+
+  & .page-numbers {
+    color: $c-black;
+    font: 500 18px/29px JostMedium;
+    padding: 18px 26px;
+    box-shadow: 2px 2px 20px rgba($c-black, .06);
+    margin: 0 8px;
+
+    &.current {
+      background-color: $c-blue-1;
+      color: $c-white;
+    }
+  }
+
+  & .next,
+  & .prev {
+    font: 500 8px/12px JostMedium;
+    letter-spacing: 0.16px;
+    color: $c-black;
+    text-transform: uppercase;
+    width: 60px;
+    height: 60px;
+    background-color: $c-white;
+    z-index: 3;
+    @include flexSetup(column-reverse, center, center, nowrap);
+  }
+
+  & .next {
+    right: -15px;
+    top: 65%;
+
+    &::after {
+      content: url('/wp-content/themes/fis/static/src/img/arrow-blue.svg');
+    }
+  }
+
+  & .prev {
+    right: -15px;
+    top: 65%;
+
+    &::after {
+      content: url('/wp-content/themes/fis/static/src/img/arrow-blue.svg');
+      transform: rotate(180deg);
+    }
+  }
+}

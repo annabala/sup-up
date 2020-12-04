@@ -1,0 +1,38 @@
+.headingDecoration {
+  position: relative;
+
+  &--left,
+  &--right {
+    position: absolute;
+    top: 50%;
+    bottom: auto;
+  }
+
+  &--left {
+    right: 74%;
+    left: auto;
+
+    @include rwd('laptop') {
+      right: 90%;
+    }
+
+    @include rwd('large-tablet') {
+      right: 101%;
+    }
+  }
+
+  &--right {
+    left: calc(100% - 120px);
+    right: auto;
+    top: calc(50% + 18px);
+
+    @include rwd('laptop') {
+      left: 92%;
+    }
+
+    @include rwd('large-tablet') {
+      left: 101%;
+    }
+  }
+
+}

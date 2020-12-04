@@ -1,0 +1,43 @@
+.header {
+  $root: &;
+
+  max-height: 15vh;
+
+  @include rwd('large-tablet') {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    max-height: 78px;
+    background-color: $c-white;
+    border-bottom: 2px solid $c-grey-2;
+    z-index: 5000;
+  }
+
+  &__wrapper {
+    padding: 6px 0;
+
+    @include flexSetup(row, space-between, center, nowrap);
+
+    @include rwd('large-tablet') {
+      padding: 10px 0;
+    }
+  }
+
+  &__logo {
+    z-index: 40;
+  }
+
+  &__logoImg {
+    max-width: 100%;
+    height: auto;
+
+    @include rwd('laptop') {
+      max-width: 100px;
+    }
+
+    @include rwd('large-tablet') {
+      max-width: 80px;
+    }
+  }
+}

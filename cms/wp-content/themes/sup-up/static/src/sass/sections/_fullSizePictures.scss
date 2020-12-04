@@ -1,0 +1,194 @@
+.fullSizePictures {
+  $root: &;
+  padding: 30px 0;
+
+  @include rwd('tablet') {
+    padding: 10px 0;
+  }
+
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+
+    @include rwd('small-tablet') {
+      padding: 0;
+    }
+
+    &--content {
+      flex-direction: column-reverse;
+    }
+  }
+
+  &__imageWrapper {
+    height: 100%;
+    min-height: 440px;
+    position: relative;
+
+    &--bigger {
+      min-height: 655px;
+
+      & + #{$root}__content {
+        min-height: unset;
+      }
+
+      @include rwd('large-tablet') {
+        height: 450px;
+      }
+    }
+
+    @include rwd('large-tablet') {
+      min-height: unset;
+    }
+  }
+
+  &__image {
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+
+    @include rwd('large-tablet') {
+      height: 340px;
+      position: static;
+      max-height: 100%;
+      width: 100%;
+    }
+
+    @include rwd('small-tablet') {
+      height: 200px;
+    }
+
+    &--left {
+      left: 0;
+      min-width: 720px;
+
+      @include rwd('large-tablet') {
+        min-width: unset;
+
+        &#{$root}__image--bigger {
+          height: 450px;
+        }
+      }
+    }
+
+    &--right {
+      min-width: 533px;
+      right: 0;
+
+      @include rwd('large-tablet') {
+        height: 620px;
+        min-width: unset;
+      }
+
+      @include rwd('small-tablet') {
+        height: 565px;
+      }
+    }
+  }
+
+  &__title {
+    font: 400 36px/44px JostBook;
+    letter-spacing: .72px;
+    margin-bottom: 5px;
+
+    @include rwd('tablet') {
+      font: 400 26px/30px JostBook;
+      margin-bottom: 16px;
+    }
+  }
+
+  &__content {
+    background-color: $c-grey-3;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    justify-content: center;
+    margin-bottom: 25px;
+    min-height: 469px;
+    padding: 50px 0 40px 53px;
+    position: relative;
+
+    @include rwd('large-tablet') {
+      margin-bottom: 10px;
+      padding: 70px 30px;
+      min-height: unset;
+    }
+
+    @include rwd('small-tablet') {
+      padding: 30px 15px;
+    }
+
+    &::before {
+      background-color: $c-grey-3;
+      content: '';
+      height: 100%;
+      left: 100%;
+      position: absolute;
+      top: 0;
+      width: 100vw;
+
+      @include rwd('large-tablet') {
+        content: none;
+      }
+    }
+  }
+
+  &__text {
+    font: 400 18px/24px Lato;
+
+    li {
+      display: flex;
+      line-height: 24px;
+      margin-bottom: 8px;
+      position: relative;
+
+      &::before {
+        color: $c-green;
+        content: '\e905';
+        font-family: 'icomoon';
+        margin-right: 8px;
+      }
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 20px;
+
+    @include rwd('small-tablet') {
+      align-items: baseline;
+      flex-direction: column;
+    }
+  }
+
+  &__button {
+    border-bottom: 2px solid $c-grey-8;
+    color: $c-grey-8;
+    display: flex;
+    font: 400 14px/20px JostBook;
+    letter-spacing: .56px;
+    margin-right: 30px;
+    margin-top: 20px;
+    position: relative;
+    text-transform: uppercase;
+    transition: color .3s, border-bottom .3s;
+
+    @include rwd('small-tablet') {
+      margin-right: 0;
+    }
+
+    &:hover {
+      border-bottom: 2px solid $c-black;
+
+      &,
+      & i {
+        color: $c-black;
+      }
+    }
+
+    i {
+      color: $c-grey-8;
+      margin-left: 18px;
+    }
+  }
+}

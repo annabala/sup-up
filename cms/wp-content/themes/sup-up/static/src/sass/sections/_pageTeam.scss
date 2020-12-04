@@ -1,0 +1,187 @@
+.pageTeam {
+  $root: &;
+
+  &__inner {
+    padding-top: 44px;
+    padding-bottom: 126px;
+
+    @include rwd('large-tablet') {
+      padding-top: 0;
+      padding-bottom: 30px;
+    }
+
+    @include rwd('small-tablet') {
+      padding-top: 0;
+      padding-bottom: 30px;
+    }
+  }
+
+  &__item {
+    margin-bottom: 40px;
+
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+
+  &__itemImage {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+
+    @include rwd('large-tablet') {
+      overflow: hidden;
+    }
+
+    &--bg1 {
+      content: '';
+      display: inline-block;
+      position: absolute;
+      right: 58%;
+      transform: translate(50%, 0%);
+      width: 408px;
+      height: 420px;
+      z-index: -1;
+
+      @include rwd('large-phone') {
+        display: none;
+      }
+    }
+
+    &--bg2 {
+      content: '';
+      display: inline-block;
+      position: absolute;
+      top: 98px;
+      right: 50%;
+      transform: translate(50%, 0%);
+      width: 350px;
+      height: 502px;
+      z-index: -1;
+
+      @include rwd('large-phone') {
+        width: 100%;
+      }
+    }
+
+    &[data-color-bg="blue"] {
+
+      & #{$root}__itemImage--bg1 {
+        top: 26px;
+        background-color: $c-blue-9;
+
+        @include rwd('laptop', true) {
+          top: auto;
+          bottom: -50px;
+        }
+      }
+
+      & #{$root}__itemImage--bg2 {
+        background: transparent radial-gradient(closest-side at 50% 50%, #B3E0FC 0%, #BCE5FF 100%);
+      }
+    }
+
+    &[data-color-bg="pink"] {
+
+      & #{$root}__itemImage--bg1 {
+        background-color: $c-pink-4;
+        top: 50px;
+      }
+
+      & #{$root}__itemImage--bg2{
+        background-color: $c-pink-1;
+      }
+    }
+  }
+
+  &__itemImageElement {
+    display: inline-block;
+    max-width: 100%;
+    height: auto;
+    max-width: 316px;
+    max-height: 600px;
+
+    @include rwd('large-tablet') {
+      max-height: 508px;
+      max-width: 268px;
+    }
+  }
+
+  &__itemContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+  }
+
+  &__itemName {
+    font: 500 36px/49px JostMedium;
+    letter-spacing: .72px;
+    margin-top: 15px;
+  }
+
+  &__itemProfessionNumber {
+    align-items: center;
+    background-color: $c-pink-1;
+    border: 1px solid $c-orange-1;
+    display: flex;
+    margin: 24px 0;
+    padding: 20px 22px;
+    text-align: center;
+
+    @include rwd('small-tablet') {
+      flex-direction: column;
+    }
+
+    &::before {
+      background-color: $c-pink-3;
+      border-radius: 50%;
+      content: url('/wp-content/themes/fis/static/src/img/profession.svg');
+      display: inline-block;
+      padding: 24px;
+    }
+  }
+
+  &__itemButtons {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 18px;
+    width: 100%;
+
+    @include rwd('laptop') {
+      margin: 18px auto;
+      max-width: 350px;
+    }
+
+    @include rwd('large-tablet') {
+      flex-direction: column;
+    }
+
+    @include rwd('large-phone') {
+      max-width: 100%;
+    }
+
+    &--moreSpace {
+      margin-top: 18px;
+
+      @include rwd('laptop', true) {
+        margin-top: 70px;
+      }
+    }
+  }
+
+  &__itemButton {
+    font: 400 14px/20px JostBook;
+    padding: 14px;
+    width: 49%;
+
+    @include rwd('large-tablet') {
+      margin-top: 8px;
+      width: 100%;
+    }
+  }
+}

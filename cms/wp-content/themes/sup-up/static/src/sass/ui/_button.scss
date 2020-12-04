@@ -1,11 +1,12 @@
 .button {
   $root: &;
 
-  font: 500 16px/24px JostMedium;
-  color: $c-blue-5;
+  font: 500 16px/24px 'Open Sans';
+  // border-radius: 20px;
+  color: $c-black;
   text-decoration: none;
   text-transform: uppercase;
-  padding: 18px 108px 18px 30px;
+  padding: 5px 10px;
   cursor: pointer;
   transition: border $tr, color $tr, opacity $tr;
   -webkit-transition: border $tr, color $tr, opacity $tr;
@@ -22,38 +23,8 @@
     text-transform: uppercase;
   }
 
-  &--icon {
-    display: flex;
-    align-items: center;
-    padding-right: 50px;
-
-    @include rwd("small-tablet") {
-      max-width: 95%;
-    }
-
-    &:hover img {
-      -webkit-transform: translateX(10px);
-        -ms-transform: translateX(10px);
-            transform: translateX(10px);
-    }
-
-    & img {
-      width: 24px;
-      height: 24px;
-      margin-left: 20px;
-      -webkit-transform: translateX(0);
-        -ms-transform: translateX(0);
-            transform: translateX(0);
-      -webkit-transition: -webkit-transform $tr;
-      transition: -webkit-transform $tr;
-      -o-transition: transform $tr;
-      transition: transform $tr;
-      transition: transform $tr, -webkit-transform $tr;
-    }
-  }
-
   &--border {
-    border: 2px solid $c-blue-2;
+    border: 2px solid $c-black;
 
     &:hover {
       border: 2px solid $c-blue-1;
@@ -61,93 +32,36 @@
     }
   }
 
+  &--borderBottom {
+    border-bottom: 2px solid $c-black;
+
+    &:hover {
+      border-bottom: 2px solid $c-blue-1;
+      color: $c-blue-1;
+    }
+  }
+
   &--arrow,
   &--arrowWhite {
     position: relative;
+    padding: 5px 30px 5px 10px;
 
     @include rwd("tablet") {
       padding-right: 50px;
     }
 
-    &::after {
-      content: url("/wp-content/themes/fis/static/src/img/arrow-blue.svg");
+    &::before {
       position: absolute;
-      top: 50%;
-      -webkit-transform: translate(0%, -50%);
-        -ms-transform: translate(0%, -50%);
-            transform: translate(0%, -50%);
-      right: 15px;
-      margin-top: 2px;
-      transition: right $tr;
-
-      @include rwd("tablet") {
-        right: 20px;
-      }
+      right: 1rem;
+      font-size: 2rem;
+      @include icomoon('arrow-long');
     }
 
-    &:hover::after {
-      right: 10px;
-    }
   }
 
   &--arrowWhite {
-    &::after {
-      content: url("/wp-content/themes/fis/static/src/img/arrow-white.svg");
-    }
-  }
-
-  &--smallColored {
-    color: $c-white;
-    font: 300 14px/20px JostLight;
-    padding: 18px 62px 18px 18px;
-  }
-
-  &--booking {
-    text-align: left;
-    width: 220px;
-  }
-
-  &--blue {
-    background-color: $c-blue-1;
-    border: 2px solid $c-blue-1;
-    transition: transform $tr;
-    font-family: JostBook;
-    font-size: 14px;
-    font-weight: 400;
-    color: $c-white;
-    padding: 15px 20px;
-    text-transform: uppercase;
-    position: relative;
-
-    &:hover {
-
-      &::after {
-        right: 8px;
-      }
-    }
-
-    @include rwd("large-tablet") {
-      width: 100%;
-    }
-
-    @include rwd("tablet") {
-      font-weight: 300;
-      letter-spacing: 0.56px;
-    }
-
-    @include rwd("small-tablet") {
-      justify-content: space-between;
-    }
-
-    &::after {
-      content: url("/wp-content/themes/fis/static/src/img/arrow-white.svg");
-      position: absolute;
-      top: 50%;
-      transform: translate(0%, -50%);
-      -webkit-transform: translate(0%, -50%);
-      right: 12px;
-      margin-top: 2px;
-      transition: right $tr;
+    &::before {
+      color: $c-white;
     }
   }
 }

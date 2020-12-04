@@ -11,7 +11,7 @@ mix.js([
 
 mix.sass(
   'static/src/sass/core.scss'
-, 'static/dist/css/styles.css');
+  , 'static/dist/css/styles.css');
 
 /* ---
   Config
@@ -21,9 +21,9 @@ mix
   // .aliases({
   //   'class': __dirname + '/_dev/js/classes',
   // })
-  .browserSync('fizjo.test', [
+  .browserSync('sup.test', [
     'static/dist/css/styles.css',
   ])
   // .version()
-;
+  ;
 

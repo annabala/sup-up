@@ -14,6 +14,7 @@
         "ecmaVersion": 2018,
         "sourceType": "module"
     },
+    "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
     "rules": {
       "arrow-parens": [2, "as-needed", { "requireForBlockBody": true }],
       "brace-style": "off",
@@ -39,4 +40,5 @@
       "radix": ["error", "as-needed"],
       "no-undef": "off"
     }
+
 }

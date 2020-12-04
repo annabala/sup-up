@@ -1,149 +1,208 @@
 .menu {
   $root: &;
+  z-index: 5000;
 
-  min-width: 82%;
 
   @include rwd("laptop") {
     min-width: 90%;
   }
 
   @include rwd("large-tablet") {
-    background-color: $c-white;
     position: fixed;
-    top: 0;
+    top: 8.3rem;
+    bottom: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    right: 0;
+    background: #00B4DB;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to bottom, #0083B0, #00B4DB);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom, #0083B0, #00B4DB); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     opacity: 0;
     visibility: hidden;
     transition: opacity $tr, visibility $tr, transform $tr;
   }
 
+  @media (max-width: 1024px) and (orientation: landscape) {
+    overflow-x: hidden;
+    overflow-y: scroll;
+  }
+
+  &--scroll {
+    @include rwd("large-tablet") {
+      height: auto;
+      overflow: scroll;
+    }
+  }
+
   &__wrapper {
     width: 100%;
-    background-color: $c-white;
 
-    @include flexSetup(row, space-between, center, nowrap);
+    @include flexSetup(row, center, center, nowrap);
 
     @include rwd("large-tablet") {
       flex-direction: column;
       justify-content: flex-start;
-      margin-top: 100px;
-      margin-bottom: 30px;
-      min-height: 100%;
     }
   }
 
   &__items {
-    width: 72%;
-    list-style: none;
-    transform: translateY(0);
-
+    padding-top: 2rem;
     @include flexSetup(row, space-evenly, center, nowrap);
+    transition: transform $tr;
 
     @include rwd("large-tablet") {
       flex-direction: column;
-      justify-content: center;
+      justify-content: start;
+      width: 100%;
+      // padding-top: 2rem;
     }
 
     & li {
-
+      position: relative;
+      text-align: center;
       @include rwd("large-tablet") {
-        margin-bottom: 30px;
+        width: 100%;
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(.5);
+        display: inline-block;
+        height: 3rem;
+        width: 3rem;
+        border-radius: 50%;
+        background-color: rgba(#daf1fa, 0.2);
+        opacity: 0;
+        transition: opacity $tr, transform $tr;
+      }
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(.5);
+        display: inline-block;
+        height: 4rem;
+        width: 4rem;
+        border-radius: 50%;
+        background-color: transparent;
+        border: 3px solid rgba(#daf1fa, 0.2);
+        opacity: 0;
+        transition: opacity $tr, transform $tr;
       }
 
       & a {
         display: inline-block;
-        color: $c-dark-1;
-        font-family: 'JostMedium';
-        font-size: 1rem;
+        color: $c-white;
+        font-size: 1.6rem;
         text-transform: uppercase;
+        letter-spacing: 0.5px;
         position: relative;
-        padding: 8px 16px;
-        transition: transform $tr, height $tr;
-
-        @include rwd("laptop") {
-          padding: 8px 12px;
-          font-size: 14px;
-        }
-
-        &::after {
-          content: '';
-          width: 100%;
-          height: 0%;
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          right: 50%;
-          background-color: $c-blue-1;
-          opacity: 0.2;
-          z-index: -1;
-          transition: height $tr;
-        }
-
-        &:hover::after {
-          height: 50%;
-        }
+        padding: 16px 20px;
+        transition: color $tr;
+        z-index: 999;
       }
 
-      &.current-menu-item {
-
-        & a::after {
-          height: 50%;
-        }
-      }
-    }
-  }
-
-  &__bookingLink {
-    text-align: left;
-    width: 220px;
-
-    @include rwd("large-tablet") {
-      text-align: center;
-      width: 100%;
-    }
-
-    @include rwd("large-phone") {
-      text-align: left;
-    }
-  }
-
-  &__booking {
-
-    &--hiddenMobile {
-      display: none;
-
-      @include rwd("large-tablet") {
+      & .sub-menu {
         display: block;
+        padding: 10px;
+        visibility: hidden;
+        opacity: 0;
         position: absolute;
-        bottom: -46px;
-        left: 0;
-        right: 0;
+        top: 100%;
+        left: -40px;
+        min-width: calc(100% + 80px);
+        background: #00B4DB;  /* fallback for old browsers */
+        background: -webkit-linear-gradient(to bottom, #0083B0, #00B4DB);  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to bottom, #0083B0, #00B4DB); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        transition: opacity .3s,visibility .3s, max-height $tr;
         text-align: center;
+        z-index: 33;
+
+        @include rwd("large-tablet") {
+          // position: static;
+          left: auto;
+          right: auto;
+          top: auto;
+          min-width: 100%;
+          visibility: visible;
+          opacity: 1;
+          background: #00B4DB;
+          // margin-top: 2rem;
+          padding: 0;
+          // height: 0;
+        }
+
+        // &--active {
+        //   visibility: visible;
+        // }
       }
 
-      @include rwd("small-tablet") {
-        text-align: left;
+      &:hover {
+        &::after,
+        &::before {
+          @include rwd("large-tablet", true) {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+          }
+        }
+
+        & > .sub-menu {
+
+          @include rwd("large-tablet", true) {
+            visibility: visible;
+            opacity: 1;
+          }
+        }
       }
     }
+
+    & li.menu-item-has-children {
+      @include rwd("large-tablet") {
+        overflow: hidden;
+      }
+
+      & > a {
+        transition: tranform $tr;
+        &:before {
+          position: absolute;
+          top: 50%;
+          right: 0;
+          transform: translate(0%, -50%) rotate(90deg);
+          @include icomoon('arrow-long');
+          font-size: 2rem;
+          color: $c-white;
+          transition: tranform $tr;
+
+          @include rwd("large-tablet") {
+            right: -2rem;
+          }
+        }
+      }
+    }
+
+    & li.menu-itemParent--active {
+      & > a {
+        &:before {
+          transform: translate(0%, -50%) rotate(-90deg);
+        }
+      }
+    }
+
+    & .sub-menu {
+      z-index: 20;
+    }
   }
+
 
   &--active {
 
     @include rwd("large-tablet") {
       opacity: 1;
       visibility: visible;
-      max-height: 100%;
-      overflow: auto;
-
-      & + #{$root}__booking--hiddenMobile {
-        display: none;
-      }
-
-      & #{$root}__bookingLink {
-        min-width: 220px;
-      }
 
       & .header__logo {
         width: 100%;
@@ -155,11 +214,13 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    height: 40px;
-    width: 40px;
+    align-items: center;
+    height: 42px;
+    width: 42px;
     padding: 10px;
-    background-color: $c-blue-1;
+    background-color: $c-white;
     box-shadow: 0 1rem 3rem rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
     cursor: pointer;
     z-index: 5000;
     transition: transform 1s;
@@ -169,11 +230,6 @@
     }
 
     &--active {
-      background-color: $c-blue-7;
-
-      & #{$root}__mobileBar {
-        background-color: $c-blue-4;
-      }
 
       & #{$root}__mobileBar:first-of-type {
         transform: translateY(7px) rotate(-45deg);
@@ -186,34 +242,20 @@
       & #{$root}__mobileBar:nth-of-type(3) {
         transform: translateY(-3px) rotate(45deg);
       }
-
-      & #{$root}__mobileBar:nth-of-type(4) {
-        opacity: 0;
-      }
     }
   }
 
   &__mobileBar {
     display: block;
-    margin-left: auto;
     margin-top: 3px;
     width: 20px;
     height: 2px;
     border-radius: 5px;
-    background-color: $c-white;
-    text-align: right;
+    background-color: #00B4DB;
     transition: all $tr;
 
     &:first-of-type {
       margin-top: 0;
-    }
-
-    &:nth-of-type(2) {
-      width: 10px;
-    }
-
-    &:nth-of-type(4) {
-      width: 15px;
     }
   }
 }

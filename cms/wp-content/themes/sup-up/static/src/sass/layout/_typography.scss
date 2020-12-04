@@ -1,41 +1,41 @@
 h1, .h1 {
-  font: 500 48px/54px JostMedium;
+  font: 500 48px/54px 'Open Sans';
 
   @include rwd('tablet') {
-    font: 500 30px/34px JostMedium;
+    font: 500 30px/34px 'Open Sans';
   }
 }
 
 h2, .h2 {
-  font: 500 48px/50px JostMedium;
+  font: 500 48px/50px 'Open Sans';
 
   @include rwd('tablet') {
-    font: 500 30px/34px JostMedium;
+    font: 500 30px/34px 'Open Sans';
   }
 }
 
 h3, .h3 {
-  font: 500 30px/44px JostMedium;
+  font: 500 30px/44px 'Open Sans';
 
   @include rwd('tablet') {
-    font: 500 24px/29px JostMedium;
+    font: 500 24px/29px 'Open Sans';
   }
 }
 
 h4, .h4 {
-  font: 500 26px/44px JostMedium;
+  font: 500 26px/44px 'Open Sans';
 
   @include rwd('large-phone') {
-    font: 500 14px/20px JostMedium;
+    font: 500 14px/20px 'Open Sans';
   }
 }
 
 h5, .h5 {
-
+  font: 500 24px/42px 'Open Sans';
 }
 
 h6, .h6 {
-
+  font: 500 24px/40px 'Open Sans';
 }
 
 .par {
@@ -47,7 +47,7 @@ h6, .h6 {
     color: $c-dark-2;
 
     &--medium {
-      font: 500 26px/44px JostMedium;
+      font: 500 26px/44px 'Open Sans';
       letter-spacing: 0;
     }
   }

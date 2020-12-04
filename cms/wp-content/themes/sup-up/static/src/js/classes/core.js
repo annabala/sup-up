@@ -1,31 +1,27 @@
+import LiteEvents from './global/LiteEvents';
 import HomeSlider from './sections/HomeSlider';
+// import BoxesContent from './sections/BoxesContent';
 import MobileMenu from './layout/MobileMenu';
-import Popup from './sections/Popup';
-import PopupOffer from './sections/PopupOffer';
-import ImagePins from './sections/ImagePins';
+import FixedHeaderOnScroll from './layout/FixedHeaderOnScroll';
 import Parallax from './global/Parallax';
 import Animations from './global/Animations';
 
 
-class Core
-{
-  constructor()
-  {
+class Core {
+  constructor() {
 
     // Global
     new Parallax();
     new Animations();
+    new LiteEvents();
 
     // Layout
     new MobileMenu();
-
-    // Home Slider
-    new HomeSlider();
+    new FixedHeaderOnScroll();
 
     // Sections
-    new ImagePins();
-    new Popup();
-    new PopupOffer();
+    new HomeSlider();
+    // new BoxesContent();
   }
 }
 

@@ -1,10 +1,10 @@
 <?php
 
 /**
- * Fizjoterapia i sport functions and definitions
+ * Sup up functions and definitions
  *
- * @package fis
- * @since fis 1.0
+ * @package sup
+ * @since sup 1.0
  */
 
 /**
@@ -14,7 +14,7 @@
 if ( ! isset( $content_width ) )
     $content_width = 800; /* pixels */
 
-if ( ! function_exists( 'fis_setup' ) ) :
+if ( ! function_exists( 'sup_setup' ) ) :
 /**
  * Sets up theme defaults and registers support for various WordPress features.
  *
@@ -22,7 +22,7 @@ if ( ! function_exists( 'fis_setup' ) ) :
  * before the init hook. The init hook is too late for some features, such as indicating
  * support post thumbnails.
  */
-function fis_setup() {
+function sup_setup() {
 
   function add_theme_scripts() {
 
@@ -46,34 +46,24 @@ function fis_setup() {
    */
   function remove_content_editor()
   {
-    remove_post_type_support( 'offer', 'editor' );
-    remove_post_type_support( 'team', 'editor' );
+    remove_post_type_support( 'events', 'editor' );
+    remove_post_type_support( 'multimedia', 'editor' );
     remove_post_type_support( 'page', 'editor' );
     remove_post_type_support( 'post', 'editor' );
-    remove_post_type_support( 'blog', 'editor' );
+    // remove_post_type_support( 'blog', 'editor' );
   }
-  /**
-   * Change the number of posts for Offers only
-   * **/
-
-  function get_all_offer_posts( $query ) {
-    if( !is_admin() && $query->is_main_query() && is_post_type_archive( 'offer' ) ) {
-        $query->set( 'posts_per_page', '-1' );
-    }
-  }
-  add_action( 'pre_get_posts', 'get_all_offer_posts' );
   /**
   * Make theme available for translation.
   * Translations can be placed in the /languages/ directory.
   */
-  load_theme_textdomain( 'fis', get_template_directory() . '/languages' );
+  load_theme_textdomain( 'sup', get_template_directory() . '/languages' );
 
   /**
   * Add support for two custom navigation menus.
   */
   register_nav_menus( array(
-    'primary'   => __( 'Primary Menu', 'fis' ),
-    'secondary' => __('Secondary Menu', 'fis' )
+    'primary'   => __( 'Primary Menu', 'sup' ),
+    'secondary' => __( 'Secondary Menu', 'sup' )
   ) );
 
   /**
@@ -89,8 +79,8 @@ function fis_setup() {
     acf_add_options_page();
   }
 }
-endif; // fis_setup
-add_action( 'after_setup_theme', 'fis_setup' );
+endif; // sup_setup
+add_action( 'after_setup_theme', 'sup_setup' );
 
 //Remove default Wordpress post type
 add_action('admin_menu','customprefix_remove_default_post_type_menu_item');

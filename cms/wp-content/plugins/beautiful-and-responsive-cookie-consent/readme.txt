@@ -2,7 +2,7 @@
 Tags: cookie consent, cookie banner, ccpa, eu cookie law, gdpr cookie, banner, gdpr, dsgvo, cookie, responsive, cookie consent banner, insites, osano, cookieconsent
 Requires at least: 4.0
 Donate link: https://www.paypal.me/nikelschubert/6.00EUR
-Tested up to: 5.5
+Tested up to: 5.6
 Requires PHP: 5.2.17
 License: GPLv3
 
@@ -89,6 +89,9 @@ The technical recommandation is to use the google tag manager. It is an awesome 
 Just install this plugin and go to Settings > Cookie Consent Banner to change the default config and to activate the banner.
 
 == Changelog ==
+
+= 2.3 =
+* FEATURE: Adjust the position of the Banner in HTML source code of the page. Per default it is directly beneath the <body>. Now you can use any other selector to change that.
 
 = 2.2.1 =
 * IMPROVEMENT: Default Setting name of "cookie settings"

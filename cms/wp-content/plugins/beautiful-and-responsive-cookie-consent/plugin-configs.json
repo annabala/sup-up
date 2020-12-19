@@ -123,6 +123,17 @@
             "save_in_db": false
           },
           {
+            "field_slug": "container",
+            "type": "text",
+            "save_as": "string",
+            "required": false,
+            "extra_validation_name": "",
+            "pre_selected_value": "",
+            "helpertext": "Default the banner is appended to document.body. If you want to append it somewhere else you can use query selector here. If you want to append it to the footer tag just type in 'footer' or to use an element with an certain id: [id='page'].",
+            "name": "Position in HTML of page (querySelector)",
+            "save_in_db": false
+          },
+          {
             "field_slug": "customizedFont",
             "type": "longtext",
             "save_as": "string",

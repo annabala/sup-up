@@ -28,6 +28,7 @@ class nsc_bar_frontend
         $this->compliance_type = $nsc_bar_banner_config->nsc_bar_get_cookie_setting("type", $this->plugin_configs->return_settings_field_default_value("type"));
         $this->dataLayerName = $nsc_bar_banner_config->nsc_bar_get_cookie_setting("dataLayerName", $this->plugin_configs->return_settings_field_default_value("dataLayerName"));
         $this->pushToDl = $nsc_bar_banner_config->nsc_bar_get_cookie_setting("onStatusChange", $this->plugin_configs->return_settings_field_default_value("onStatusChange"));
+        $this->container = $nsc_bar_banner_config->nsc_bar_get_cookie_setting("container", false);
     }
 
     public function nsc_bar_execute_frontend_wp_actions()
@@ -86,11 +87,18 @@ class nsc_bar_frontend
         $cleanedCookieTypes = $validator->esc_array_for_js($this->cookietypes);
         $popUpCloseJsFunction = '"onPopupClose": function(){location.reload();}';
         $pushToDLFunction = '"onStatusChange": function(status, chosenBefore) { var dataLayerName = "' . esc_js($this->dataLayerName) . '"; var cookieTypes = ' . json_encode($cleanedCookieTypes) . ';var cookieRootName = "' . esc_js($this->cookie_name) . '"; ' . file_get_contents(NSC_BAR_PLUGIN_DIR . "/public/onStatusChange.js") . '}';
+
+        $json_config_string_with_js = $this->json_config_string;
+
+        if (!empty($this->container)) {
+            $setContainerPosition = '"container": document.querySelector("' . esc_js($this->container) . '")';
+            $json_config_string_with_js = str_replace(array('"container": "' . $this->container . '"', '"container":"' . $this->container . '"'), $setContainerPosition, $json_config_string_with_js);
+        }
         if (is_admin()) {
             $popUpCloseJsFunction = '"onPopupClose": function(){}';
         }
 
-        $json_config_string_with_js = str_replace(array('"onPopupClose": "1"', '"onPopupClose":"1"'), $popUpCloseJsFunction, $this->json_config_string);
+        $json_config_string_with_js = str_replace(array('"onPopupClose": "1"', '"onPopupClose":"1"'), $popUpCloseJsFunction, $json_config_string_with_js);
         $json_config_string_with_js = str_replace(array('"onStatusChange": "1"', '"onStatusChange":"1"'), $pushToDLFunction, $json_config_string_with_js);
         return $json_config_string_with_js;
     }

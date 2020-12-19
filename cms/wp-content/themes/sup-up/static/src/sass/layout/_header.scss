@@ -1,31 +1,23 @@
 .header {
   $root: &;
-  background: #00B4DB;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to bottom, #0083B0, #00B4DB);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to bottom, #0083B0, #00B4DB); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background:$c-grey-1;  /* fallback for old browsers */
   position: fixed;
   top: 0;
   right: 0;
   width: 100%;
   z-index: 5000;
-  transition: background-color $tr;
 
   &--fixed {
     @include rwd('large-tablet', true) {
-      & #{$root}__wrapper {
-        flex-wrap: nowrap;
-      }
+      border-bottom: 1px solid darken($c-grey-1, 10);
 
       & #{$root}__logoImg {
-        max-width: 80px;
+        max-width: 70px;
       }
 
-      & #{$root}__top {
-        width: auto;
-      }
 
-      & #{$root}__socials {
-        display: none;
+      & #{$root}__wrapper {
+        padding: 1rem 4rem;
       }
     }
 
@@ -36,40 +28,46 @@
     top: 0;
     right: 0;
     width: 100%;
-    background-color: $c-white;
     z-index: 5000;
+    border-bottom: 1px solid darken($c-grey-1, 10);
   }
 
   &__wrapper {
     padding: 2rem 4rem;
-    max-width: 80%;
+    // max-width: 80%;
     margin: 0 auto;
     transition: padding $tr, flex-direction $tr;
 
-    @include flexSetup(row, space-between, center, wrap);
+    @include flexSetup(row, space-between, center, nowrap);
+
+    @include rwd('laptop') {
+      padding: 2rem 2rem 0 2rem;
+    }
 
     @include rwd('large-tablet') {
       padding: 1rem 2rem;
       max-width: 100%;
     }
-
-    // @include rwd('large-phone') {
-    //   padding: 1rem 2rem;
-    // }
   }
 
   &__top {
-    @include flexSetup(row, space-between, center, nowrap);
-    width: 100%;
+    width: 13rem;
+
+    @include rwd('large-tablet') {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
   }
 
   &__logoImg {
-    max-width: 100px;
+    max-width: 130px;
     height: auto;
     transition: max-width $tr;
 
     @include rwd('laptop') {
-      max-width: 100px;
+      max-width: 90px;
     }
 
     @include rwd('large-tablet') {
@@ -77,16 +75,17 @@
     }
   }
 
-  &__socials {
-    @include flexSetup(row, space-between, center, nowrap);
-    transition: opacity $tr, visibility $tr;
-  }
-
-  &__socialLink {
-    display: block;
-  }
-
   &__menu {
     width: 100%;
+  }
+
+  &__menuSocials {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+
+    @include rwd('large-tablet', true) {
+      display: none;
+    }
   }
 }

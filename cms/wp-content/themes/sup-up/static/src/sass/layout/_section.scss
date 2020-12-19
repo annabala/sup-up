@@ -1,0 +1,51 @@
+.section {
+
+  &--margin {
+    margin-top: 50px;
+    margin-bottom: 50px;
+
+    @include rwd('large-tablet') {
+      margin-top: 0;
+    }
+  }
+
+  &__heading {
+    color: $c-dark-2;
+
+    &--show {
+      animation-duration: 1.5s;
+      animation-name: textShow;
+      animation-timing-function: ease;
+      animation-play-state: running;
+    }
+
+    &--color {
+      font: 400 16px/19px Lato;
+      color: $c-orange-1;
+      text-transform: uppercase;
+      letter-spacing: 2.4px;
+
+      @include rwd('large-tablet') {
+        font: 400 14px/17px Lato;
+      }
+    }
+
+    &--colorBlack {
+      color: $c-black;
+    }
+  }
+
+  &__slider {
+    position: relative;
+    margin-top: 16rem;
+
+    @include rwd('large-tablet') {
+      margin-top: 0;
+    }
+  }
+
+  &__boxesContent {
+    padding: 5rem 0;
+    background-color: $c-grey-5;
+  }
+}

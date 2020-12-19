@@ -3,18 +3,54 @@
 
   &__inner {
     background-color: $c-black;
-    padding: 2rem 0;
+    padding: 11rem 0 10rem;
     overflow: hidden;
+
+    @include rwd('large-tablet') {
+      padding: 5rem 0;
+    }
   }
 
   &__content {
-    @include flexSetup(column, space-between, center, nowrap);
+    @include flexSetup(row, center, center, nowrap);
+
+    @include rwd('phone') {
+      flex-direction: column;
+    }
   }
 
   &__text {
     font-size: 1.6rem;
     margin-top: 2rem;
     color: $c-white;
+    text-align: center;
+  }
+
+
+  &__logo {
+    @include rwd('phone') {
+      flex: 0 0 100%;
+      margin-bottom: 2rem;
+    }
+  }
+
+  &__logoImage {
+    width: 120px;
+    height: auto;
+    transition: opacity $tr;
+    cursor: pointer;
+
+    @include rwd('laptop') {
+      max-width: 100px;
+    }
+
+    @include rwd('large-tablet') {
+      max-width: 60px;
+    }
+
+    &:hover {
+      opacity: 0.7;
+    }
   }
 
   &__socials {

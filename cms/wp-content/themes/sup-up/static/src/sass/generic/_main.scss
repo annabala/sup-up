@@ -17,7 +17,7 @@ html {
 }
 
 body {
-  background-color: $c-white;
+  background-color: $c-grey-1;
   font-family: 'Open Sans', sans-serif;
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
@@ -26,6 +26,12 @@ body {
 
 .pageWrapper {
   position: relative;
+  max-width: 1920px;
+  margin: 0 auto;
+
+  @include rwd("tablet") {
+    padding-top: 8.2rem;
+  }
 }
 
 .sections {

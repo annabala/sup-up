@@ -3,19 +3,17 @@
   z-index: 5000;
 
 
-  @include rwd("laptop") {
-    min-width: 90%;
-  }
+  // @include rwd("laptop") {
+  //   min-width: 90%;
+  // }
 
   @include rwd("large-tablet") {
     position: fixed;
-    top: 8.3rem;
+    top: 8rem;
     bottom: 0;
     left: 0;
     right: 0;
-    background: #00B4DB;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to bottom, #0083B0, #00B4DB);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to bottom, #0083B0, #00B4DB); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: $c-blue-1;
     opacity: 0;
     visibility: hidden;
     transition: opacity $tr, visibility $tr, transform $tr;
@@ -41,11 +39,12 @@
     @include rwd("large-tablet") {
       flex-direction: column;
       justify-content: flex-start;
+      padding: 3rem 0;
     }
   }
 
   &__items {
-    padding-top: 2rem;
+    // padding-top: 2rem;
     @include flexSetup(row, space-evenly, center, nowrap);
     transition: transform $tr;
 
@@ -58,69 +57,83 @@
 
     & li {
       position: relative;
+      cursor: pointer;
       text-align: center;
-      @include rwd("large-tablet") {
-        width: 100%;
-      }
-
-      &::after {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%) scale(.5);
-        display: inline-block;
-        height: 3rem;
-        width: 3rem;
-        border-radius: 50%;
-        background-color: rgba(#daf1fa, 0.2);
-        opacity: 0;
-        transition: opacity $tr, transform $tr;
-      }
+      // margin: 0 20px;
+      // @include rwd("large-tablet") {
+      //   width: 100%;
+      // }
 
       &::before {
+        display: block;
         content: '';
         position: absolute;
-        top: 50%;
+        top: 0;
         left: 50%;
-        transform: translate(-50%, -50%) scale(.5);
-        display: inline-block;
-        height: 4rem;
-        width: 4rem;
-        border-radius: 50%;
-        background-color: transparent;
-        border: 3px solid rgba(#daf1fa, 0.2);
+        transform: translate(-50%, -50%);
+        height: 24rem;
+        width: 100%;
+        background-color: $c-blue-1;
         opacity: 0;
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
+        box-shadow: 0 3px 6px rgba($c-black, .16);
         transition: opacity $tr, transform $tr;
+
+        @include rwd("large-tablet") {
+          display: none;
+        }
       }
 
       & a {
         display: inline-block;
-        color: $c-white;
-        font-size: 1.6rem;
+        color: $c-black;
+        font-size: 1.8rem;
+        line-height: 2.6rem;
+        font-weight: 700;
         text-transform: uppercase;
-        letter-spacing: 0.5px;
         position: relative;
-        padding: 16px 20px;
+        padding: 16px 35px;
         transition: color $tr;
         z-index: 999;
+
+        @include rwd("ultra") {
+          padding: 16px 20px;
+        }
+
+        @include rwd("large-laptop") {
+          font-size: 1.6rem;
+          line-height: 2rem;
+        }
+
+        @include rwd("laptop") {
+          padding: 16px;
+        }
+
+        @include rwd("large-tablet") {
+          color: $c-white;
+          padding: 4px;
+          margin-bottom: 20px;
+        }
+
       }
 
       & .sub-menu {
         display: block;
-        padding: 10px;
+        padding: 22.5rem 1rem 1rem 1rem;
         visibility: hidden;
         opacity: 0;
         position: absolute;
-        top: 100%;
-        left: -40px;
-        min-width: calc(100% + 80px);
-        background: #00B4DB;  /* fallback for old browsers */
-        background: -webkit-linear-gradient(to bottom, #0083B0, #00B4DB);  /* Chrome 10-25, Safari 5.1-6 */
-        background: linear-gradient(to bottom, #0083B0, #00B4DB); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        top: -22.5rem;
+        left: 50%;
+        transform: translate(-50%, 0);
+        width: 100%;
+        background-color: $c-blue-1;
         transition: opacity .3s,visibility .3s, max-height $tr;
-        text-align: center;
         z-index: 33;
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
+        box-shadow: 0 3px 6px rgba($c-black, .16);
 
         @include rwd("large-tablet") {
           // position: static;
@@ -130,10 +143,55 @@
           min-width: 100%;
           visibility: visible;
           opacity: 1;
-          background: #00B4DB;
           // margin-top: 2rem;
           padding: 0;
           // height: 0;
+          transform: none;
+          box-shadow: none;
+        }
+
+        & li {
+          text-align: left;
+          margin: 0;
+
+          @include rwd("large-tablet") {
+            text-align: center;
+          }
+
+          &:hover {
+
+            &::before {
+              opacity: 0;
+            }
+
+            & a {
+              opacity: 0.8;
+            }
+          }
+
+          & a {
+            font-weight: 400;
+            padding: 6px;
+            text-transform: none;
+            transition: opacity $tr;
+
+            @include rwd("laptop") {
+              font-size: 1.5rem;
+              line-height: 2.2rem;
+            }
+
+            @include rwd("large-tablet") {
+              margin: 0;
+            }
+          }
+
+          &:first-of-type {
+            margin: 8.5rem 0 0;
+
+            @include rwd("large-tablet") {
+              margin: 0;
+            }
+          }
         }
 
         // &--active {
@@ -142,19 +200,27 @@
       }
 
       &:hover {
-        &::after,
-        &::before {
-          @include rwd("large-tablet", true) {
+        & a {
+          color: $c-white;
+        }
+      }
+
+      &:not(.menu-item-has-children) {
+        &:hover {
+          &::before {
             opacity: 1;
-            transform: translate(-50%, -50%) scale(1);
           }
         }
 
-        & > .sub-menu {
+      }
 
-          @include rwd("large-tablet", true) {
-            visibility: visible;
-            opacity: 1;
+      &.menu-item-has-children {
+        &:hover {
+          & > .sub-menu {
+            @include rwd("large-tablet", true) {
+              visibility: visible;
+              opacity: 1;
+            }
           }
         }
       }
@@ -164,31 +230,12 @@
       @include rwd("large-tablet") {
         overflow: hidden;
       }
-
-      & > a {
-        transition: tranform $tr;
-        &:before {
-          position: absolute;
-          top: 50%;
-          right: 0;
-          transform: translate(0%, -50%) rotate(90deg);
-          @include icomoon('arrow-long');
-          font-size: 2rem;
-          color: $c-white;
-          transition: tranform $tr;
-
-          @include rwd("large-tablet") {
-            right: -2rem;
-          }
-        }
-      }
     }
 
     & li.menu-itemParent--active {
+      margin-bottom: 1.5rem;
       & > a {
-        &:before {
-          transform: translate(0%, -50%) rotate(-90deg);
-        }
+        border-bottom: 2px solid $c-white;
       }
     }
 
@@ -218,7 +265,7 @@
     height: 42px;
     width: 42px;
     padding: 10px;
-    background-color: $c-white;
+    background-color: $c-blue-1;
     box-shadow: 0 1rem 3rem rgba(255, 255, 255, 0.1);
     border-radius: 50%;
     cursor: pointer;
@@ -240,19 +287,19 @@
       }
 
       & #{$root}__mobileBar:nth-of-type(3) {
-        transform: translateY(-3px) rotate(45deg);
+        transform: translateY(-5px) rotate(45deg);
       }
     }
   }
 
   &__mobileBar {
     display: block;
-    margin-top: 3px;
-    width: 20px;
+    margin-top: 4px;
+    width: 22px;
     height: 2px;
     border-radius: 5px;
-    background-color: #00B4DB;
-    transition: all $tr;
+    background-color: $c-white;
+    transition: tranform $tr, opacity $tr;
 
     &:first-of-type {
       margin-top: 0;

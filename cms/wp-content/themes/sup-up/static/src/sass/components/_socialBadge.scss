@@ -1,0 +1,32 @@
+.socialBadge {
+  $root: &;
+  display: block;
+  position: fixed;
+  top: 50rem;
+  left: -3rem;
+  z-index: 99;
+  background-color: $c-white;
+  width: 12rem;
+  padding: 1.2rem 3.2rem;
+  border-radius: 25px;
+
+  @include rwd("large-tablet") {
+    display: none;
+  }
+
+  &__text {
+    display: inline-flex;;
+    color: $c-black;
+    font-size: 1.5rem;
+    line-height: 1.7rem;
+    font-weight: 700;
+    text-align: center;
+    margin-left: 1.5rem;
+  }
+
+  &__iconLink {
+    color: $c-black;
+    margin-bottom: 2.6rem;
+    text-align: right;
+  }
+}

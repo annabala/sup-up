@@ -15,7 +15,7 @@ if( have_rows('list') ):
         ?>
         <div class="boxesContent__box boxesContent__box--col<?= get_sub_field('box_width') ?>"
           style="<?= get_sub_field('box_addBg') ? $bg : '' ?><?= get_sub_field('box_changeColor') ? $color : '' ?>"
-          data-box>
+          data-box data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-once="true">
           <?php if (!empty(get_sub_field('box_icon'))) : ?>
           <div class="boxesContent__iconWrapper">
             <div class="boxesContent__iconAfterEl"
@@ -26,9 +26,14 @@ if( have_rows('list') ):
           <?php endif; ?>
           <h2 class="boxesContent__title"><?= get_sub_field('box_title') ?></h2>
           <div class="boxesContent__content"><?= get_sub_field('box_content') ?></div>
-          <?php if (!empty(get_sub_field('box_link'))) : ?>
-          <a class="button button--borderBottom" style="<?= get_sub_field('box_changeColor') ? $color : '' ?>"
-            href="<?= get_sub_field('box_link')['url'] ?>"><?= get_sub_field('box_link')['title'] ?></a>
+          <?php if (!empty(get_sub_field('box_buttonBg'))) : ?>
+          <a class="boxesContent__button button button--yellow"
+            style="<?= get_sub_field('box_changeColor') ? $color : '' ?>"
+            href="<?= get_sub_field('box_buttonBg')['url'] ?>"><span><?= get_sub_field('box_buttonBg')['title'] ?></span></a>
+          <?php elseif(!empty(get_sub_field('box_button'))) : ?>
+          <a class="boxesContent__button button button--borderBottom"
+            style="<?= get_sub_field('box_changeColor') ? $color : '' ?>"
+            href="<?= get_sub_field('box_button')['url'] ?>"><span><?= get_sub_field('box_button')['title'] ?></span></a>
           <?php endif; ?>
         </div>
         <?php

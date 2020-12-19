@@ -5,8 +5,8 @@ $breakpointsDown : (
   'large-phone'    : '(max-width:  475px)',
   'small-tablet'   : '(max-width:  575px)',
   'tablet'         : '(max-width:  767px)',
-  'large-tablet'   : '(max-width: 991px)',
-  'laptop'         : '(max-width: 1199px)',
+  'large-tablet'   : '(max-width: 1023px)',
+  'laptop'         : '(max-width: 1279px)',
   'large-laptop'   : '(max-width: 1366px)',
   'ultra'          : '(max-width: 1600px)'
 );
@@ -16,8 +16,8 @@ $breakpointsUp   : (
   'large-phone'  : '(min-width:  476px)',
   'small-tablet' : '(min-width:  576px)',
   'tablet'       : '(min-width:  768px)',
-  'large-tablet' : '(min-width: 992px)',
-  'laptop'       : '(min-width: 1200px)',
+  'large-tablet' : '(min-width: 1024px)',
+  'laptop'       : '(min-width: 1280px)',
   'large-laptop' : '(min-width: 1367px)',
   'ultra'        : '(min-width: 1599px)'
 );

@@ -1,0 +1,86 @@
+.button {
+  $root: &;
+
+  font: 500 18px/29px 'Open Sans';
+  // border-radius: 20px;
+  font-weight: 700;
+  color: $c-black;
+  text-decoration: none;
+  text-transform: uppercase;
+  padding: 5px 10px;
+  cursor: pointer;
+
+  @include rwd("tablet") {
+    font: 500 16px/29px 'Open Sans';
+    padding: 8px 15px;
+  }
+
+  & span {
+    display: inline-block;
+    transition: transform $tr;
+  }
+
+  &:hover {
+    & > span {
+      transform: scale(1.2);
+    }
+  }
+
+  &--bgWhite {
+    background-color: $c-white;
+    text-align: left;
+    letter-spacing: 0.64px;
+    text-transform: uppercase;
+  }
+
+  &--yellow {
+    background-color: $c-yellow-1;
+    box-shadow: 0px 3px 6px rgba($c-black, 0.25);
+    border-radius: 25px;
+    text-transform: uppercase;
+    padding: 2rem 8.5rem;
+  }
+
+  // &--border {
+  //   border: 2px solid $c-black;
+
+  //   &:hover {
+  //     border: 2px solid $c-blue-1;
+  //     color: $c-blue-1;
+  //   }
+  // }
+
+  &--borderBottom {
+    color: $c-blue-1;
+    border-bottom: 2px solid $c-blue-1;
+
+    &:hover {
+      border-bottom: 2px solid $c-blue-1;
+      color: $c-blue-1;
+    }
+  }
+
+  // &--arrow,
+  // &--arrowWhite {
+  //   position: relative;
+  //   padding: 5px 30px 5px 10px;
+
+  //   @include rwd("tablet") {
+  //     padding-right: 50px;
+  //   }
+
+  //   &::before {
+  //     position: absolute;
+  //     right: 1rem;
+  //     font-size: 2rem;
+  //     @include icomoon('arrow-long');
+  //   }
+
+  // }
+
+  // &--arrowWhite {
+  //   &::before {
+  //     color: $c-white;
+  //   }
+  // }
+}

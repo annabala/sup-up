@@ -5,7 +5,7 @@ function sup_create_posttype() {
     array(
       'labels'        => array(
       'name'          => __( 'Eventy' ),
-      'singular_name' => __( 'Event' ),
+      'singular_name' => __( 'event' ),
     ),
     'public'      => true,
     'show_ui'             => true,
@@ -14,35 +14,52 @@ function sup_create_posttype() {
     'show_in_admin_bar'   => true,
     'has_archive' => true,
     'menu_icon'   => 'dashicons-smiley',
+    'supports' => array( 'title'),
     'rewrite' => array(
       'slug' => 'event'
     ),
     )
   );
 
-  // register_post_type( 'Porady',
-  //   array(
-  //     'labels' => array(
-  //     'name' => __( 'Porady' ),
-  //     'singular_name' => __( 'Porada' )
-  //     ),
-  //     'public' => true,
-  //     'has_archive' => true,
-  //     'taxonomies' => array('category'),
-  //     'menu_icon'   => 'dashicons-editor-alignleft',
-  //     'supports' => array( 'title', 'comments', 'author'),
-  //     'rewrite' => array('slug' => 'blog'),
-  //   )
-  // );
+  register_post_type( 'fun-park',
+    array(
+      'labels' => array(
+      'name' => __( 'Fun Park' ),
+      'singular_name' => __( 'atrakcja' )
+      ),
+      'public' => true,
+      'has_archive' => true,
+      'menu_icon'   => 'dashicons-palmtree',
+      'supports' => array( 'title',),
+      'rewrite' => array('slug' => 'fun-park'),
+    )
+  );
+
+  register_post_type( 'vr',
+    array(
+      'labels' => array(
+      'name' => __( 'SUP VR' ),
+      'singular_name' => __( 'atrakcja' )
+      ),
+      'public' => true,
+      'has_archive' => true,
+      'menu_icon'   => 'dashicons-games',
+      'supports' => array( 'title',),
+      'rewrite' => array('slug' => 'vr'),
+    )
+  );
+
+
   register_post_type('multimedia',
     array(
       'labels'        => array(
       'name'          => __( 'Multimedia' ),
-      'singular_name' => __( 'Multimedia' )
+      'singular_name' => __( 'multimedia' )
     ),
     'public'      => true,
     'has_archive' => true,
     'menu_icon'   => 'dashicons-images-alt2',
+    'supports' => array( 'title'),
     'rewrite' => array(
       'slug' => 'multimedia'
     ),

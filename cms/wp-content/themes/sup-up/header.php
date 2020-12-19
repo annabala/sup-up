@@ -15,4 +15,5 @@
 
 <body <?php body_class(); ?>>
   <main class="pageWrapper">
+    <?php get_template_part( 'includes/components/social-badge'); ?>
     <?php get_template_part( 'includes/layout/header'); ?>

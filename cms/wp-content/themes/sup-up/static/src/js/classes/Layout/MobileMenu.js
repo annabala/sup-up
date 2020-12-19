@@ -55,9 +55,17 @@ export default class MobileMenu {
   }
 
   toggleMenu() {
-    this.menu.classList.toggle('menu--active');
-    this.menuList.classList.toggle('menu__items--active');
-    this.mobileButton.classList.toggle('menu__mobileButton--active');
+    this.menu.toggleClass('menu--active');
+    this.menuList.toggleClass('menu__items--active');
+    this.mobileButton.toggleClass('menu__mobileButton--active');
+
+    if (!this.menu.hasClass('menu--active')) {
+      console.log('nie ma klasy active');
+      this.menuItems.forEach((item) => {
+        item.removeClass('menu-itemParent--active');
+        gsap.to(item.querySelector('.sub-menu'), { height: 0, duration: 0.4 });
+      });
+    }
   }
 
   // eslint-disable-next-line class-methods-use-this

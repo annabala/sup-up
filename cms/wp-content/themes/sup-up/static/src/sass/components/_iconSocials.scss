@@ -1,0 +1,44 @@
+
+.iconSocial {
+    color: $c-white;
+    padding: 1rem;
+    margin: 0 1rem;
+    border-radius: 50%;
+    transition: transform $tr;
+    position: relative;
+
+    &--black {
+      color: $c-black;
+    }
+
+    &:before {
+      display: block;
+      font-size: 37px;
+      line-height: 37px;
+      // font-weight: 700;
+      transition: color $tr;
+
+      @include rwd("tablet") {
+        font-size: 30px;
+        line-height: 30px;
+      }
+    }
+
+    &:hover {
+      &::before {
+        color: $c-blue-1;
+      }
+    }
+
+    &--bigger {
+      &:before {
+        font-size: 7rem;
+        line-height: 7rem;
+
+        @include rwd("large-tablet") {
+          font-size: 4rem;
+          line-height: 4rem;
+        }
+      }
+    }
+  }

@@ -1,0 +1,156 @@
+.boxesContent {
+  $root: &;
+
+  &__container {
+    display: grid;
+    grid-gap: 3rem;
+
+    @include rwd("large-laptop", true) {
+      grid-gap: 9.4rem;
+      padding: 5rem 0 15rem 0;
+    }
+
+    @include rwd("tablet", true) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  &__box {
+    cursor: pointer;
+    box-shadow: 6px 6px 10px rgba($c-black, 0.25);
+    background-color: $c-white;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    align-items: center;
+    min-height: 75rem;
+    padding: 9rem 7rem 7.4rem 7rem;
+    // margin: 4.7rem;
+
+    @include rwd("large-tablet") {
+      min-height: auto;
+      padding: 4rem 3rem 3.4rem 3rem;
+    }
+
+    @include rwd("tablet") {
+      text-align: center;
+    }
+
+    @include rwd("small-tablet") {
+      padding: 3rem;
+    }
+
+    &--col12 {
+      align-items: flex-start;
+      min-height: 47.6rem;
+
+      @include rwd("tablet", true) {
+        grid-column: span 2 / auto;
+      }
+
+      @include rwd("tablet") {
+        align-items: center;
+      }
+    }
+
+    // &--col4 {
+    //   flex: 0 0 33.333%;
+    //   max-width: calc(33.333% - 4rem);
+
+    //   @include rwd("large-tablet") {
+    //     flex: 0 0 50%;
+    //     max-width: calc(50% - 4rem);
+    //   }
+
+    //   @include rwd("tablet") {
+    //     flex: 0 0 100%;
+    //     max-width: calc(100% - 2rem);
+    //   }
+    // }
+
+    // &--col3 {
+    //   flex: 0 0 25%;
+    //   max-width: calc(25% - 4rem);
+
+    //   @include rwd("large-tablet") {
+    //     flex: 0 0 50%;
+    //     max-width: calc(50% - 4rem);
+    //   }
+
+    //   @include rwd("tablet") {
+    //     flex: 0 0 100%;
+    //     max-width: calc(100% - 2rem);
+    //   }
+    // }
+  }
+
+  &__title {
+    font-size: 2.4rem;
+    line-height: 3rem;
+    font-weight: 700;
+    margin: 6.2rem 0 4rem 0;
+
+    @include rwd("tablet") {
+      margin: 3.2rem 0 2rem 0;
+    }
+  }
+
+  &__content {
+    font-size: 1.6rem;
+    line-height: 3rem;
+  }
+
+  &__iconWrapper {
+    width: 100%;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+
+    &:hover {
+      #{$root}__icon {
+        transform: scale(1.2);
+      }
+
+      #{$root}__iconAfterEl {
+        transform: translate(-50%, -50%) scale(0.9);
+      }
+    }
+  }
+
+  &__icon {
+    transition: transform $tr-m;
+
+    @include rwd("tablet") {
+      max-width: 150px;
+    }
+  }
+
+  &__iconAfterEl {
+    display: inline-block;
+    width: 18.8rem;
+    height: 18.8rem;
+    background-color: $c-blue-1;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    transition: transform $tr-m;
+
+    @include rwd("tablet") {
+      width: 12.8rem;
+      height: 12.8rem;
+    }
+  }
+
+  &__button {
+    margin-top: 6.8rem;
+
+    @include rwd("tablet") {
+      margin-top: 3.8rem;
+    }
+  }
+}
+

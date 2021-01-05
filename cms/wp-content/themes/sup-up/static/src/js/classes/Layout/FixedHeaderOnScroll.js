@@ -25,7 +25,7 @@ export default class FixedHeaderOnScroll {
 
   checkFixed(e) {
     const { scrollTop } = e.detail;
-    const scrollValue = 100;
+    const scrollValue = 20;
 
     if (scrollTop > scrollValue) {
       if (this.fixed) return;

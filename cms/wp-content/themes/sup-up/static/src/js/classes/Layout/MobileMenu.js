@@ -60,7 +60,6 @@ export default class MobileMenu {
     this.mobileButton.toggleClass('menu__mobileButton--active');
 
     if (!this.menu.hasClass('menu--active')) {
-      console.log('nie ma klasy active');
       this.menuItems.forEach((item) => {
         item.removeClass('menu-itemParent--active');
         gsap.to(item.querySelector('.sub-menu'), { height: 0, duration: 0.4 });

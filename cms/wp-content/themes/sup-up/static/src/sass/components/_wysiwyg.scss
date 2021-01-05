@@ -1,35 +1,47 @@
 .wysiwyg {
+  font-family: 'Open Sans';
 
   & h1, h2, h3, h4, h5, h6 {
-    font: 500 19px/28px JostMedium;
-    color: $c-dark-3;
+    font-weight: 700;
+    color: $c-black;
     text-transform: uppercase;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 30px;
+  }
 
-    @include rwd('tablet') {
-      font: 500 18px/20px JostMedium;
-    }
+  & h1 {
+    font-size: 2.4rem;
+    line-height: 3rem;
+  }
+
+  & h2, h3, h4, h5, h6 {
+    font-size: 1.8rem;
+    line-height: 2.4rem;
+  }
+
+  .wp-block-group {
+    margin: 3rem 0;
   }
 
   & p {
-    color: $c-dark-1;
-    font: 400 18px/24px Lato;
-    margin: 14px 0;
-
-    @include rwd('tablet') {
-      font: 400 16px/20px Lato;
-    }
+    color: $c-black;
+    font-size: 16px;
+    line-height: 24px;
+    margin: 15px 0;
   }
 
   & a {
-    color: $c-orange-2;
-    font: 400 18px/24px Lato;
-    border-bottom: 1px solid transparent;
-    transition: opacity $tr, border-color $tr;
+    color: $c-blue-1;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 700;
+    border-bottom: 2px solid $c-blue-1;
+    transition: opacity $tr;
+
+    @include rwd('large-tablet') {
+      display: inline;
+    }
 
     &:hover {
-      border-color: $c-orange-2;
       opacity: .8;
     }
   }
@@ -54,75 +66,22 @@
   & ul li, ol li {
     position: relative;
     list-style-type: none;
-    font: 400 18px/24px Lato;
+    font-size: 16px;
+    line-height: 24px;
     margin-bottom: 7px;
     padding-left: 20px;
     padding-right: 10px;
 
-    @include rwd('tablet') {
-      font: 400 16px/20px Lato;
-    }
-
     &::before {
-      content: url('/wp-content/themes/fis/static/src/img/bullet.svg');
+      content: '';
+      width: 6px;
+      height: 6px;
+      background-color: $c-blue-1;
+      border-radius: 50%;
       display: inline-block;
       position: absolute;
       left: 0px;
-      top: 2px;
-    }
-  }
-
-  &--blueList {
-
-    & ul li, ol li {
-      position: relative;
-      list-style-type: none;
-      font: 400 18px/24px Lato;
-      margin-bottom: 7px;
-      padding-left: 20px;
-
-      &::before {
-        content: url('/wp-content/themes/fis/static/src/img/bulletBlue.svg');
-        display: inline-block;
-        position: absolute;
-        left: 0px;
-        top: 2px;
-      }
-    }
-  }
-
-  &--pink {
-
-    & p {
-      color: $c-pink-2;
-    }
-  }
-
-  &--flex {
-    & ul, ol {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-    }
-
-    & ul li, ol li {
-      width: 50%;
-
-      @include rwd('tablet') {
-        width: 100%;
-      }
-    }
-  }
-
-  &--big {
-
-    & h1, h2, h3, h4, h5, h6 {
-      font: 500 30px/45px JostMedium;
-      text-transform: none;
-
-      @include rwd('tablet') {
-        font: 500 24px/28px JostMedium;
-      }
+      top: 8px;
     }
   }
 

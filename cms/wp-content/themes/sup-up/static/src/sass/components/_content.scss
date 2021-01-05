@@ -1,0 +1,22 @@
+.content {
+  $root: &;
+
+  &__inner {
+    background-color: $c-white;
+    padding: 7rem;
+    margin: 16rem auto 20rem;
+    box-shadow: 6px 6px 10px rgba($c-black, 0.16);
+    border-radius: 20px;
+
+    @include rwd('large-tablet') {
+      padding: 4rem;
+      margin: 6rem auto 10rem;
+    }
+
+    @include rwd('small-tablet') {
+      padding: 2rem;
+      margin-top: 0;
+      border-radius: 0;
+    }
+  }
+}

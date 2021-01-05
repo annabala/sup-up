@@ -30,6 +30,7 @@ export default class HomeSlider {
       direction: 'horizontal',
       loop: true,
       speed: 1000,
+      spaceBetween: 10,
       fadeEffect: {
         crossFade: true,
       },

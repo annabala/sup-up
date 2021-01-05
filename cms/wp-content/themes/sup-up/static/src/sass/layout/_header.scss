@@ -62,12 +62,12 @@
   }
 
   &__logoImg {
-    max-width: 130px;
+    max-width: 110px;
     height: auto;
     transition: max-width $tr;
 
     @include rwd('laptop') {
-      max-width: 90px;
+      max-width: 75px;
     }
 
     @include rwd('large-tablet') {

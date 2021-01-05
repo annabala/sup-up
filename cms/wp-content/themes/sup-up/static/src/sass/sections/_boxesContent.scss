@@ -26,7 +26,6 @@
     align-items: center;
     min-height: 75rem;
     padding: 9rem 7rem 7.4rem 7rem;
-    // margin: 4.7rem;
 
     @include rwd("large-tablet") {
       min-height: auto;
@@ -35,10 +34,11 @@
 
     @include rwd("tablet") {
       text-align: center;
+      box-shadow: 0 6px 10px rgba($c-black, 0.25);
     }
 
     @include rwd("small-tablet") {
-      padding: 3rem;
+      padding: 3rem 2rem;
     }
 
     &--col12 {

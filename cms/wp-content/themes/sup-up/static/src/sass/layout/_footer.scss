@@ -28,6 +28,12 @@
 
 
   &__logo {
+    margin-right: 2rem;
+
+    @include rwd('large-phone') {
+      margin-right: 0;
+    }
+
     @include rwd('phone') {
       flex: 0 0 100%;
       margin-bottom: 2rem;
@@ -35,14 +41,10 @@
   }
 
   &__logoImage {
-    width: 120px;
+    width: 90px;
     height: auto;
     transition: opacity $tr;
     cursor: pointer;
-
-    @include rwd('laptop') {
-      max-width: 100px;
-    }
 
     @include rwd('large-tablet') {
       max-width: 60px;
@@ -57,6 +59,14 @@
     @include flexSetup(row, center, center, nowrap);
     transition: opacity $tr, visibility $tr;
     z-index: 40;
+  }
+
+  &__social {
+    margin: 0 1rem;
+
+    @include rwd('phone') {
+      margin: 0;
+    }
   }
 
   &__socialLink {

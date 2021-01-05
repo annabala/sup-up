@@ -21,6 +21,20 @@ function sup_create_posttype() {
     )
   );
 
+  register_post_type( 'blog',
+    array(
+      'labels' => array(
+      'name' => __( 'Blog' ),
+      'singular_name' => __( 'wpis' )
+      ),
+      'public' => true,
+      'has_archive' => true,
+      'menu_icon'   => 'dashicons-format-aside',
+      'supports' => array( 'title',),
+      'rewrite' => array('slug' => 'blog'),
+    )
+  );
+
   register_post_type( 'fun-park',
     array(
       'labels' => array(

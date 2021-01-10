@@ -47,6 +47,10 @@ button:focus {
   text-decoration: underline;
 }
 
-.home .sections {
-  margin-top: 15rem;
+.home,
+.archive {
+  & .sections {
+    margin-top: 15rem;
+  }
 }
+

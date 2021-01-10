@@ -1,9 +1,16 @@
 .content {
   $root: &;
 
+  &__pageTitle {
+    font-size: 2.4rem;
+    line-height: 3rem;
+    font-weight: 700;
+    margin-bottom: 3rem;
+  }
+
   &__inner {
     background-color: $c-white;
-    padding: 7rem;
+    padding: 6.5rem;
     margin: 16rem auto 20rem;
     box-shadow: 6px 6px 10px rgba($c-black, 0.16);
     border-radius: 20px;

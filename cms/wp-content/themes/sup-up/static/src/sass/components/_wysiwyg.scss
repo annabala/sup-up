@@ -19,7 +19,7 @@
   }
 
   .wp-block-group {
-    margin: 3rem 0;
+    margin-bottom: 3rem;
   }
 
   & p {
@@ -82,6 +82,15 @@
       position: absolute;
       left: 0px;
       top: 8px;
+    }
+  }
+
+  &--listNoBullets {
+    & ul li, ol li {
+      padding-left: 0;
+      &::before {
+        display: none;
+      }
     }
   }
 

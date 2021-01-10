@@ -1,0 +1,89 @@
+.form {
+  $root: &;
+  padding: 50px 70px;
+  width: 375px;
+
+  &__field {
+    position: relative;
+    display: inline-block;
+  }
+
+  &__input {
+    background-color: $c-white;
+    border: 1px solid $c-grey-9;
+    border-radius: 6px;
+    margin-top: 5px;
+    padding-right: 15px;
+    padding-left: 15px;
+    width: 375px;
+    height: 50px;
+  }
+
+  &__inputLabel {
+    font-size: 16px;
+    line-height: 22px;
+    color: $c-grey-9;
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    z-index: 10;
+  }
+
+  &__button {
+    cursor: pointer;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0 13px;
+    text-align: left;
+    color: inherit;
+
+    &:active,
+    &:focus {
+      box-shadow: -2px -2px $c-blue-1 inset;
+    }
+  }
+
+  textarea {
+    min-height: 310px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    resize: none;
+
+    &.textarea--short {
+      min-height: 150px;
+      height: 150px;
+      max-height: 150px;
+    }
+  }
+
+  span.wpcf7-not-valid-tip {
+    font: 400 16px/21px Lato;
+  }
+
+  div.wpcf7-mail-sent-ng,
+  div.wpcf7-aborted,
+  div.wpcf7-validation-errors,
+  div.wpcf7-acceptance-missing {
+    border: 0;
+    font: 400 16px/21px Lato;
+    margin: 0;
+    margin-top: 15px;
+    padding: 0;
+  }
+
+  &__button {
+    display: flex;
+    margin-left: auto;
+    margin-top: 20px;
+    padding: 10px 13px;
+    position: relative;
+    min-width: 135px;
+
+    @include rwd('phone') {
+      margin-bottom: 20px;
+    }
+  }
+}

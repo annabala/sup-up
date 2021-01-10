@@ -14,9 +14,9 @@ function sup_create_posttype() {
     'show_in_admin_bar'   => true,
     'has_archive' => true,
     'menu_icon'   => 'dashicons-smiley',
-    'supports' => array( 'title'),
+    'supports' => array( 'title', 'editor'),
     'rewrite' => array(
-      'slug' => 'event'
+      'slug' => 'events'
     ),
     )
   );
@@ -30,7 +30,7 @@ function sup_create_posttype() {
       'public' => true,
       'has_archive' => true,
       'menu_icon'   => 'dashicons-format-aside',
-      'supports' => array( 'title',),
+      'supports' => array( 'title', 'editor'),
       'rewrite' => array('slug' => 'blog'),
     )
   );
@@ -44,7 +44,7 @@ function sup_create_posttype() {
       'public' => true,
       'has_archive' => true,
       'menu_icon'   => 'dashicons-palmtree',
-      'supports' => array( 'title',),
+      'supports' => array( 'title', 'editor'),
       'rewrite' => array('slug' => 'fun-park'),
     )
   );
@@ -58,7 +58,7 @@ function sup_create_posttype() {
       'public' => true,
       'has_archive' => true,
       'menu_icon'   => 'dashicons-games',
-      'supports' => array( 'title',),
+      'supports' => array( 'title', 'editor'),
       'rewrite' => array('slug' => 'vr'),
     )
   );
@@ -73,7 +73,7 @@ function sup_create_posttype() {
     'public'      => true,
     'has_archive' => true,
     'menu_icon'   => 'dashicons-images-alt2',
-    'supports' => array( 'title'),
+    'supports' => array( 'title', 'editor'),
     'rewrite' => array(
       'slug' => 'multimedia'
     ),

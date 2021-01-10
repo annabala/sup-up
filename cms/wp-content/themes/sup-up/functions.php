@@ -40,18 +40,18 @@ function sup_setup() {
 
   // Disable wp-editor from all pages
 
-  add_action('admin_head', 'remove_content_editor');
-  /**
-   * Remove the content editor from ALL pages
-   */
-  function remove_content_editor()
-  {
-    remove_post_type_support( 'events', 'editor' );
-    remove_post_type_support( 'multimedia', 'editor' );
-    remove_post_type_support( 'page', 'editor' );
-    remove_post_type_support( 'post', 'editor' );
-    // remove_post_type_support( 'blog', 'editor' );
-  }
+  // add_action('admin_head', 'remove_content_editor');
+  // /**
+  //  * Remove the content editor from ALL pages
+  //  */
+  // function remove_content_editor()
+  // {
+  //   remove_post_type_support( 'events', 'editor' );
+  //   remove_post_type_support( 'multimedia', 'editor' );
+  //   remove_post_type_support( 'page', 'editor' );
+  //   remove_post_type_support( 'post', 'editor' );
+  //   // remove_post_type_support( 'blog', 'editor' );
+  // }
   /**
   * Make theme available for translation.
   * Translations can be placed in the /languages/ directory.
@@ -75,8 +75,29 @@ function sup_setup() {
   /**
   * Create options page for ACF.
   */
-  if( function_exists('acf_add_options_page') ) {
-    acf_add_options_page();
+  // if( function_exists('acf_add_options_page') ) {
+  //   acf_add_options_page();
+  // }
+
+  add_action('acf/init', 'my_acf_op_init');
+  function my_acf_op_init() {
+
+      // Check function exists.
+      if( function_exists('acf_add_options_sub_page') ) {
+
+          // Add parent.
+          $parent = acf_add_options_page(array(
+              'page_title'  => __('Opcje strony'),
+              'menu_title'  => __('Opcje strony'),
+              'redirect'    => false,
+          ));
+
+          $archive = acf_add_options_sub_page(array(
+            'page_title'  => __('Opcje stron archiwum'),
+            'menu_title'  => __('Opcje stron archiwum'),
+            'parent_slug' => $parent['menu_slug'],
+        ));
+      }
   }
 }
 endif; // sup_setup

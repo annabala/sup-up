@@ -41,7 +41,7 @@
 				$this->_render( 'toggle-item', array(
 					'field_name'       => 'keep-existing-post-meta',
 					'checked'          => false,
-					'item_label'       => esc_html__( 'Keep Existing Post Meta', 'wds' ),
+					'item_label'       => esc_html__( 'Keep Existing Post Meta & Focus Keywords', 'wds' ),
 					'item_description' => esc_html__( 'If you have already set up SmartCrawl on some posts and pages then enable this option to keep those values from getting overwritten.', 'wds' ),
 				) );
 				?>

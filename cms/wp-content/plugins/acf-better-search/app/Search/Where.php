@@ -40,7 +40,7 @@
       }
 
       $where = ' AND (' . implode(' OR ', array_filter($list)) . ') ';
-      return $where;
+      return apply_filters('acfbs_sql_where', $where, self::$wpdb);
     }
 
     private static function getACFConditions($words)
@@ -51,15 +51,24 @@
       $list  = [];
 
       foreach ($words as $word) {
-        $word = addslashes($word);
-
-        if (self::$config['whole_words']) $list[] = 'a.meta_value REGEXP \'[[:<:]]' . $word . '[[:>:]]\'';
-        else $list[] = 'a.meta_value LIKE \'%' . $word . '%\'';
+        $word   = addslashes($word);
+        $list[] = 'a.meta_value ' . self::getWordRegex($word);
       }
 
       return sprintf('((b.meta_id IS NOT NULL) %s AND (%s))',
         (!self::$config['lite_mode']) ? 'AND (c.ID IS NOT NULL)' : '',
         implode(') AND (', $list));
+    }
+
+    private static function getWordRegex($word)
+    {
+      if (self::$config['whole_words'] && self::$config['regex_spencer']) {
+        return 'REGEXP \'\\\\b' . $word . '\\\\b\'';
+      } else if (self::$config['whole_words']) {
+        return 'REGEXP \'[[:<:]]' . $word . '[[:>:]]\'';
+      } else {
+        return 'LIKE \'%' . $word . '%\'';
+      }
     }
 
     private static function getDefaultWordPressConditions($words)
@@ -75,10 +84,10 @@
 
         foreach ($columns as $column) {
           $conditions[] = sprintf(
-            (self::$config['whole_words']) ? '(%s.%s REGEXP %s)' : '(%s.%s LIKE %s)',
+            '(%s.%s %s)',
             self::$wpdb->posts,
             $column,
-            (self::$config['whole_words']) ? ('\'[[:<:]]' . $word . '[[:>:]]\'') : ('\'%' . $word . '%\'')
+            self::getWordRegex($word)
           );
         }
 
@@ -98,10 +107,7 @@
 
       foreach ($words as $word) {
         $word   = addslashes($word);
-        $list[] = 'd.post_title LIKE \'%' . $word . '%\'';
-
-        if (self::$config['whole_words']) $list[] = 'd.post_title REGEXP \'[[:<:]]' . $word . '[[:>:]]\'';
-        else $list[] = 'd.post_title LIKE \'%' . $word . '%\'';
+        $list[] = 'd.post_title ' . self::getWordRegex($word);
       }
 
       $list = '(' . implode(') AND (', $list) . ')';

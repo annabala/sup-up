@@ -5,13 +5,29 @@ class nsc_bar_banner_configs
     private $banner_config_array;
     private $banner_config_string;
     private $plugin_configs;
+    private $banner_configs_slug;
 
     public function __construct()
     {
         $this->plugin_configs = new nsc_bar_plugin_configs();
+        $this->nsc_bar_set_banner_configs_slug("bannersettings_json");
+        if (class_exists("nsc_bara_banner_configs_addon") === true) {
+            $bara = new nsc_bara_banner_configs_addon;
+            $this->nsc_bar_set_banner_configs_slug($bara->nsc_bara_get_banner_settings_slug(null));
+        }
     }
 
-    // be carefull: the states of config array and config string can be different.
+    public function nsc_bar_set_banner_configs_slug($banner_configs_slug)
+    {
+        $this->banner_configs_slug = $banner_configs_slug;
+    }
+
+    public function nsc_bar_set_banner_config_array($banner_config_array)
+    {
+        $this->banner_config_array = $banner_config_array;
+    }
+
+    // be careful: the states of config array and config string can be different.
     public function nsc_bar_get_banner_config_array()
     {
         if (empty($this->banner_config_array)) {
@@ -79,7 +95,8 @@ class nsc_bar_banner_configs
     {
         $this->remove_deactivated_js_function();
         $json_string = json_encode($this->nsc_bar_get_banner_config_array());
-        return $this->plugin_configs->nsc_bar_update_option("bannersettings_json", $json_string);
+
+        return $this->plugin_configs->nsc_bar_update_option($this->banner_configs_slug, $json_string);
     }
 
     /*TODO: only needed for update to 2.0 remove after all updated*/
@@ -171,10 +188,15 @@ class nsc_bar_banner_configs
      */
     private function initialise_banner_configs($return_type)
     {
-        $banner_config_string = $this->plugin_configs->nsc_bar_get_option("bannersettings_json");
-        $validate = new nsc_bar_input_validation;
-        $banner_config_string = $validate->nsc_bar_check_valid_json_string($banner_config_string);
+        $banner_config_string = $this->read_banner_configs_from_db($this->banner_configs_slug);
+
+        // try to get default, if non default is not set.
+        if (empty($banner_config_string) && $this->banner_configs_slug !== "bannersettings_json") {
+            $banner_config_string = $this->read_banner_configs_from_db("bannersettings_json");
+        }
+
         if (empty($banner_config_string)) {
+            $validate = new nsc_bar_input_validation;
             $banner_config_string = $validate->nsc_bar_check_valid_json_string(file_get_contents(NSC_BAR_PLUGIN_DIR . "/public/config-default.json"));
         }
 
@@ -189,6 +211,14 @@ class nsc_bar_banner_configs
                 return null;
         }
 
+    }
+
+    private function read_banner_configs_from_db($slug)
+    {
+        $banner_config_string = $this->plugin_configs->nsc_bar_get_option($slug);
+        $validate = new nsc_bar_input_validation;
+        $banner_config_string = $validate->nsc_bar_check_valid_json_string($banner_config_string);
+        return $banner_config_string;
     }
 
     private function convert_to_save_as($value, $save_as)

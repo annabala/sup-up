@@ -1,7 +1,6 @@
 <?php
-  $fields     = apply_filters('acfbs_options_fields', []);
-  $config     = apply_filters('acfbs_config', [], true);
-  $isLiteMode = (isset($config['lite_mode']) && $config['lite_mode']);
+  $fields = apply_filters('acfbs_options_fields', []);
+  $config = apply_filters('acfbs_config', [], true);
 ?>
 <div class="acfbsPage__widget">
   <h3 class="acfbsPage__widgetTitle">
@@ -15,7 +14,7 @@
     <div class="acfbsPage__widgetRow">
       <h4><?= __('Additional features', 'acf-better-search'); ?></h4>
       <?php
-        $features = apply_filters('acfbs_options_features', [], 'default');
+        $features = apply_filters('acfbs_options_features', [], 'default', $config);
         include ACFBS_PATH . '/resources/components/settings/features.php';
       ?>
     </div>
@@ -25,7 +24,7 @@
         '<strong>',
       '</strong>'); ?></p>
       <?php
-        $features = apply_filters('acfbs_options_features', [], 'advanced');
+        $features = apply_filters('acfbs_options_features', [], 'advanced', $config);
         include ACFBS_PATH . '/resources/components/settings/features.php';
       ?>
     </div>

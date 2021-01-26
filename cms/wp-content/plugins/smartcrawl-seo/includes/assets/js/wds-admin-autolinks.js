@@ -44,6 +44,16 @@
 		this.style.height = this.scrollHeight + "px";
 	}
 
+	function open_add_redirect_form() {
+		var query = new URLSearchParams(window.location.search);
+		if (
+			query.get('tab') === 'tab_url_redirection'
+			&& query.get('add_redirect')
+		) {
+			$('button.wds-add-redirect').click();
+		}
+	}
+
 	$(function () {
 		$(".box-autolinks-custom-keywords-settings").each(function () {
 			window.Wds.Keywords.custom_pairs($(this));
@@ -70,6 +80,8 @@
 		window.Wds.accordion();
 		window.Wds.vertical_tabs();
 		window.Wds.hook_toggleables();
+
+		open_add_redirect_form();
 	});
 
 })(jQuery);

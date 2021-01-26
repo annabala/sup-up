@@ -24,6 +24,8 @@ class Smartcrawl_Controller_Sitemap extends Smartcrawl_Base_Controller {
 		add_action( 'wp_ajax_wds-sitemap-add_extra', array( $this, 'json_add_sitemap_extra' ) );
 		add_action( 'wp_ajax_wds-get-sitemap-report', array( $this, 'json_get_sitemap_report' ) );
 
+		add_action( 'wp_ajax_wds-manually-update-engines', array( $this, 'json_manually_update_engines' ) );
+		add_action( 'wp_ajax_wds-manually-update-sitemap', array( $this, 'json_manually_update_sitemap' ) );
 		add_action( 'wp_ajax_wds-deactivate-sitemap-module', array( $this, 'json_deactivate_sitemap_module' ) );
 		add_action( 'wp_ajax_wds-override-native', array( $this, 'json_override_native' ) );
 
@@ -130,6 +132,14 @@ class Smartcrawl_Controller_Sitemap extends Smartcrawl_Base_Controller {
 		) );
 
 		wp_send_json( $result );
+	}
+
+	public function json_manually_update_engines() {
+		Smartcrawl_Sitemap_Utils::notify_engines( true );
+	}
+
+	public function json_manually_update_sitemap() {
+		$this->invalidate_sitemap_cache();
 	}
 
 	public function json_deactivate_sitemap_module() {

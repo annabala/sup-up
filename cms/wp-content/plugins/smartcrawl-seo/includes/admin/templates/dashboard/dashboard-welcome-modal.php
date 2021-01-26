@@ -24,47 +24,48 @@
 				<h3 class="sui-box-title sui-lg"
 				    id="<?php echo esc_attr( $id ); ?>-dialog-title">
 
-					<?php esc_html_e( 'Updated Schema Support', 'wds' ); ?>
+					<?php esc_html_e( 'NEW: Add & Customize Schema Types', 'wds' ); ?>
 				</h3>
 
 				<div class="sui-box-body sui-content-center">
 					<p class="sui-description"
 					   id="<?php echo esc_attr( $id ); ?>-dialog-description">
+						<span>
+							<?php esc_html_e( "Another highly-requested feature to help search engines better understand your site’s content and increase your visibility on search.", 'wds' ); ?>
+						</span>
 
-						<?php esc_html_e( "We've updated our Schema Markup support for all the default WordPress post types and components to help you look great in search engines. We've made it easier to set up your basic configuration, take a look!", 'wds' ); ?>
+						<span>
+							<small><strong><?php esc_html_e( "You can now add and customize a range of schema types with SmartCrawl’s new Schema Type Builder.", 'wds' ); ?></strong></small>
+						</span>
+
+						<span>
+							<?php esc_html_e( 'By default, selected schema types are fully automated for you - however, the new builder also allows you to fine-tune each type to suit your site’s requirements if needed.', 'wds' ); ?>
+						</span>
 					</p>
 
-					<h4><?php esc_html_e( 'Supported Schema.org Types', 'wds' ); ?></h4>
+					<h4><?php esc_html_e( 'New supported schema types:', 'wds' ); ?></h4>
 					<ul>
 						<?php foreach (
 							array(
-								'<strong>' . esc_html__( 'Corporate Contact.', 'wds' ) . '</strong>'   => '',
-								esc_html__( '%s markup.', 'wds' )                                      => esc_html__( 'Social Media', 'wds' ),
-								'<strong>' . esc_html__( 'Sitelinks Searchbox.', 'wds' ) . '</strong>' => '',
-								esc_html__( '%s to markup Web Page Header.', 'wds' )                   => esc_html__( 'WPHeader', 'wds' ),
-								esc_html__( '%s to markup Web Page Footer.', 'wds' )                   => esc_html__( 'WPFooter', 'wds' ),
-								esc_html__( 'Blog to markup %s posts list page.', 'wds' )              => esc_html__( 'Blog', 'wds' ),
-								esc_html__( 'CollectionPage to markup %s Archives.', 'wds' )           => esc_html__( 'Categories', 'wds' ),
-								esc_html__( 'CollectionPage to markup %s Archives.', 'wds' )           => esc_html__( 'Tags', 'wds' ),
-								esc_html__( 'ItemList to markup %s Type Archives.', 'wds' )            => esc_html__( 'Post', 'wds' ),
-								esc_html__( 'AboutPage to markup the %s.', 'wds' )                     => esc_html__( 'About page', 'wds' ),
-								esc_html__( 'ContactPage to markup the %s.', 'wds' )                   => esc_html__( 'Contact page', 'wds' ),
-								esc_html__( '%s enable automatically on all videos embedded.', 'wds' ) => esc_html__( 'VideoObject', 'wds' ),
-								esc_html__( '%s enable automatically on all audio embedded.', 'wds' )  => esc_html__( 'AudioObject', 'wds' ),
-							) as $feature => $bold_part
+								esc_html__( 'Article', 'wds' ),
+								esc_html__( 'Event', 'wds' ),
+								esc_html__( 'Product', 'wds' ),
+								esc_html__( 'WooCommerce Product', 'wds' ),
+								esc_html__( 'FAQ Page', 'wds' ),
+								esc_html__( 'How To', 'wds' ),
+							) as $feature
 						): ?>
-							<li><small><?php printf( $feature, "<strong>{$bold_part}</strong>" ) ?></small></li>
+							<li><small><?php echo esc_html( $feature ); ?></small></li>
 						<?php endforeach; ?>
 					</ul>
 
-					<h4><?php esc_html_e( 'Coming Next', 'wds' ); ?></h4>
 					<ul>
-						<li><small><?php esc_html_e( 'Custom markup editor tool', 'wds' ); ?></small></li>
+						<li><small><?php esc_html_e( 'And many more coming soon!', 'wds' ); ?></small></li>
 					</ul>
 
 					<button id="<?php echo esc_attr( $id ); ?>-get-started" type="button" class="sui-button">
 						<span class="sui-loading-text">
-							<?php esc_html_e( 'Get It Started', 'wds' ); ?>
+							<?php esc_html_e( 'Get Started', 'wds' ); ?>
 						</span>
 						<i class="sui-icon-loader sui-loading" aria-hidden="true"></i>
 					</button>

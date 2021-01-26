@@ -3,7 +3,7 @@ Contributors: mateuszgbiorczyk
 Donate link: https://ko-fi.com/gbiorczyk/?utm_source=acf-better-search&utm_medium=readme-donate
 Tags: acf search, advanced custom fields, better search, extended search, search
 Requires at least: 5.0
-Tested up to: 5.5
+Tested up to: 5.6
 Requires PHP: 7.0
 Stable tag: trunk
 License: GPLv2 or later
@@ -94,6 +94,15 @@ This is all very important to us and allows us to do even better things for you!
 1. Screenshot of the options panel
 
 == Changelog ==
+
+= 3.8.0 (2021-01-13) =
+* `[Fixed]` Search using regular expression
+* `[Added]` Option to use optional implementation of regular expression by Henry Spencer
+
+= 3.7.0 (2020-12-22) =
+* `[Changed]` Regular expressions in SQL query to Henry Spencer's implementation
+* `[Added]` Filter `acfbs_sql_where` to change WHERE part of SQL query
+* `[Added]` Filter `acfbs_sql_join` to change INNER JOIN part of SQL query
 
 = 3.6.0 (2020-10-28) =
 * `[Changed]` Required PHP version to 7.0

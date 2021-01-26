@@ -37,16 +37,27 @@ class nsc_bar_html_formfields
         }
     }
 
+    public function nsc_bar_get_language_dropdown()
+    {
+        if (class_exists("nsc_bara_html_formfields_addon") === true) {
+            $form_fields_addon = new nsc_bara_html_formfields_addon();
+            return $form_fields_addon->nsc_bara_get_language_dropdown();
+        }
+        return '<select name="nsc_bar_language_selector" id="nsc_bar_countries_select"><option value="xx">Default</option></select>';
+    }
+
     private function create_checkbox()
     {
-        $checkbox = '<input id="ff_' . $this->prefix . $this->field->field_slug . '" type="checkbox" name="' . $this->prefix . $this->field->field_slug . '" id="' . $this->prefix . $this->field->field_slug . '" value="1" ' . checked(1, $this->field->pre_selected_value, false) . '>';
-        $checkbox = '<input type="hidden" name="' . $this->prefix . $this->field->field_slug . '_hidden" value="0"/>' . $checkbox;
+        $checkbox = '<input ' . $this->nsc_bar_is_disabled($this->field) . ' id="ff_' . $this->prefix . $this->field->field_slug . '" type="checkbox" name="' . $this->prefix . $this->field->field_slug . '" id="' . $this->prefix . $this->field->field_slug . '" value="1" ' . checked(1, $this->field->pre_selected_value, false) . '>';
+        if (empty($this->nsc_bar_is_disabled($this->field)) === true) {
+            $checkbox = '<input type="hidden" name="' . $this->prefix . $this->field->field_slug . '_hidden" value="0"/>' . $checkbox;
+        }
         return '<label>' . $checkbox . '</label>';
     }
 
     private function create_textarea()
     {
-        return '<label><textarea id="ff_' . $this->prefix . $this->field->field_slug . '" cols="120"  id="' . $this->prefix . $this->field->field_slug . '" name="' . $this->prefix . $this->field->field_slug . '" rows="20" class="large-text code" type="textarea">' . $this->convert_to_string($this->field->pre_selected_value) . '</textarea></label>';
+        return '<label><textarea ' . $this->nsc_bar_is_disabled($this->field) . '  id="ff_' . $this->prefix . $this->field->field_slug . '" cols="120"  id="' . $this->prefix . $this->field->field_slug . '" name="' . $this->prefix . $this->field->field_slug . '" rows="20" class="large-text code" type="textarea">' . $this->convert_to_string($this->field->pre_selected_value) . '</textarea></label>';
     }
 
     private function create_hidden_field()
@@ -60,13 +71,13 @@ class nsc_bar_html_formfields
         if ($length == "long") {
             $size = 50;
         }
-        return '<label><input id="ff_' . $this->prefix . $this->field->field_slug . '" type="text"  id="' . $this->prefix . $this->field->field_slug . '" name="' . $this->prefix . $this->field->field_slug . '" size="' . $size . '" maxlength="200" value="' . $this->field->pre_selected_value . '"></label>';
+        return '<label><input ' . $this->nsc_bar_is_disabled($this->field) . ' id="ff_' . $this->prefix . $this->field->field_slug . '" type="text"  id="' . $this->prefix . $this->field->field_slug . '" name="' . $this->prefix . $this->field->field_slug . '" size="' . $size . '" maxlength="200" value="' . $this->field->pre_selected_value . '"></label>';
     }
 
     private function create_select()
     {
 
-        $html = '<select id="ff_' . $this->prefix . $this->field->field_slug . '"  name="' . $this->prefix . $this->field->field_slug . '" id="' . $this->prefix . $this->field->field_slug . '">';
+        $html = '<select ' . $this->nsc_bar_is_disabled($this->field) . '  id="ff_' . $this->prefix . $this->field->field_slug . '"  name="' . $this->prefix . $this->field->field_slug . '" id="' . $this->prefix . $this->field->field_slug . '">';
         foreach ($this->field->selectable_values as $selectable_value) {
             $select = "";
             if ($selectable_value->value == $this->field->pre_selected_value) {$select = "selected";}
@@ -82,7 +93,7 @@ class nsc_bar_html_formfields
         foreach ($this->field->selectable_values as $selectable_value) {
             $select = "";
             if ($selectable_value->value == $this->field->pre_selected_value) {$select = "checked";}
-            $html .= '<input id="ff_' . $this->prefix . $this->field->field_slug . '"  type="radio" name="' . $this->prefix . $this->field->field_slug . '" value="' . $selectable_value->value . '" ' . $select . ' > ' . $selectable_value->name . ' ';
+            $html .= '<input ' . $this->nsc_bar_is_disabled($this->field) . ' id="ff_' . $this->prefix . $this->field->field_slug . '"  type="radio" name="' . $this->prefix . $this->field->field_slug . '" value="' . $selectable_value->value . '" ' . $select . ' > ' . $selectable_value->name . ' ';
         }
         return '<label>' . $html . '</label>';
     }
@@ -93,6 +104,16 @@ class nsc_bar_html_formfields
             return json_encode($input);
         }
         return $input;
+    }
+
+    private function nsc_bar_is_disabled($field)
+    {
+        if (class_exists("nsc_bara_html_formfields_addon") !== true) {
+            return "";
+        }
+
+        $form_fields_addon = new nsc_bara_html_formfields_addon();
+        return $form_fields_addon->nsc_bara_is_disabled($field);
     }
 
 }

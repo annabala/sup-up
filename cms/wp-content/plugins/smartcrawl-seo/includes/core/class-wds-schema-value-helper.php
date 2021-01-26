@@ -30,6 +30,7 @@ class Smartcrawl_Schema_Value_Helper extends Smartcrawl_Type_Traverser {
 	const ORGANIZATION_SPORTS = 'SportsOrganization';
 	const ORGANIZATION_WORKERS_UNION = 'WorkersUnion';
 	const TYPE_ITEM_LIST = "ItemList";
+	const TYPE_ARTICLE = 'Article';
 
 	private $schema;
 	private $social_options;
@@ -38,6 +39,10 @@ class Smartcrawl_Schema_Value_Helper extends Smartcrawl_Type_Traverser {
 	 * @var Smartcrawl_Model_User
 	 */
 	private $owner;
+	/**
+	 * @var array
+	 */
+	private $type_registry = array();
 
 	/**
 	 * Singleton instance
@@ -45,6 +50,10 @@ class Smartcrawl_Schema_Value_Helper extends Smartcrawl_Type_Traverser {
 	 * @var self
 	 */
 	private static $_instance;
+	/**
+	 * @var Smartcrawl_Schema_Helper
+	 */
+	private $helper;
 
 	/**
 	 * @return self instance
@@ -59,10 +68,33 @@ class Smartcrawl_Schema_Value_Helper extends Smartcrawl_Type_Traverser {
 
 	public function __construct() {
 		$this->owner = Smartcrawl_Model_User::owner();
+		$this->helper = Smartcrawl_Schema_Helper::get();
+	}
+
+	public function get_schema_types() {
+		return $this->type_registry;
+	}
+
+	public function clear() {
+		$this->type_registry = array();
 	}
 
 	public function get_schema() {
-		return $this->schema;
+		$graph = array();
+		foreach ( $this->type_registry as $type_collection ) {
+			foreach ( $type_collection as $type_schema ) {
+				$graph[] = $type_schema;
+			}
+		}
+
+		if ( empty( $graph ) ) {
+			return null;
+		}
+
+		return array(
+			"@context" => "https://schema.org",
+			"@graph"   => $graph,
+		);
 	}
 
 	public function handle_bp_groups() {
@@ -78,13 +110,17 @@ class Smartcrawl_Schema_Value_Helper extends Smartcrawl_Type_Traverser {
 	}
 
 	public function handle_blog_home() {
-		$schema = $this->get_header_footer_schema( get_site_url() );
+		$this->add_header_footer_schema( get_site_url() );
 
-		$schema = $this->add_publisher_schema( $schema );
-		$schema[] = $this->get_website_schema();
-		$schema[] = $this->get_blog_home_webpage_schema();
+		$this->add_publisher_schema();
+		$this->add_website_schema();
 
-		$this->set_schema( $schema );
+		$custom_schema_types = $this->get_custom_schema_types();
+		if ( ! empty( $custom_schema_types ) ) {
+			$this->add_custom_schema_types( $custom_schema_types );
+		} else {
+			$this->add_blog_home_webpage_schema();
+		}
 	}
 
 	public function handle_static_home() {
@@ -92,6 +128,7 @@ class Smartcrawl_Schema_Value_Helper extends Smartcrawl_Type_Traverser {
 		$wp_query = $this->get_query_context();
 
 		$this->set_archive_schema( "CollectionPage", get_permalink( $page_for_posts ), $wp_query->posts );
+		$this->add_custom_schema_types( $this->get_custom_schema_types() );
 	}
 
 	public function handle_search() {
@@ -104,6 +141,7 @@ class Smartcrawl_Schema_Value_Helper extends Smartcrawl_Type_Traverser {
 		$search_term = $wp_query->get( 's' );
 
 		$this->set_archive_schema( "SearchResultsPage", get_search_link( $search_term ), $wp_query->posts );
+		$this->add_custom_schema_types( $this->get_custom_schema_types() );
 	}
 
 	public function handle_404() {
@@ -126,6 +164,7 @@ class Smartcrawl_Schema_Value_Helper extends Smartcrawl_Type_Traverser {
 
 		$date_archive_url = $date_callback( $requested_year, $requested_month );
 		$this->set_archive_schema( "CollectionPage", $date_archive_url, $wp_query->posts );
+		$this->add_custom_schema_types( $this->get_custom_schema_types() );
 	}
 
 	public function handle_pt_archive() {
@@ -146,6 +185,7 @@ class Smartcrawl_Schema_Value_Helper extends Smartcrawl_Type_Traverser {
 			if ( $enabled && ! $disabled ) {
 				$this->set_archive_schema( "CollectionPage", $pt_archive_url, $wp_query->posts );
 			}
+			$this->add_custom_schema_types( $this->get_custom_schema_types() );
 		}
 	}
 
@@ -165,6 +205,7 @@ class Smartcrawl_Schema_Value_Helper extends Smartcrawl_Type_Traverser {
 		if ( $enabled && ! $disabled ) {
 			$this->set_archive_schema( "CollectionPage", $term_url, $wp_query->posts );
 		}
+		$this->add_custom_schema_types( $this->get_custom_schema_types() );
 	}
 
 	public function handle_author_archive() {
@@ -176,6 +217,7 @@ class Smartcrawl_Schema_Value_Helper extends Smartcrawl_Type_Traverser {
 		if ( $enabled ) {
 			$this->set_archive_schema( "ProfilePage", $author_url, $wp_query->posts );
 		}
+		$this->add_custom_schema_types( $this->get_custom_schema_types() );
 	}
 
 	public function handle_archive() {
@@ -215,20 +257,63 @@ class Smartcrawl_Schema_Value_Helper extends Smartcrawl_Type_Traverser {
 	public function handle_singular() {
 		$post = $this->get_context();
 		$post_permalink = get_permalink( $post );
-		$graph = $this->get_header_footer_schema( $post_permalink );
 
-		$graph = $this->add_publisher_schema( $graph );
-		$graph[] = $this->get_website_schema();
-		if ( $post->post_type === 'page' ) {
-			$graph[] = $this->get_webpage_schema( $post, $post_permalink );
+		$this->add_header_footer_schema( $post_permalink );
+
+		$this->add_publisher_schema();
+		$this->add_website_schema();
+		$custom_schema_types = $this->get_custom_schema_types( $post );
+
+		if ( ! empty( $custom_schema_types ) ) {
+			$this->add_custom_schema_types( $custom_schema_types, $post_permalink );
+		} else if ( $this->is_contact_page() || $this->is_about_page() ) {
+			$this->add_webpage_schema( $post, $post_permalink );
 		} else {
-			$graph[] = $this->get_minimal_webpage_schema( $post_permalink );
-			$graph[] = $this->get_article_schema( $post, $post_permalink );
+			$this->add_minimal_webpage_schema( $post_permalink );
+			$this->add_article_schema( $post, $post_permalink );
 		}
 
-		$graph = $this->add_media_schema( $graph, $post );
+		$this->add_media_schema( $post );
+	}
 
-		$this->set_schema( $graph );
+	private function get_custom_schema_types( $post = null ) {
+		$custom_types = array();
+		$schema_types = Smartcrawl_Controller_Schema_Types::get()->get_schema_types();
+		foreach ( $schema_types as $schema_type ) {
+			$type = Smartcrawl_Schema_Type::create( $schema_type, $post );
+
+			if ( $type->is_active() && $type->conditions_met() ) {
+				$custom_types[ $type->get_type() ][] = $type->get_schema();
+			}
+		}
+		return $custom_types;
+	}
+
+	private function add_custom_schema_types( $schema_types, $url = '' ) {
+		foreach ( $schema_types as $type_key => $type_collection ) {
+			if ( $type_key === self::TYPE_ARTICLE ) {
+				// Article schemas will be handled separately
+				continue;
+			}
+
+			foreach ( $type_collection as $schema ) {
+				$this->register_type( $type_key, $schema );
+			}
+		}
+
+		$webpage_schema_added = false;
+		$article_schemas = smartcrawl_get_array_value( $schema_types, self::TYPE_ARTICLE );
+		if ( ! empty( $article_schemas ) && is_array( $article_schemas ) ) {
+			foreach ( $article_schemas as $article_schema ) {
+				if ( ! $webpage_schema_added && $url ) {
+					$this->add_minimal_webpage_schema( $url );
+					$article_schema['mainEntityOfPage'] = $this->get_webpage_id( $url );
+					$webpage_schema_added = true;
+				}
+
+				$this->register_type( self::TYPE_ARTICLE, $article_schema );
+			}
+		}
 	}
 
 	private function filter_post_data_image( $schema_image ) {
@@ -240,10 +325,8 @@ class Smartcrawl_Schema_Value_Helper extends Smartcrawl_Type_Traverser {
 	 * @param $permalink string
 	 *
 	 * TODO: pageStart/pageEnd, wordCount
-	 *
-	 * @return array
 	 */
-	private function get_article_schema( $post, $permalink ) {
+	private function add_article_schema( $post, $permalink ) {
 		$post = $this->apply_filters( 'post', $post );
 		$schema = array(
 			          "@type"            => "Article",
@@ -252,7 +335,10 @@ class Smartcrawl_Schema_Value_Helper extends Smartcrawl_Type_Traverser {
 			          ),
 		          ) + $this->post_to_schema( $post, $permalink );
 
-		return $this->apply_filters( 'post-data', $schema );
+		$this->register_type(
+			'Article',
+			$this->apply_filters( 'post-data', $schema )
+		);
 	}
 
 	private function post_to_schema( $post, $permalink, $include_comments = true ) {
@@ -287,14 +373,7 @@ class Smartcrawl_Schema_Value_Helper extends Smartcrawl_Type_Traverser {
 		return $schema;
 	}
 
-	private function set_schema( $graph ) {
-		$this->schema = array(
-			"@context" => "https://schema.org",
-			"@graph"   => $graph,
-		);
-	}
-
-	private function get_minimal_webpage_schema( $url ) {
+	private function add_minimal_webpage_schema( $url ) {
 		$schema = array(
 			"@type"     => self::TYPE_WEB_PAGE,
 			"@id"       => $this->get_webpage_id( $url ),
@@ -312,10 +391,10 @@ class Smartcrawl_Schema_Value_Helper extends Smartcrawl_Type_Traverser {
 			$schema["hasPart"] = $menu_schema;
 		}
 
-		return $schema;
+		$this->register_type( self::TYPE_WEB_PAGE, $schema );
 	}
 
-	private function get_blog_home_webpage_schema() {
+	private function add_blog_home_webpage_schema() {
 		$meta_value_helper = Smartcrawl_Meta_Value_Helper::get();
 		$schema = array(
 			"@type"      => $this->get_webpage_type(),
@@ -346,10 +425,10 @@ class Smartcrawl_Schema_Value_Helper extends Smartcrawl_Type_Traverser {
 			$schema["hasPart"] = $menu_schema;
 		}
 
-		return $schema;
+		$this->register_type( $this->get_webpage_type(), $schema );
 	}
 
-	private function get_webpage_schema( $post, $permalink ) {
+	private function add_webpage_schema( $post, $permalink ) {
 		$post = $this->apply_filters( 'post', $post );
 		$schema = array(
 			          "@type"    => $this->get_webpage_type(),
@@ -365,7 +444,10 @@ class Smartcrawl_Schema_Value_Helper extends Smartcrawl_Type_Traverser {
 			$schema["hasPart"] = $menu_schema;
 		}
 
-		return $this->apply_filters( 'post-data', $schema );
+		$this->register_type(
+			$this->get_webpage_type(),
+			$this->apply_filters( 'post-data', $schema )
+		);
 	}
 
 	private function get_webpage_id( $url ) {
@@ -376,7 +458,7 @@ class Smartcrawl_Schema_Value_Helper extends Smartcrawl_Type_Traverser {
 		return $this->url_to_id( get_site_url(), "#schema-website" );
 	}
 
-	private function get_website_schema() {
+	private function add_website_schema() {
 		$website_name = $this->get_social_option( 'sitename' );
 		$website_name = ! empty( $website_name )
 			? $website_name
@@ -404,7 +486,7 @@ class Smartcrawl_Schema_Value_Helper extends Smartcrawl_Type_Traverser {
 			);
 		}
 
-		$image = $this->get_media_item_image_schema(
+		$image = $this->helper->get_media_item_image_schema(
 			(int) $this->get_schema_option( 'schema_website_logo' ),
 			$this->url_to_id( $website_url, '#schema-site-logo' )
 		);
@@ -412,44 +494,26 @@ class Smartcrawl_Schema_Value_Helper extends Smartcrawl_Type_Traverser {
 			$schema["image"] = $image;
 		}
 
-		return $this->apply_filters( 'site-data', $schema );
-	}
-
-	private function get_media_item_image_schema( $media_item_id, $schema_id ) {
-		if ( ! $media_item_id ) {
-			return array();
-		}
-
-		$media_item = wp_get_attachment_image_src( $media_item_id, 'full' );
-		if ( ! $media_item || count( $media_item ) < 3 ) {
-			return array();
-		}
-
-		return $this->get_image_schema(
-			$schema_id,
-			$media_item[0],
-			$media_item[1],
-			$media_item[2],
-			wp_get_attachment_caption( $media_item_id )
+		$this->register_type(
+			self::TYPE_WEBSITE,
+			$this->apply_filters( 'site-data', $schema )
 		);
 	}
 
-	private function add_publisher_schema( $schema ) {
+	private function add_publisher_schema() {
 		$is_output_page = $this->is_publisher_output_page();
 
 		if ( $this->is_schema_type_person() ) {
 			// Publisher information on every page
-			$schema[] = $this->get_personal_brand_schema();
+			$this->add_personal_brand_schema();
 
 			// Full personal details only on output page
 			if ( $is_output_page ) {
-				$schema[] = $this->filter_owner_data( $this->get_publishing_person_schema() );
+				$this->add_publishing_person_schema();
 			}
 		} else {
-			$schema[] = $this->filter_owner_data( $this->get_publishing_organization_schema( $is_output_page ) );
+			$this->add_publishing_organization_schema( $is_output_page );
 		}
-
-		return $schema;
 	}
 
 	private function filter_owner_data( $data ) {
@@ -474,12 +538,14 @@ class Smartcrawl_Schema_Value_Helper extends Smartcrawl_Type_Traverser {
 		return $this->url_to_id( $this->get_publisher_url(), "#schema-publishing-organization" );
 	}
 
-	private function get_publishing_organization_schema( $full ) {
+	private function add_publishing_organization_schema( $full ) {
 		// Summary
+		$organization_type = $full
+			? $this->get_organization_type_option() // Only use the specific org type If we're showing the full output
+			: self::TYPE_ORGANIZATION;  // Otherwise use Organization 
+
 		$schema = array(
-			"@type" => $full
-				? $this->get_organization_type_option() // Only use the specific org type If we're showing the full output
-				: self::TYPE_ORGANIZATION, // Otherwise use Organization 
+			"@type" => $organization_type,
 			"@id"   => $this->get_publishing_organization_id(),
 			"url"   => $this->get_publisher_url(),
 		);
@@ -498,7 +564,11 @@ class Smartcrawl_Schema_Value_Helper extends Smartcrawl_Type_Traverser {
 		}
 
 		if ( ! $full ) {
-			return $schema;
+			$this->register_type(
+				$organization_type,
+				$this->filter_owner_data( $schema )
+			);
+			return;
 		}
 
 		// Description
@@ -521,7 +591,10 @@ class Smartcrawl_Schema_Value_Helper extends Smartcrawl_Type_Traverser {
 			$schema["sameAs"] = $social_urls;
 		}
 
-		return $schema;
+		$this->register_type(
+			$organization_type,
+			$this->filter_owner_data( $schema )
+		);
 	}
 
 	/**
@@ -587,7 +660,7 @@ class Smartcrawl_Schema_Value_Helper extends Smartcrawl_Type_Traverser {
 		       $queried_object->ID === $output_page->ID;
 	}
 
-	private function get_personal_brand_schema() {
+	private function add_personal_brand_schema() {
 		// Summary
 		$schema = array(
 			"@type" => self::TYPE_ORGANIZATION,
@@ -600,7 +673,7 @@ class Smartcrawl_Schema_Value_Helper extends Smartcrawl_Type_Traverser {
 
 		// Logo
 		$site_url = get_site_url();
-		$logo = $this->get_media_item_image_schema(
+		$logo = $this->helper->get_media_item_image_schema(
 			(int) $this->get_schema_option( 'person_brand_logo' ),
 			$this->url_to_id( $site_url, '#schema-personal-brand-logo' )
 		);
@@ -608,10 +681,10 @@ class Smartcrawl_Schema_Value_Helper extends Smartcrawl_Type_Traverser {
 			$schema["logo"] = $logo;
 		}
 
-		return $schema;
+		$this->register_type( self::TYPE_ORGANIZATION, $schema );
 	}
 
-	private function get_publishing_person_schema() {
+	private function add_publishing_person_schema() {
 		// Summary
 		$schema = array(
 			"@type" => self::TYPE_PERSON,
@@ -641,12 +714,12 @@ class Smartcrawl_Schema_Value_Helper extends Smartcrawl_Type_Traverser {
 
 		// Image
 		$site_url = get_site_url();
-		$image = $this->get_media_item_image_schema(
+		$image = $this->helper->get_media_item_image_schema(
 			(int) $this->get_schema_option( 'person_portrait' ),
 			$this->url_to_id( $site_url, '#schema-publisher-portrait' )
 		);
 		if ( ! $image && $this->is_author_gravatar_enabled() ) {
-			$schema["image"] = $this->get_image_schema(
+			$schema["image"] = $this->helper->get_image_schema(
 				$this->url_to_id( $site_url, "#schema-publisher-gravatar" ),
 				$this->owner->get_avatar_url( 100 ),
 				100,
@@ -673,7 +746,10 @@ class Smartcrawl_Schema_Value_Helper extends Smartcrawl_Type_Traverser {
 			$schema["sameAs"] = $social_urls;
 		}
 
-		return $schema;
+		$this->register_type(
+			self::TYPE_PERSON,
+			$this->filter_owner_data( $schema )
+		);
 	}
 
 	private function get_contact_point( $phone, $contact_page_id, $contact_type = '' ) {
@@ -725,7 +801,7 @@ class Smartcrawl_Schema_Value_Helper extends Smartcrawl_Type_Traverser {
 		}
 
 		if ( $this->is_author_gravatar_enabled() ) {
-			$schema["image"] = $this->get_image_schema(
+			$schema["image"] = $this->helper->get_image_schema(
 				$this->url_to_id( $url, "#schema-author-gravatar" ),
 				$user->get_avatar_url( 100 ),
 				100,
@@ -759,7 +835,7 @@ class Smartcrawl_Schema_Value_Helper extends Smartcrawl_Type_Traverser {
 			return array();
 		}
 
-		$schema = $this->get_image_schema(
+		$schema = $this->helper->get_image_schema(
 			$this->url_to_id( get_site_url(), '#schema-organization-logo' ),
 			esc_url( $url ),
 			60,
@@ -838,22 +914,6 @@ class Smartcrawl_Schema_Value_Helper extends Smartcrawl_Type_Traverser {
 		return $this->get_schema_type() === self::TYPE_ORGANIZATION;
 	}
 
-	private function get_image_schema( $id, $url, $width, $height, $caption = '' ) {
-		$image_schema = array(
-			'@type'  => self::TYPE_IMAGE,
-			'@id'    => $id,
-			'url'    => $url,
-			'height' => $height,
-			'width'  => $width,
-		);
-
-		if ( $caption ) {
-			$image_schema['caption'] = $caption;
-		}
-
-		return $image_schema;
-	}
-
 	private function get_schema_type() {
 		return self::TYPE_PERSON === $this->get_social_option( 'schema_type' )
 			? self::TYPE_PERSON
@@ -877,9 +937,9 @@ class Smartcrawl_Schema_Value_Helper extends Smartcrawl_Type_Traverser {
 	 * @param $posts
 	 */
 	private function set_archive_schema( $type, $url, $posts ) {
-		$graph = $this->get_header_footer_schema( $url );
-		$graph = $this->add_publisher_schema( $graph );
-		$graph[] = $this->get_website_schema();
+		$this->add_header_footer_schema( $url );
+		$this->add_publisher_schema();
+		$this->add_website_schema();
 
 		$list_type = $this->get_archive_main_entity_type();
 		$is_type_item_list = $list_type === self::TYPE_ITEM_LIST;
@@ -921,8 +981,7 @@ class Smartcrawl_Schema_Value_Helper extends Smartcrawl_Type_Traverser {
 			);
 		}
 
-		$graph[] = $main;
-		$this->set_schema( $graph );
+		$this->register_type( $type, $main );
 	}
 
 	private function get_archive_main_entity_type() {
@@ -1007,54 +1066,54 @@ class Smartcrawl_Schema_Value_Helper extends Smartcrawl_Type_Traverser {
 		return $schema;
 	}
 
-	public function get_header_footer_schema( $url ) {
+	public function add_header_footer_schema( $url ) {
 		$enable_header_footer = (bool) $this->get_schema_option( 'schema_wp_header_footer' );
 		if ( ! $enable_header_footer ) {
-			return array();
+			return;
 		}
 
 		$helper = Smartcrawl_Meta_Value_Helper::get();
 		$headline = $helper->get_title();
 		$description = $helper->get_description();
 
-		return array(
-			array(
-				"@type"       => "WPHeader",
-				"url"         => $url,
-				"headline"    => $headline,
-				"description" => $description,
-			),
-			array(
-				"@type"         => "WPFooter",
-				"url"           => $url,
-				"headline"      => $headline,
-				"description"   => $description,
-				"copyrightYear" => date( 'Y' ),
-			),
-		);
+		$this->register_type( 'WPHeader', array(
+			"@type"       => "WPHeader",
+			"url"         => $url,
+			"headline"    => $headline,
+			"description" => $description,
+		) );
+
+		$this->register_type( 'WPFooter', array(
+			"@type"         => "WPFooter",
+			"url"           => $url,
+			"headline"      => $headline,
+			"description"   => $description,
+			"copyrightYear" => date( 'Y' ),
+		) );
 	}
 
-	private function add_media_schema( $schema, $post ) {
-		$schema = $this->add_oembed_schema( $post, $schema );
-		$schema = $this->add_attachment_schema( $post, $schema );
-
-		return $schema;
+	private function add_media_schema( $post ) {
+		$this->add_oembed_schema( $post );
+		$this->add_attachment_schema( $post );
 	}
 
-	private function add_oembed_schema( $post, $schema ) {
+	private function add_oembed_schema( $post ) {
 		$schema_data_controller = Smartcrawl_Controller_Media_Schema_Data::get();
 		$schema_data_controller->maybe_refresh_wp_embeds_cache( $post );
 
 		$cache = $schema_data_controller->get_cache( $post->ID );
 		if ( empty( $cache ) ) {
-			return $schema;
+			return;
 		}
 
 		$enable_audio = (bool) $this->get_schema_option( 'schema_enable_audio' );
 		$audio_data = smartcrawl_get_array_value( $cache, 'audio' );
 		if ( $enable_audio && ! empty( $audio_data ) && is_array( $audio_data ) ) {
 			foreach ( $audio_data as $audio_datum ) {
-				$schema[] = $this->get_audio_schema( $audio_datum );
+				$this->register_type(
+					self::TYPE_AUDIO_OBJECT,
+					$this->get_audio_schema( $audio_datum )
+				);
 			}
 		}
 
@@ -1067,14 +1126,18 @@ class Smartcrawl_Schema_Value_Helper extends Smartcrawl_Type_Traverser {
 		if ( $enable_video && ! empty( $video_data ) && is_array( $video_data ) ) {
 			foreach ( $video_data as $video_id => $video_datum ) {
 				if ( $enable_youtube && array_key_exists( $video_id, $youtube_data ) ) {
-					$schema[] = $this->get_youtube_schema( $youtube_data[ $video_id ], $video_datum );
+					$this->register_type(
+						self::TYPE_VIDEO_OBJECT,
+						$this->get_youtube_schema( $youtube_data[ $video_id ], $video_datum )
+					);
 				} else {
-					$schema[] = $this->get_video_schema( $video_datum );
+					$this->register_type(
+						self::TYPE_VIDEO_OBJECT,
+						$this->get_video_schema( $video_datum )
+					);
 				}
 			}
 		}
-
-		return $schema;
 	}
 
 	private function get_audio_schema( $data ) {
@@ -1243,7 +1306,7 @@ class Smartcrawl_Schema_Value_Helper extends Smartcrawl_Type_Traverser {
 		}
 
 		if ( $image_id ) {
-			$schema["image"] = $this->filter_post_data_image( $this->get_media_item_image_schema(
+			$schema["image"] = $this->filter_post_data_image( $this->helper->get_media_item_image_schema(
 				$image_id,
 				$this->url_to_id( $permalink, '#schema-article-image' )
 			) );
@@ -1265,7 +1328,7 @@ class Smartcrawl_Schema_Value_Helper extends Smartcrawl_Type_Traverser {
 		return '';
 	}
 
-	private function add_attachment_schema( $post, $schema ) {
+	private function add_attachment_schema( $post ) {
 		$src_attributes = Smartcrawl_Html::find_attributes( 'video, audio', 'src', $post->post_content );
 		foreach ( $src_attributes as $html_element => $src_url ) {
 			$attachment_id = attachment_url_to_postid( $src_url );
@@ -1276,15 +1339,19 @@ class Smartcrawl_Schema_Value_Helper extends Smartcrawl_Type_Traverser {
 			$attachment = get_post( $attachment_id );
 
 			if ( $this->is_mime_type_video( $attachment ) ) {
-				$schema[] = $this->get_video_attachment_schema( $attachment, $html_element );
+				$this->register_type(
+					self::TYPE_VIDEO_OBJECT,
+					$this->get_video_attachment_schema( $attachment, $html_element )
+				);
 			}
 
 			if ( $this->is_mime_type_audio( $attachment ) ) {
-				$schema[] = $this->get_audio_attachment_schema( $attachment );
+				$this->register_type(
+					self::TYPE_AUDIO_OBJECT,
+					$this->get_audio_attachment_schema( $attachment )
+				);
 			}
 		}
-
-		return $schema;
 	}
 
 	private function get_video_attachment_schema( $attachment, $video_element_html ) {
@@ -1366,5 +1433,9 @@ class Smartcrawl_Schema_Value_Helper extends Smartcrawl_Type_Traverser {
 	public function get_organization_name() {
 		$organization_name = $this->get_social_option( 'organization_name' );
 		return $organization_name ? $organization_name : get_bloginfo( 'name' );
+	}
+
+	private function register_type( $type, $schema ) {
+		$this->type_registry[ $type ][] = $schema;
 	}
 }

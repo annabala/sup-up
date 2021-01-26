@@ -4,8 +4,6 @@ $footer_text = sprintf( esc_html__( 'Made with %s by WPMU DEV', 'wds' ), '<i cla
 $filtered_footer_text = Smartcrawl_White_Label::get()->get_wpmudev_footer_text( $footer_text );
 ?>
 
-<?php echo SmartCrawl_Controller_Black_Friday::get()->get_black_friday_modal(); ?>
-
 <div class="sui-footer">
 	<?php echo wp_kses_post( $filtered_footer_text ); ?>
 </div>

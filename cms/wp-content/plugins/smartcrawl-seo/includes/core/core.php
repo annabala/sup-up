@@ -233,8 +233,6 @@ function smartcrawl_remove_shortcodes( $content ) {
 /**
  * Our callback function for making get_shortcode_regex() replacements.
  *
- * @see get_shortcode_regex()
- *
  * @param $matches array This array contains data in the following format:
  * array(
  *      0 => full matched string
@@ -247,6 +245,8 @@ function smartcrawl_remove_shortcodes( $content ) {
  * );
  *
  * @return bool|mixed|string
+ * @see get_shortcode_regex()
+ *
  */
 function smartcrawl_extract_shortcode_contents( $matches ) {
 	if ( empty( $matches ) || count( $matches ) < 7 ) {
@@ -415,11 +415,11 @@ function user_can_see_seo_metabox_301_redirect() {
  * Metaboxes are still added to "Screen Options".
  * If user chooses to show/hide them, respect her decision.
  *
- * @deprecated as of version 1.0.9
- *
  * @param array $arg Whatever's been already hidden.
  *
  * @return array
+ * @deprecated as of version 1.0.9
+ *
  */
 function smartcrawl_process_default_hidden_meta_boxes( $arg ) {
 	$smartcrawl_options = Smartcrawl_Settings::get_options();
@@ -1038,7 +1038,34 @@ function smartcrawl_frontend_post_types() {
 		'public'             => true,
 		'publicly_queryable' => true,
 	) );
-	$types[] = 'page';
+	$types['page'] = 'page';
 
 	return $types;
+}
+
+/**
+ * Returns attachment image from the current site, or if that fails, the main site.
+ * Useful for attachment IDs stored as option values in site wide mode.
+ *
+ * @param $attachment_id
+ * @param string $size
+ *
+ * @return array|bool
+ */
+function smartcrawl_get_main_site_attachment( $attachment_id, $size = 'full' ) {
+	$current_blog_id = get_current_blog_id();
+	$switch_to_main_site = is_multisite()
+	                       && smartcrawl_is_switch_active( 'SMARTCRAWL_SITEWIDE' )
+	                       && ! is_main_site();
+	if ( $switch_to_main_site ) {
+		switch_to_blog( get_main_site_id() );
+	}
+
+	$attachment = wp_get_attachment_image_src( $attachment_id, $size );
+
+	if ( $switch_to_main_site ) {
+		switch_to_blog( $current_blog_id );
+	}
+
+	return $attachment;
 }

@@ -6,18 +6,21 @@ document.addEventListener("DOMContentLoaded", function (event) {
       maxlength: "100",
       validateRegex: "",
       validateErrorMessage: "",
+      translatable: true,
     },
     checked: {
       type: "checkbox",
       headline: "default checked",
       validateRegex: "",
       validateErrorMessage: "",
+      translatable: false,
     },
     disabled: {
       type: "checkbox",
       headline: "Is disabled",
       validateRegex: "",
       validateErrorMessage: "",
+      translatable: false,
     },
     cookie_suffix: {
       type: "text",
@@ -25,6 +28,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
       maxlength: "10",
       validateRegex: /^[a-z_]+$/,
       validateErrorMessage: "Only lowercase letters and underscore allowed",
+      translatable: false,
     },
     delete_icon: {
       type: "html",
@@ -32,6 +36,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
       class: ["dashicons", "dashicons-no-alt"],
       headline: "",
       value: "",
+      translatable: false,
       clickHandler: delete_row,
     },
   };
@@ -71,9 +76,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
         cell.appendChild(input_field);
       });
       let cell = row.insertCell();
-      let delete_icon = create_form("", "delete_icon");
-      delete_icon.style.cursor = "pointer";
-      cell.appendChild(delete_icon);
+      if (getLanguage() === "xx") {
+        let delete_icon = create_form("", "delete_icon");
+        delete_icon.style.cursor = "pointer";
+        cell.appendChild(delete_icon);
+      }
     });
 
     return table;
@@ -131,16 +138,22 @@ document.addEventListener("DOMContentLoaded", function (event) {
     input_field.value = value;
     input_field.classList.add("nsc_bar_" + field_key);
     input_field.setAttribute("data-field_key", field_key);
-    field_config = table_config[input_field.getAttribute("data-field_key")];
+    var field_config = table_config[input_field.getAttribute("data-field_key")];
     input_field.placeholder = field_config.headline;
+    if (should_element_be_disabled(input_field)) {
+      input_field.setAttribute("disabled", true);
+    }
     input_field.onchange = onchange_handler;
     return input_field;
   }
 
   function create_textfield(input_field) {
     input_field.setAttribute("type", "text");
-    field_config = table_config[input_field.getAttribute("data-field_key")];
+    var field_config = table_config[input_field.getAttribute("data-field_key")];
     input_field.maxLength = field_config.maxlength;
+    if (should_element_be_disabled(input_field)) {
+      input_field.setAttribute("disabled", true);
+    }
     return input_field;
   }
 
@@ -153,6 +166,10 @@ document.addEventListener("DOMContentLoaded", function (event) {
       case "disabled":
         input_field.checked = true;
         break;
+    }
+
+    if (should_element_be_disabled(input_field)) {
+      input_field.setAttribute("disabled", true);
     }
 
     return input_field;
@@ -208,7 +225,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
     } catch (er) {}
     if (textar) {
       textar.parentNode.appendChild(table);
-      textar.parentNode.appendChild(create_add_link());
+      if (getLanguage() === "xx") {
+        textar.parentNode.appendChild(create_add_link());
+      }
     }
   }
 
@@ -274,6 +293,25 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     document.getElementById("ff_nsc_bar_cookietypes").value = JSON.stringify(new_json);
     //console.log("new json", new_json);
+  }
+
+  function should_element_be_disabled(element) {
+    var field_config = table_config[element.getAttribute("data-field_key")];
+    if (field_config.translatable) {
+      return false;
+    }
+
+    if (getLanguage() === "xx") {
+      return false;
+    }
+
+    return true;
+  }
+
+  function getLanguage() {
+    var url = new URL(window.location.href);
+    var language = url.searchParams.get("nsc_bara_language_selector") || "xx";
+    return language;
   }
 });
 

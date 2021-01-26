@@ -25,7 +25,7 @@ class Smartcrawl_Controller_Upgrade_Page extends Smartcrawl_Admin_Page {
 			'wds_wizard',
 			esc_html__( 'SmartCrawl Pro', 'wds' ),
 			esc_html__( 'SmartCrawl Pro', 'wds' ),
-			'list_users',
+			'manage_options',
 			self::MENU_SLUG,
 			array( $this, 'upgrade_page' )
 		);

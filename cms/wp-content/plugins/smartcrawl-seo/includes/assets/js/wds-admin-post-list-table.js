@@ -15,7 +15,7 @@
 		}
 
 		return analyse_post(pid).always(function () {
-			setTimeout(analyse_posts);
+			setTimeout(analyse_posts, Wds.get('post_list', 'analyse_posts_delay'));
 		});
 	}
 

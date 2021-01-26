@@ -18,8 +18,21 @@ if ( $error ) {
 	return;
 }
 
+$status = empty( $status ) ? '' : $status;
+$status_message = empty( $status_message ) ? '' : $status_message;
 $issue_count = empty( $issue_count ) ? 0 : $issue_count;
-$score_class = $issue_count > 0 ? 'sui-icon-info sui-warning' : 'sui-icon-check-tick sui-success';
+$score_class = $status === 'success'
+	? 'sui-icon-check-tick sui-success'
+	: "sui-icon-info sui-$status";
+if ( $score === 100 ) {
+	$dot_count = 3;
+} elseif ( $score >= 80 ) {
+	$dot_count = 2;
+} elseif ( $score >= 60 ) {
+	$dot_count = 1;
+} else {
+	$dot_count = 0;
+}
 $opts = Smartcrawl_Settings::get_component_options( Smartcrawl_Settings::COMP_CHECKUP );
 $reporting_enabled = ! empty( $opts['checkup-cron-enable'] );
 $cron = Smartcrawl_Controller_Cron::get();
@@ -38,7 +51,20 @@ $whitelabel_class = Smartcrawl_White_Label::get()->summary_class();
 				<span class="sui-summary-large"><?php echo esc_html( intval( $score ) ); ?></span>
 				<i class="<?php echo esc_attr( $score_class ); ?>"></i>
 				<span class="sui-summary-percent">/100</span>
-				<span class="sui-summary-sub"><?php esc_html_e( 'Current SEO Score', 'wds' ); ?></span>
+				<span class="sui-summary-sub">
+					<?php echo esc_html( $status_message ); ?>
+					<br/>
+					<?php if ( $dot_count ) {
+						foreach ( range( 1, $dot_count ) as $filled_dot ) {
+							?><span class="wds-checkup-status-dot-full"></span><?php
+						}
+						if ( 3 - $dot_count > 0 ) {
+							foreach ( range( 1, 3 - $dot_count ) as $empty_dot ) {
+								?><span class="wds-checkup-status-dot"></span><?php
+							}
+						}
+					} ?>
+				</span>
 			</div>
 		</div>
 	</div>

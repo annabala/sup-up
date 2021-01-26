@@ -285,7 +285,7 @@ class Smartcrawl_Metabox extends Smartcrawl_Base_Controller {
 		$show = user_can_see_seo_metabox();
 		if ( function_exists( 'add_meta_box' ) ) {
 			// Show branding for singular installs.
-			$metabox_title = is_multisite() ? __( 'SmartCrawl', 'wds' ) : 'SmartCrawl';
+			$metabox_title = $this->get_metabox_title();
 			$post_types = get_post_types( array(
 				'show_ui' => true, // Only if it actually supports WP UI.
 				'public'  => true, // ... and is public
@@ -592,5 +592,12 @@ class Smartcrawl_Metabox extends Smartcrawl_Base_Controller {
 		}
 
 		return $this->is_private_post_type( $current_screen->post_type );
+	}
+
+	/**
+	 * @return string|void
+	 */
+	private function get_metabox_title() {
+		return __( 'SmartCrawl', 'wds' );
 	}
 }

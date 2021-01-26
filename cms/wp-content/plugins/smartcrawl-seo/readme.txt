@@ -6,8 +6,8 @@ Tags: seo optimization, seo, sitemap, google search console, pagerank, keywords,
 Author URI: https://premium.wpmudev.org/
 Author: WPMU DEV
 Requires at least: 4.6
-Tested up to: 5.5
-Stable tag: 2.8.4
+Tested up to: 5.6
+Stable tag: 2.9.0
 
 SEO checker, content analysis & SEO optimizer. Rank higher on search engines with 301 redirects, XML sitemaps & one-click setup.
 
@@ -127,6 +127,27 @@ SmartCrawl works with any normal WP content and page builders shouldn’t be an 
 4. Use OpenGraph and Twitter Cards to optimize social sharing.
 
 == Changelog ==
+
+= 2.9.0 ( 2021-01-25 ) =
+
+- New: Schema types builder tool
+- New: Ability to manually update sitemap and notify search engines
+- New: More details provided when SEO checkup score is green
+- Fix: Optimized code for fetching owner data
+- Fix: In sitewide mode, Twitter and OpenGraph images not displayed on all sub-sites
+- Fix: VideoObject schema not generated for shortened YouTube URL
+- Fix: Balance CPU usage in admin posts list pages
+- Fix: Branda not able to change SmartCrawl meta box title
+- Fix: SmartCrawl not adding bbPress forum URLs to the sitemap
+- Fix: Sitemap appears as active on widget while it is deactivated
+- Fix: "Add Schema" action button missing from multisite SEO checkup page
+- Fix: Whitelabel issue in features modal
+- Fix: Post meta preview showing incorrect values
+- Fix: Color of SEO checkup score is different from HUB dashboard
+- Fix: Removed links to documentation in Whitelabel mode
+- Fix: Improved text for duplicate IDs SEO check
+- Fix: Automatically open modal when Add Redirect button clicked on dashboard
+- Fix: Minor text changes
 
 = 2.8.3 ( 2020-11-21 ) =
 

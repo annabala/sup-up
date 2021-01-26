@@ -111,9 +111,13 @@
 			var $root = $select.closest(root_selector);
 
 			$.each($root.find('.wds-conditional-inside'), function (index, conditional_el) {
-				var $conditional_el = $(conditional_el);
+				var $conditional_el = $(conditional_el),
+					conditional_data = $conditional_el.data('conditional-val');
+				if (!conditional_data) {
+					return;
+				}
 
-				if ($conditional_el.data('conditional-val') == $select.val()) {
+				if (conditional_data.split('|').includes($select.val())) {
 					$conditional_el.show();
 				} else {
 					$conditional_el.hide();
@@ -404,12 +408,16 @@
 		$element.find('.sui-progress-bar span').width(value + '%');
 	};
 
-	window.Wds.open_dialog = function (id, focus_after_closed, focus_after_open) {
+	window.Wds.open_dialog = function (id, focus_after_closed, focus_after_open, closeOnEsc) {
 		if (!focus_after_closed) {
 			focus_after_closed = 'container';
 		}
 
-		SUI.openModal(id, focus_after_closed, focus_after_open);
+		if (closeOnEsc === 'undefined') {
+			closeOnEsc = true;
+		}
+
+		SUI.openModal(id, focus_after_closed, focus_after_open, false, closeOnEsc);
 	};
 
 	window.Wds.close_dialog = function () {
@@ -562,38 +570,6 @@
 	function init() {
 		window.Wds.floating_message();
 		window.Wds.inverted_toggle();
-
-		hook_black_friday_2020();
-	}
-
-	function hook_black_friday_2020() {
-		if ($('#wds-black-friday-modal').length) {
-			SUI.openModal(
-				'wds-black-friday-modal',
-				'container',
-				'wds-check-all-plans-modal-button',
-				false,
-				false
-			);
-
-			$('#wds-black-friday-modal-close-button').off().click(function () {
-				$(this)
-					.prop('disabled', true)
-					.find('.sui-icon-close')
-					.removeClass('sui-icon-close')
-					.addClass('sui-icon-more');
-
-				$.post(ajaxurl, {action: 'wds-black-friday-skip'}, function () {
-					SUI.closeModal();
-				});
-			});
-		}
-		$('.wds-black-notice-dismiss').click(function () {
-			$(this).prop('disabled', true).html('...');
-			$.post(ajaxurl, {action: 'wds-black-friday-skip-notice'}, function () {
-				$('#wds-black-notice-content').remove();
-			});
-		});
 	}
 
 	$(init);

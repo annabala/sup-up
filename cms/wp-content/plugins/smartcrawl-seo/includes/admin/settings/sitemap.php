@@ -67,8 +67,6 @@ class Smartcrawl_Sitemap_Settings extends Smartcrawl_Settings_Admin {
 		}
 
 		$booleans = array(
-			'ping-google',
-			'ping-bing',
 			'sitemap-images',
 			'sitemap-stylesheet',
 			'sitemap-dashboard-widget',
@@ -81,6 +79,9 @@ class Smartcrawl_Sitemap_Settings extends Smartcrawl_Settings_Admin {
 				$result[ $bool ] = true;
 			}
 		}
+
+		$result['ping-google'] = ! empty( $input['auto-notify-search-engines'] );
+		$result['ping-bing'] = ! empty( $input['auto-notify-search-engines'] );
 
 		// Array Booleans.
 		foreach ( array_keys( $this->_get_post_types_options() ) as $post_type ) {
@@ -412,10 +413,6 @@ class Smartcrawl_Sitemap_Settings extends Smartcrawl_Settings_Admin {
 		$arguments = array(
 			'post_types'         => array(),
 			'taxonomies'         => array(),
-			'engines'            => array(
-				'ping-google' => __( 'Google', 'wds' ),
-				'ping-bing'   => __( 'Bing', 'wds' ),
-			),
 			'checkbox_options'   => array(
 				'yes' => __( 'Yes', 'wds' ),
 			),

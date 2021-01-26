@@ -30,9 +30,7 @@ class Smartcrawl_Social_Value_Helper extends Smartcrawl_Type_Traverser {
 	}
 
 	public function get_images() {
-		$images = array_unique( array_map( 'trim', $this->images ) );
-
-		return apply_filters( $this->include_key( 'wds_custom_%s_image' ), $images );
+		return apply_filters( $this->include_key( 'wds_custom_%s_image' ), $this->images );
 	}
 
 	public function is_enabled() {
@@ -56,7 +54,7 @@ class Smartcrawl_Social_Value_Helper extends Smartcrawl_Type_Traverser {
 
 		$this->title = empty( $title ) ? Smartcrawl_Meta_Value_Helper::get()->get_title() : $title;
 		$this->description = empty( $description ) ? Smartcrawl_Meta_Value_Helper::get()->get_description() : $description;
-		$this->images = is_array( $images ) ? $images : array();
+		$this->images = $this->prepare_option_images( $images );
 		$this->enabled = (bool) $enabled;
 	}
 
@@ -74,12 +72,15 @@ class Smartcrawl_Social_Value_Helper extends Smartcrawl_Type_Traverser {
 			$this->description = $this->prepare_value( $description );
 		}
 		if ( is_array( $images ) && ! empty( $images ) ) {
-			$this->images = $images;
+			$this->images = $this->prepare_meta_images( $images );
 		}
 
 		// Add featured image as the last resort
 		if ( has_post_thumbnail( $post ) ) {
-			$this->images[] = get_the_post_thumbnail_url( $post );
+			$this->images = $this->prepare_image(
+				$this->images,
+				get_post_thumbnail_id( $post )
+			);
 		}
 
 		$this->enabled = ! $disabled;
@@ -103,7 +104,11 @@ class Smartcrawl_Social_Value_Helper extends Smartcrawl_Type_Traverser {
 
 		$attributes = Smartcrawl_Html::find_attributes( 'img', 'src', $post->post_content );
 		if ( ! empty( $attributes ) ) {
-			$this->images[] = array_shift( $attributes );
+			$image_source = array_shift( $attributes );
+			$this->images = $this->prepare_image(
+				$this->images,
+				$image_source
+			);
 		}
 	}
 
@@ -121,7 +126,7 @@ class Smartcrawl_Social_Value_Helper extends Smartcrawl_Type_Traverser {
 			$this->description = $this->prepare_value( $description );
 		}
 		if ( is_array( $images ) && ! empty( $images ) ) {
-			$this->images = $images;
+			$this->images = $this->prepare_meta_images( $images );
 		}
 		$this->enabled = ! $disabled;
 	}
@@ -203,5 +208,44 @@ class Smartcrawl_Social_Value_Helper extends Smartcrawl_Type_Traverser {
 		$value = wp_strip_all_tags( trim( strval( $value ) ) );
 
 		return Smartcrawl_Replacement_Helper::replace( $value );
+	}
+
+	private function prepare_option_images( $image_ids ) {
+		return $this->prepare_images( $image_ids, 'smartcrawl_get_main_site_attachment' );
+	}
+
+	private function prepare_meta_images( $image_ids ) {
+		return $this->prepare_images( $image_ids, 'wp_get_attachment_image_src' );
+	}
+
+	private function prepare_images( $image_ids, $attachment_function ) {
+		$image_ids = is_array( $image_ids ) || ! empty( $image_ids )
+			? $image_ids
+			: array();
+
+		$images = array();
+		foreach ( $image_ids as $image_id ) {
+			$images = $this->prepare_image( $images, $image_id, $attachment_function );
+		}
+
+		return $images;
+	}
+
+	private function prepare_image( $images, $image_id, $attachment_function = 'wp_get_attachment_image_src' ) {
+		if ( empty( $images ) || ! is_array( $images ) ) {
+			$images = array();
+		}
+
+		if ( is_numeric( $image_id ) ) {
+			$attachment = call_user_func( $attachment_function, $image_id, 'full' );
+			$attachment_url = smartcrawl_get_array_value( $attachment, 0 );
+			if ( $attachment_url ) {
+				$images[ $attachment_url ] = $attachment;
+			}
+		} else {
+			$images[ $image_id ] = array( $image_id );
+		}
+
+		return $images;
 	}
 }

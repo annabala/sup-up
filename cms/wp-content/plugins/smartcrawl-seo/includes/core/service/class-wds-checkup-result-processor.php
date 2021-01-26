@@ -20,7 +20,7 @@ class Smartcrawl_Checkup_Result_Processor {
 	}
 
 	function process( $results ) {
-		if ( is_network_admin() || empty( $results['items'] ) ) {
+		if ( empty( $results['items'] ) ) {
 			return $results;
 		}
 
@@ -79,7 +79,15 @@ class Smartcrawl_Checkup_Result_Processor {
 		return $this->edit_wp_settings_button();
 	}
 
+	private function is_tab_allowed( $tab ) {
+		return Smartcrawl_Settings_Admin::is_tab_allowed( $tab );
+	}
+
 	private function process_sitemaps( $item ) {
+		if ( ! $this->is_tab_allowed( Smartcrawl_Settings::TAB_SITEMAP ) ) {
+			return '';
+		}
+
 		return $this->button_markup(
 			esc_html__( 'Enable Sitemap', 'wds' ),
 			Smartcrawl_Settings_Admin::admin_url( Smartcrawl_Settings::TAB_SITEMAP ),
@@ -88,6 +96,10 @@ class Smartcrawl_Checkup_Result_Processor {
 	}
 
 	private function process_open_graph( $item ) {
+		if ( ! $this->is_tab_allowed( Smartcrawl_Settings::TAB_SOCIAL ) ) {
+			return '';
+		}
+
 		$social_url = $this->get_social_url();
 
 		return $this->button_markup(
@@ -98,6 +110,10 @@ class Smartcrawl_Checkup_Result_Processor {
 	}
 
 	private function process_microdata( $item ) {
+		if ( ! $this->is_tab_allowed( Smartcrawl_Settings::TAB_SCHEMA ) ) {
+			return '';
+		}
+
 		$schema_url = Smartcrawl_Settings_Admin::admin_url( Smartcrawl_Settings::TAB_SCHEMA );
 
 		return $this->button_markup(
@@ -108,6 +124,10 @@ class Smartcrawl_Checkup_Result_Processor {
 	}
 
 	private function process_meta( $item ) {
+		if ( ! $this->is_tab_allowed( Smartcrawl_Settings::TAB_ONPAGE ) ) {
+			return '';
+		}
+
 		$is_too_long = $this->item_status_contains( $item, 'too long' );
 
 		return $this->button_markup(
@@ -118,6 +138,10 @@ class Smartcrawl_Checkup_Result_Processor {
 	}
 
 	private function process_title( $item ) {
+		if ( ! $this->is_tab_allowed( Smartcrawl_Settings::TAB_ONPAGE ) ) {
+			return '';
+		}
+
 		$is_too_long = $this->item_status_contains( $item, 'too long' );
 
 		return $this->button_markup(
@@ -152,6 +176,10 @@ class Smartcrawl_Checkup_Result_Processor {
 	}
 
 	private function process_robots( $item ) {
+		if ( ! $this->is_tab_allowed( Smartcrawl_Settings::TAB_AUTOLINKS ) ) {
+			return '';
+		}
+
 		$no_sitemap = $this->item_status_contains( $item, 'sitemap' );
 		$url = Smartcrawl_Settings_Admin::admin_url( Smartcrawl_Settings::TAB_AUTOLINKS ) . '&tab=tab_robots_editor';
 		return $this->button_markup(
@@ -226,6 +254,10 @@ class Smartcrawl_Checkup_Result_Processor {
 		$edit_homepage_button = $this->edit_homepage_button();
 		if ( $edit_homepage_button ) {
 			return $edit_homepage_button;
+		}
+
+		if ( ! $this->is_tab_allowed( Smartcrawl_Settings::TAB_ONPAGE ) ) {
+			return '';
 		}
 
 		return $this->button_markup(

@@ -233,7 +233,7 @@ class Smartcrawl_Xml_VideoSitemap {
 			if ( 200 !== (int) wp_remote_retrieve_response_code( $response ) ) {
 				return false;
 			}
-			$body = unserialize( wp_remote_retrieve_body( $response ) );
+//			$body = unserialize( wp_remote_retrieve_body( $response ) );
 			if ( ! empty( $body[0]['thumbnail_medium'] ) ) {
 				$thumbnail = $body[0]['thumbnail_medium'];
 				update_post_meta( $post_id, '_vimeo_thumbnail_id-' . $video_id, $thumbnail );

@@ -13,6 +13,10 @@ $this->_render( 'vertical-tabs-side-nav', array(
 			'name' => esc_html__( 'Advanced', 'wds' ),
 		),
 		array(
+			'id'   => 'tab_types',
+			'name' => esc_html__( 'Types Builder', 'wds' ),
+		),
+		array(
 			'id'   => 'tab_settings',
 			'name' => esc_html__( 'Settings', 'wds' ),
 		),

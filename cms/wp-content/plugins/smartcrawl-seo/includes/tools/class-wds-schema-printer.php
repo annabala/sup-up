@@ -50,6 +50,7 @@ class Smartcrawl_Schema_Printer extends Smartcrawl_WorkUnit {
 		}
 
 		$helper = Smartcrawl_Schema_Value_Helper::get();
+		$helper->clear();
 		$helper->traverse();
 		$data = $helper->get_schema();
 
@@ -85,7 +86,7 @@ class Smartcrawl_Schema_Printer extends Smartcrawl_WorkUnit {
 		$admin_bar->add_menu( array(
 			'id'    => 'smartcrawl-test-item',
 			'title' => __( 'Test Schema', 'wds' ),
-			'href'  => 'https://developers.google.com/structured-data/testing-tool/?url=' . $url,
+			'href'  => sprintf( 'https://search.google.com/test/rich-results?url=%s&user_agent=2', urlencode( $url ) ),
 			'meta'  => array(
 				'title'  => __( 'Test Schema', 'wds' ),
 				'target' => __( '_blank' ),
@@ -104,8 +105,24 @@ class Smartcrawl_Schema_Printer extends Smartcrawl_WorkUnit {
 		add_action( 'wp_head', array( $this, 'dispatch_schema_injection' ), 50 );
 		add_action( 'wds_head-after_output', array( $this, 'dispatch_schema_injection' ) );
 		add_action( 'admin_bar_menu', array( $this, 'admin_bar_menu_items' ), 99 );
+		add_filter( 'woocommerce_structured_data_product', array( $this, 'remove_woocommerce_product_schema' ), 10, 2 );
 
 		$this->_is_running = true;
+	}
+
+	public function remove_woocommerce_product_schema( $markup, $product ) {
+		$helper = Smartcrawl_Schema_Value_Helper::get();
+		$schema = $helper->get_schema();
+		$graph = smartcrawl_get_array_value( $schema, '@graph' );
+		if ( $graph ) {
+			foreach ( $graph as $graph_item ) {
+				if ( smartcrawl_get_array_value( $graph_item, '@type' ) === 'Product' ) {
+					return array();
+				}
+			}
+		}
+
+		return $markup;
 	}
 
 	/**

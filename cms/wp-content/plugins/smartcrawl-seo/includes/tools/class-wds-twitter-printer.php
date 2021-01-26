@@ -101,25 +101,13 @@ class Smartcrawl_Twitter_Printer extends Smartcrawl_WorkUnit {
 		}
 
 		if ( ! empty( $images ) && is_array( $images ) ) {
-			$twitter_image_url = $this->get_image_url( $images[0] );
+			$twitter_image_url = array_keys( $images )[0];
 			if ( $twitter_image_url ) {
 				$this->print_html_tag( 'image', $twitter_image_url );
 			}
 		}
 
 		return true;
-	}
-
-	private function get_image_url( $id ) {
-		if ( empty( $id ) ) {
-			return '';
-		}
-
-		if ( ! is_numeric( $id ) ) {
-			return $id;
-		}
-
-		return (string) smartcrawl_get_array_value( wp_get_attachment_image_src( $id, 'full' ), 0 );
 	}
 
 	private function is_globally_enabled() {
@@ -160,8 +148,8 @@ class Smartcrawl_Twitter_Printer extends Smartcrawl_WorkUnit {
 
 		$this->helper()->traverse();
 		$images = $this->helper()->get_images();
-		if ( ! empty( $images ) ) {
-			return $this->get_image_url( $images[0] );
+		if ( ! empty( $images ) && is_array( $images ) ) {
+			return array_keys( $images )[0];
 		}
 
 		return '';

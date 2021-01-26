@@ -48,6 +48,7 @@ class Smartcrawl_Controller_Assets extends Smartcrawl_Base_Controller {
 	const WP_DASHBOARD_CSS = 'wds-wp-dashboard';
 
 	const SCHEMA_JS = 'wds-admin-schema';
+	const SCHEMA_TYPES_JS = 'wds-schema-types';
 	const WELCOME_JS = 'wds-welcome-modal';
 
 	/**
@@ -295,7 +296,11 @@ class Smartcrawl_Controller_Assets extends Smartcrawl_Base_Controller {
 		) );
 
 		wp_localize_script( self::SITEMAPS_PAGE_JS, '_wds_sitemaps', array(
-			'nonce' => wp_create_nonce( 'wds-nonce' ),
+			'nonce'   => wp_create_nonce( 'wds-nonce' ),
+			'strings' => array(
+				'manually_updated'          => esc_html__( 'Your sitemap has been updated.', 'wds' ),
+				'manually_notified_engines' => esc_html__( 'Seach Engines are being notified with changes.', 'wds' ),
+			),
 		) );
 	}
 
@@ -463,7 +468,7 @@ class Smartcrawl_Controller_Assets extends Smartcrawl_Base_Controller {
 
 		$title = '';
 		$description = '';
-		$post_type = $this->get_post_type_query_var();
+		$post_type = $this->get_post_type();
 		$post_id = $this->get_post_id_query_var();
 		if ( $this->is_post_edit_screen() ) {
 			$title = (string) smartcrawl_get_array_value( $options, 'title-' . $post_type );
@@ -487,7 +492,7 @@ class Smartcrawl_Controller_Assets extends Smartcrawl_Base_Controller {
 			'title_max_length'    => smartcrawl_title_max_length(),
 			'metadesc_min_length' => smartcrawl_metadesc_min_length(),
 			'metadesc_max_length' => smartcrawl_metadesc_max_length(),
-			'post_type'           => $this->get_post_type_query_var(),
+			'post_type'           => $this->get_post_type(),
 			'taxonomies'          => $this->get_taxonomies(),
 			'gutenberg_active'    => $this->is_block_editor_active(),
 			'onpage_active'       => Smartcrawl_Settings::get_setting( 'onpage' ) && smartcrawl_is_allowed_tab( Smartcrawl_Settings::TAB_ONPAGE ),
@@ -551,10 +556,11 @@ class Smartcrawl_Controller_Assets extends Smartcrawl_Base_Controller {
 		);
 
 		wp_localize_script( self::WP_POST_LIST_TABLE_JS, '_wds_post_list', array(
-			'strings' => array(
+			'strings'             => array(
 				'loading' => __( 'Loading, please hold on...', 'wds' ),
 			),
-			'nonce'   => wp_create_nonce( 'wds-metabox-nonce' ),
+			'nonce'               => wp_create_nonce( 'wds-metabox-nonce' ),
+			'analyse_posts_delay' => (int) apply_filters( 'wds-list-table-delay', 500 ),
 		) );
 	}
 
@@ -603,17 +609,14 @@ class Smartcrawl_Controller_Assets extends Smartcrawl_Base_Controller {
 		return smartcrawl_get_array_value( $_GET, 'post' );
 	}
 
-	private function get_post_type_query_var() {
-		$post_type = smartcrawl_get_array_value( $_GET, 'post_type' );
-		if ( empty( $post_type ) ) {
-			$post_type = 'post';
-		}
+	private function get_post_type() {
+		$post = get_post();
 
-		return $post_type;
+		return ( $post instanceof WP_Post ) ? $post->post_type : 'post';
 	}
 
 	private function get_taxonomies() {
-		$post_type = $this->get_post_type_query_var();
+		$post_type = $this->get_post_type();
 
 		return get_object_taxonomies( $post_type );
 	}
@@ -629,5 +632,40 @@ class Smartcrawl_Controller_Assets extends Smartcrawl_Base_Controller {
 			'youtube_key_valid'   => esc_html__( 'Key valid!', 'wds' ),
 			'youtube_key_invalid' => esc_html__( 'Key invalid', 'wds' ),
 		) );
+
+		$post_types = array_map( function ( $post_type ) {
+			return get_post_type_object( $post_type )->labels->singular_name;
+		}, smartcrawl_frontend_post_types() );
+		$post_formats = $this->get_post_formats();
+		$page_templates = wp_get_theme()->get_page_templates();
+		$user_roles = array_map( function ( $role ) {
+			return smartcrawl_get_array_value( $role, 'name' );
+		}, wp_roles()->roles );
+
+		$this->register_js( 'wds-react-runtime', 'js/build/runtime.js', array() );
+		$this->register_js( 'wds-react-vendors', 'js/build/vendors.js', array() );
+		$this->register_js( self::SCHEMA_TYPES_JS, 'js/build/wds-schema-types.js', array(
+			'wds-react-runtime',
+			'wds-react-vendors',
+			'wp-i18n',
+			'jquery-ui-datepicker',
+		) );
+
+		wp_localize_script( self::SCHEMA_TYPES_JS, '_wds_schema_types', array(
+			'post_types'     => $post_types,
+			'post_formats'   => $post_formats,
+			'page_templates' => $page_templates,
+			'user_roles'     => $user_roles,
+			'ajax_url'       => admin_url( 'admin-ajax.php' ),
+			'types'          => Smartcrawl_Controller_Schema_Types::get()->get_schema_types(),
+			'woocommerce'    => class_exists( 'woocommerce' ),
+		) );
+	}
+
+	private function get_post_formats() {
+		$post_formats = smartcrawl_get_array_value( get_theme_support( 'post-formats' ), 0 );
+		$post_formats = empty( $post_formats ) ? array() : $post_formats;
+
+		return array_combine( $post_formats, $post_formats );
 	}
 }

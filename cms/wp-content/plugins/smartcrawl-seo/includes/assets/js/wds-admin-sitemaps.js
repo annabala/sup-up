@@ -163,6 +163,48 @@
 		);
 	}
 
+	function manually_notify_search_engines() {
+		var $button = $(this);
+		$button.addClass('sui-button-onload');
+		return $.post(
+			ajaxurl,
+			{
+				action: 'wds-manually-update-engines',
+				_wds_nonce: Wds.get('sitemaps', 'nonce')
+			},
+			function () {
+				Wds.show_floating_message(
+					'wds-sitemap-manually-notify-search-engines',
+					Wds.l10n('sitemaps', 'manually_notified_engines'),
+					'success'
+				);
+				$button.removeClass('sui-button-onload');
+			},
+			'json'
+		);
+	}
+
+	function manually_update_sitemap() {
+		var $button = $(this);
+		$button.addClass('sui-button-onload');
+		return $.post(
+			ajaxurl,
+			{
+				action: 'wds-manually-update-sitemap',
+				_wds_nonce: Wds.get('sitemaps', 'nonce')
+			},
+			function () {
+				Wds.show_floating_message(
+					'wds-sitemap-manually-updated',
+					Wds.l10n('sitemaps', 'manually_updated'),
+					'success'
+				);
+				$button.removeClass('sui-button-onload');
+			},
+			'json'
+		);
+	}
+
 	function deactivate_sitemap_module() {
 		$(this).addClass('sui-button-onload');
 		return $.post(
@@ -202,6 +244,8 @@
 			.on('click', '#wds-switch-to-native-sitemap', switch_to_native_sitemap)
 			.on('click', '#wds-switch-to-smartcrawl-sitemap', switch_to_smartcrawl_sitemap)
 			.on('click', '#wds-deactivate-sitemap-module', deactivate_sitemap_module)
+			.on('click', '#wds-manually-update-sitemap', manually_update_sitemap)
+			.on('click', '#wds-manually-notify-search-engines', manually_notify_search_engines)
 		;
 
 		$('.wds-crawler-frequency-radio:checked').each(function () {

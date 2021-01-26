@@ -11,6 +11,7 @@ A free and beautiful way to get a Cookie Consent Banner for GDPR, CCPA, PIPEDA, 
 
 = Key Features =
  - fully customizable texts, colors, fonts and position of the banner and buttons. 
+ - multilanguage support with premium add-on: https://beautiful-cookie-banner.com/
  - choose between different compliance types: Just Inform, Opt-in, Opt-out, Differentiated. Cookies will not be stored by default. With differentiated you can define cookie groups, and for each group a user can give a consent.
  - google tag manager support.
  - show the Banner until user accepts all cookies.
@@ -89,6 +90,12 @@ The technical recommandation is to use the google tag manager. It is an awesome 
 Just install this plugin and go to Settings > Cookie Consent Banner to change the default config and to activate the banner.
 
 == Changelog ==
+
+= 2.4.0 =
+* ADDED: Support for multilanguage add-on, see here for more information: https://beautiful-cookie-banner.com
+
+= 2.3.1 =
+* IMPROVEMENT: Colour fields now supprt rgb as well, e.g.: rgba(200, 54, 54, 0.5)
 
 = 2.3 =
 * FEATURE: Adjust the position of the Banner in HTML source code of the page. Per default it is directly beneath the <body>. Now you can use any other selector to change that.

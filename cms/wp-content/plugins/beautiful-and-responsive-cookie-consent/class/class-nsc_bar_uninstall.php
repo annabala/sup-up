@@ -14,5 +14,24 @@ class nsc_bar_uninstaller
             }
         }
         delete_option(NSC_BAR_SLUG_DBVERSION);
+
+        // delete options of add on if add on is not there
+        if (class_exists("nsc_bara_addon_configs") === false) {
+            $translated_settings = $this->nsc_bar_get_all_nsc_bar_settings();
+            foreach ($translated_settings as $name) {
+                delete_option($name);
+            }
+        }
+    }
+
+    private function nsc_bar_get_all_nsc_bar_settings()
+    {
+        global $wpdb;
+        $options = $wpdb->get_results("select * from $wpdb->options where option_name like 'nsc_bar_%'");
+        $names = array();
+        foreach ($options as $option) {
+            $names[] = $option->option_name;
+        }
+        return $names;
     }
 }

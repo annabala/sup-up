@@ -58,6 +58,16 @@ class Smartcrawl_Model_User extends Smartcrawl_Model {
 	 * @return Smartcrawl_Model_User Owner user reference
 	 */
 	public static function owner() {
+		$by_id = get_user_by( 'ID', apply_filters( 'wds-site-owner-id', 1 ) );
+		if ( $by_id && in_array( 'administrator', $by_id->roles ) ) {
+			return self::get( $by_id );
+		}
+
+		$by_admin_email = get_user_by( 'email', get_option( 'admin_email' ) );
+		if ( $by_admin_email && in_array( 'administrator', $by_admin_email->roles ) ) {
+			return self::get( $by_admin_email );
+		}
+
 		$admins = get_users( array(
 			'role'   => 'administrator',
 			'fields' => 'ID',
@@ -82,6 +92,10 @@ class Smartcrawl_Model_User extends Smartcrawl_Model {
 			$name,
 			$this->_user_id
 		);
+	}
+
+	public function get_last_name() {
+		return $name = $this->_user->user_lastname;
 	}
 
 	/**

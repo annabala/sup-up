@@ -9,6 +9,7 @@
 		window.Wds.media_item_selector($('#person_brand_logo'));
 		window.Wds.vertical_tabs();
 		window.Wds.hook_toggleables();
+		window.Wds.hook_conditionals();
 
 		$(document)
 			.on('change', '.wds-schema-toggleable input[type="checkbox"]', update_schema_sub_section_visbility)

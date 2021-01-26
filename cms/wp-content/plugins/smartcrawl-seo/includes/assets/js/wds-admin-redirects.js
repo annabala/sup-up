@@ -50,7 +50,8 @@
 		Wds.open_dialog(
 			overlay_id,
 			'wds-add-redirect-dashed-button',
-			$('.wds-source-url', $(overlay_selector)).get(0)
+			$('.wds-source-url', $(overlay_selector)).get(0),
+			false
 		);
 		hook_select2($('select', $(overlay_selector)));
 	};
@@ -107,7 +108,7 @@
 
 		$('.wds-redirects', $redirects).append(new_item);
 
-		Wds.close_dialog();
+		close_add_redirect_dialog();
 		update_select_all_checkbox();
 		show_message('redirect_added');
 		$('.wds-no-redirects').removeClass('wds-no-redirects');
@@ -278,6 +279,16 @@
 		}
 	}
 
+	function close_add_redirect_dialog() {
+		remove_add_redirect_query_var();
+		Wds.close_dialog();
+	}
+
+	function remove_add_redirect_query_var() {
+		var url_parts = location.href.split('&add_redirect=');
+		history.replaceState({}, "", url_parts[0]);
+	}
+
 	$(function () {
 		var bulk_update_form_selector = '#' + bulk_update_form_id,
 			new_redirect_form_selector = '#' + new_redirect_form_id,
@@ -299,7 +310,7 @@
 			.on('click', '.wds-bulk-update', open_bulk_update_form)
 			.on('click', bulk_update_form_selector + ' .wds-action-button', bulk_update_redirects)
 
-			.on('click', '[data-modal-close]', Wds.close_dialog);
+			.on('click', '[data-modal-close]', close_add_redirect_dialog);
 
 		_templates = {
 			redirect_item: Wds.tpl_compile(Wds.template('redirects', 'redirect-item')),

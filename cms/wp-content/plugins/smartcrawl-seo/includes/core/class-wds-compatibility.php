@@ -36,10 +36,24 @@ class Smartcrawl_Compatibility extends Smartcrawl_Base_Controller {
 		add_filter( 'wds_before_sitemap_rebuild', array( $this, 'prevent_wpml_url_translation' ) );
 		add_filter( 'wds_full_sitemap_items', array( $this, 'add_wpml_homepage_versions' ) );
 		add_filter( 'wds_partial_sitemap_items', array( $this, 'add_wpml_homepage_versions_to_partial' ), 10, 3 );
+		add_filter( 'bbp_register_topic_taxonomy', array( $this, 'allow_sitemap_access' ) );
+		add_filter( 'bbp_register_forum_post_type', array( $this, 'allow_sitemap_access' ) );
+		add_filter( 'bbp_register_topic_post_type', array( $this, 'allow_sitemap_access' ) );
+		add_filter( 'bbp_register_reply_post_type', array( $this, 'allow_sitemap_access' ) );
 		// Disable defender login redirect because we are not entirely sure about its security implications
 		//add_filter( 'wds-report-admin-url', array( $this, 'ensure_defender_login_redirect' ) );
 
 		return true;
+	}
+
+	public function allow_sitemap_access( $args ) {
+		$request = parse_url( rawurldecode( $_SERVER['REQUEST_URI'] ), PHP_URL_PATH );
+		$is_sitemap_request = strpos( $request, '/sitemap.xml' ) === strlen( $request ) - strlen( '/sitemap.xml' );
+		$sc_sitemap_active = Smartcrawl_Settings::get_setting( 'sitemap' );
+		if ( $sc_sitemap_active && $is_sitemap_request ) {
+			$args['show_ui'] = true;
+		}
+		return $args;
 	}
 
 	public function avada_omitted_shortcodes( $omitted ) {

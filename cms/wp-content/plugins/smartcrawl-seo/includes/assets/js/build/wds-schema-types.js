@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[2],{13:function(n,o){n.exports=wp},3:function(n,o){n.exports=jQuery},8:function(n,o){n.exports=SUI}},[[25,0,1]]]);
+//# sourceMappingURL=wds-schema-types.js.map

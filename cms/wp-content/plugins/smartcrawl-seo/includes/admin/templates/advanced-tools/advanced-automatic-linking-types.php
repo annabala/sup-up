@@ -9,7 +9,7 @@ $linkto = empty( $linkto ) ? array() : $linkto;
 		<div class="sui-field-list">
 
 			<div class="sui-field-list-header">
-				<h3 class="sui-field-list-title"><?php esc_html_e( 'Link To', 'wds' ); ?></h3>
+				<h3 class="sui-field-list-title"><?php esc_html_e( 'Insert Links', 'wds' ); ?></h3>
 				<p id="link-to-description"
 				   class="sui-description"><?php esc_html_e( 'Choose what post types to allow.', 'wds' ); ?></p>
 			</div>
@@ -40,7 +40,7 @@ $linkto = empty( $linkto ) ? array() : $linkto;
 		<div class="sui-field-list">
 
 			<div class="sui-field-list-header">
-				<h3 class="sui-field-list-title"><?php esc_html_e( 'Insert Links', 'wds' ); ?></h3>
+				<h3 class="sui-field-list-title"><?php esc_html_e( 'Link To', 'wds' ); ?></h3>
 				<p id="insert-list-description" class="sui-description">
 					<?php esc_html_e( 'Select what types can be linked to.', 'wds' ); ?>
 				</p>

@@ -41,7 +41,7 @@ $robots_enabled = (boolean) Smartcrawl_Settings::get_setting( 'robots-txt' )
 				<p>
 					<small><?php esc_html_e( 'Automatically redirect traffic from one URL to another.', 'wds' ); ?></small>
 				</p>
-				<a href="<?php echo esc_attr( $page_url ); ?>&tab=tab_url_redirection"
+				<a href="<?php echo esc_attr( $page_url ); ?>&tab=tab_url_redirection&add_redirect=1"
 				   class="sui-button sui-button-blue">
 					<?php esc_html_e( 'Add Redirect', 'wds' ); ?>
 				</a>

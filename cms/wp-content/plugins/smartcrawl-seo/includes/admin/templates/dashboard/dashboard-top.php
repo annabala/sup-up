@@ -21,13 +21,16 @@ $score = isset( $score ) ? $score : 0;
 $dependents = array( Smartcrawl_Settings_Dashboard::BOX_SITEMAP, Smartcrawl_Settings_Dashboard::BOX_SEO_CHECKUP );
 $dependents_attr = implode( ';', $dependents );
 $is_member = empty( $is_member ) ? false : true;
+$status = empty( $status ) ? '' : $status;
+$status_message = empty( $status_message ) ? '' : $status_message;
 
-$issue_count = 0;
 if ( null === $score || false === $score ) {
 	$score_class = 'sui-icon-info sui-invalid';
 } else {
 	$issue_count = empty( $issue_count ) ? 0 : $issue_count;
-	$score_class = $issue_count > 0 ? 'sui-icon-info sui-warning' : 'sui-icon-check-tick sui-success';
+	$score_class = $status === 'success'
+		? "sui-icon-check-tick sui-success"
+		: "sui-icon-info sui-{$status}";
 }
 $whitelabel_class = Smartcrawl_White_Label::get()->summary_class();
 ?>
@@ -66,7 +69,10 @@ $whitelabel_class = Smartcrawl_White_Label::get()->summary_class();
 				<div class="sui-summary-details">
 					<div class="wds-checkup-summary">
 						<span class="sui-summary-large"><?php echo esc_html( intval( $score ) ); ?></span>
-						<i class="<?php echo esc_attr( $score_class ); ?>"></i>
+						<span class="sui-tooltip sui-tooltip-constrained"
+						      data-tooltip="<?php echo esc_html( $status_message ); ?>">
+							<i class="<?php echo esc_attr( $score_class ); ?>"></i>
+						</span>
 						<span class="sui-summary-percent">/100</span>
 						<span class="sui-summary-sub"><?php esc_html_e( 'Current SEO Score', 'wds' ); ?></span>
 					</div>

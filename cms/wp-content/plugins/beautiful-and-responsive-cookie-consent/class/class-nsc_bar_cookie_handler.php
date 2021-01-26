@@ -42,7 +42,7 @@ class nsc_bar_cookie_handler
             return;
         }
 
-        if ($this->banner_configs_object->nsc_bar_get_cookie_setting("setDiffDefaultCookiesFirstPV", $this->plugin_configs->return_settings_field_default_value("setDiffDefaultCookiesFirstPV")) == false) {
+        if ($this->banner_configs_object->nsc_bar_get_cookie_setting("setDiffDefaultCookiesFirstPV", $this->plugin_configs->nsc_bar_return_settings_field_default_value("setDiffDefaultCookiesFirstPV")) == false) {
             return;
         }
 
@@ -202,13 +202,13 @@ class nsc_bar_cookie_handler
     private function get_cookie_configs()
     {
         if (empty($this->cookie_configs)) {
-            $this->cookie_configs['name'] = $this->banner_configs_object->nsc_bar_get_cookie_setting("cookie_name", $this->plugin_configs->return_settings_field_default_value("cookie_name"));
+            $this->cookie_configs['name'] = $this->banner_configs_object->nsc_bar_get_cookie_setting("cookie_name", $this->plugin_configs->nsc_bar_return_settings_field_default_value("cookie_name"));
             $this->cookie_configs['path'] = $this->banner_configs_object->nsc_bar_get_cookie_setting("cookie_path", "/");
-            $this->cookie_configs['domain'] = $this->banner_configs_object->nsc_bar_get_cookie_setting("cookie_domain", $this->plugin_configs->return_settings_field_default_value("cookie_domain"));
-            $this->cookie_configs['expirydays'] = $this->banner_configs_object->nsc_bar_get_cookie_setting("cookie_expiryDays", $this->plugin_configs->return_settings_field_default_value("cookie_expiryDays"));
+            $this->cookie_configs['domain'] = $this->banner_configs_object->nsc_bar_get_cookie_setting("cookie_domain", $this->plugin_configs->nsc_bar_return_settings_field_default_value("cookie_domain"));
+            $this->cookie_configs['expirydays'] = $this->banner_configs_object->nsc_bar_get_cookie_setting("cookie_expiryDays", $this->plugin_configs->nsc_bar_return_settings_field_default_value("cookie_expiryDays"));
             $this->cookie_configs['secure'] = $this->banner_configs_object->nsc_bar_get_cookie_setting("cookie_secure", false);
             $this->cookie_configs['cookietypes'] = $this->banner_configs_object->nsc_bar_get_cookie_setting("cookietypes", array());
-            $this->cookie_configs['compliance_type'] = $this->banner_configs_object->nsc_bar_get_cookie_setting("type", $this->plugin_configs->return_settings_field_default_value("type"));
+            $this->cookie_configs['compliance_type'] = $this->banner_configs_object->nsc_bar_get_cookie_setting("type", $this->plugin_configs->nsc_bar_return_settings_field_default_value("type"));
 
             if (empty($this->cookie_configs['domain'])) {
                 $this->cookie_configs['domain'] = "";

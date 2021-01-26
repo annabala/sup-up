@@ -79,19 +79,10 @@ class Smartcrawl_Admin extends Smartcrawl_Base_Controller {
 		}
 
 		$this->_handlers['dashboard'] = Smartcrawl_Settings_Dashboard::get_instance();
-
 		$this->_handlers['checkup'] = Smartcrawl_Checkup_Settings::get_instance();
-
-		if ( Smartcrawl_Settings::get_setting( 'onpage' ) ) {
-			$this->_handlers['onpage'] = Smartcrawl_Onpage_Settings::get_instance();
-		}
-
+		$this->_handlers['onpage'] = Smartcrawl_Onpage_Settings::get_instance();
 		$this->_handlers['schema'] = Smartcrawl_Schema_Settings::get_instance();
-
-		if ( Smartcrawl_Settings::get_setting( 'social' ) ) {
-			$this->_handlers['social'] = Smartcrawl_Social_Settings::get_instance();
-		}
-
+		$this->_handlers['social'] = Smartcrawl_Social_Settings::get_instance();
 		$this->_handlers['sitemap'] = Smartcrawl_Sitemap_Settings::get_instance();
 		$this->_handlers['autolinks'] = Smartcrawl_Autolinks_Settings::get_instance();
 		$this->_handlers['settings'] = Smartcrawl_Settings_Settings::get_instance();

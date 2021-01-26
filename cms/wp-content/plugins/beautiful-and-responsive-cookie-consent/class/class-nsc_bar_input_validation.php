@@ -55,12 +55,6 @@ class nsc_bar_input_validation
     public function nsc_bar_check_input_color_code($input)
     {
         $input = $this->nsc_bar_sanitize_input($input);
-        $valid = preg_match("/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/", $input);
-        if (empty($valid) && $input != "") {
-            $this->admin_error_obj->nsc_bar_set_admin_error("Color could not be saved: please provide a correct hex color code, like #ffffff. Your input: " . $input);
-            $input = "";
-        }
-        $this->admin_error_obj->nsc_bar_display_errors();
         return $input;
     }
 

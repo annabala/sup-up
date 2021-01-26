@@ -48,7 +48,15 @@ $is_locale_english = Smartcrawl_Settings::is_locale_english();
 			<div class="wds-focus-keyword sui-border-frame sui-form-field">
 				<label class="sui-label" for='wds_focus'>
 					<?php esc_html_e( 'Focus keyword', 'wds' ); ?>
-					<span><?php esc_html_e( '- Choose a single word, phrase or part of a sentence that people will likely search for.', 'wds' ); ?></span>
+					<span>
+						<?php esc_html_e( '- Choose a single word, phrase or part of a sentence that people will likely search for. You can also use multiple keywords separated by commas.', 'wds' ); ?>
+						<span class="sui-tooltip sui-tooltip-constrained"
+						      style="--tooltip-width: 250px;"
+						      data-tooltip="<?php esc_html_e( 'As a general rule, using only one keyword per page/post is recommended.', 'wds' ); ?>">
+							<i class="sui-icon-info">
+							</i>
+						</span>
+					</span>
 				</label>
 				<input type='text'
 				       id='wds_focus'

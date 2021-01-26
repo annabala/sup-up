@@ -24,10 +24,10 @@ class nsc_bar_frontend
         $this->json_config_string = $nsc_bar_banner_config->nsc_bar_get_banner_config_string();
         $this->customized_font = $nsc_bar_banner_config->nsc_bar_get_cookie_setting("customizedFont", false);
         $this->cookietypes = $nsc_bar_banner_config->nsc_bar_get_cookie_setting("cookietypes", array());
-        $this->cookie_name = $nsc_bar_banner_config->nsc_bar_get_cookie_setting("cookie_name", $this->plugin_configs->return_settings_field_default_value("cookie_name"));
-        $this->compliance_type = $nsc_bar_banner_config->nsc_bar_get_cookie_setting("type", $this->plugin_configs->return_settings_field_default_value("type"));
-        $this->dataLayerName = $nsc_bar_banner_config->nsc_bar_get_cookie_setting("dataLayerName", $this->plugin_configs->return_settings_field_default_value("dataLayerName"));
-        $this->pushToDl = $nsc_bar_banner_config->nsc_bar_get_cookie_setting("onStatusChange", $this->plugin_configs->return_settings_field_default_value("onStatusChange"));
+        $this->cookie_name = $nsc_bar_banner_config->nsc_bar_get_cookie_setting("cookie_name", $this->plugin_configs->nsc_bar_return_settings_field_default_value("cookie_name"));
+        $this->compliance_type = $nsc_bar_banner_config->nsc_bar_get_cookie_setting("type", $this->plugin_configs->nsc_bar_return_settings_field_default_value("type"));
+        $this->dataLayerName = $nsc_bar_banner_config->nsc_bar_get_cookie_setting("dataLayerName", $this->plugin_configs->nsc_bar_return_settings_field_default_value("dataLayerName"));
+        $this->pushToDl = $nsc_bar_banner_config->nsc_bar_get_cookie_setting("onStatusChange", $this->plugin_configs->nsc_bar_return_settings_field_default_value("onStatusChange"));
         $this->container = $nsc_bar_banner_config->nsc_bar_get_cookie_setting("container", false);
     }
 
@@ -113,10 +113,10 @@ class nsc_bar_frontend
     {
         $banner_configs_obj = new nsc_bar_banner_configs();
 
-        $cookie_name = $banner_configs_obj->nsc_bar_get_cookie_setting("cookie_name", $this->plugin_configs->return_settings_field_default_value("cookie_name"));
-        $cookie_domain = $banner_configs_obj->nsc_bar_get_cookie_setting("cookie_domain", $this->plugin_configs->return_settings_field_default_value("cookie_domain"));
-        $cookie_expiry_days = $banner_configs_obj->nsc_bar_get_cookie_setting("cookie_expiryDays", $this->plugin_configs->return_settings_field_default_value("cookie_expiryDays"));
-        $compliance_type = $banner_configs_obj->nsc_bar_get_cookie_setting("type", $this->plugin_configs->return_settings_field_default_value("type"));
+        $cookie_name = $banner_configs_obj->nsc_bar_get_cookie_setting("cookie_name", $this->plugin_configs->nsc_bar_return_settings_field_default_value("cookie_name"));
+        $cookie_domain = $banner_configs_obj->nsc_bar_get_cookie_setting("cookie_domain", $this->plugin_configs->nsc_bar_return_settings_field_default_value("cookie_domain"));
+        $cookie_expiry_days = $banner_configs_obj->nsc_bar_get_cookie_setting("cookie_expiryDays", $this->plugin_configs->nsc_bar_return_settings_field_default_value("cookie_expiryDays"));
+        $compliance_type = $banner_configs_obj->nsc_bar_get_cookie_setting("type", $this->plugin_configs->nsc_bar_return_settings_field_default_value("type"));
 
         $link_text_opted_in = $this->plugin_configs->nsc_bar_get_option("shortcode_link_text_opted_in");
         $link_text_opted_out = $this->plugin_configs->nsc_bar_get_option("shortcode_link_text_opted_out");

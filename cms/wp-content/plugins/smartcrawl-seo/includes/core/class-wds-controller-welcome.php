@@ -33,7 +33,7 @@ class Smartcrawl_Controller_Welcome extends Smartcrawl_Base_Controller {
 		Smartcrawl_Settings::update_component_options( Smartcrawl_Settings::COMP_SOCIAL, $social_options );
 
 		// Redirect the user
-		$redirect_url = Smartcrawl_Settings_Admin::admin_url( Smartcrawl_Settings::TAB_SCHEMA );
+		$redirect_url = Smartcrawl_Settings_Admin::admin_url( Smartcrawl_Settings::TAB_SCHEMA ) . '&tab=tab_types';
 		wp_send_json_success( array(
 			'redirect_url' => $redirect_url,
 		) );
@@ -50,9 +50,6 @@ class Smartcrawl_Controller_Welcome extends Smartcrawl_Base_Controller {
 	}
 
 	public function add_welcome_modal() {
-		// Disabling welcome modal for version 2.8.4
-		return;
-
 		/**
 		 * @var $modal_dismissed_version string
 		 */

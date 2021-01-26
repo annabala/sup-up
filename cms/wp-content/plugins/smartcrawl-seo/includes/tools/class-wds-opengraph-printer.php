@@ -170,28 +170,24 @@ class Smartcrawl_OpenGraph_Printer {
 		return true;
 	}
 
-	public function print_og_images( $values ) {
-		if ( empty( $values ) ) {
+	public function print_og_images( $images ) {
+		if ( empty( $images ) ) {
 			return;
 		}
 
-		$values = is_array( $values ) ? $values : array( $values );
+		$images = is_array( $images ) && ! empty( $images )
+			? $images
+			: array();
 
 		$image_tags = array();
 		$included_urls = array();
-		foreach ( $values as $value ) {
-			$url = $width = $height = '';
+		foreach ( $images as $image ) {
+			$url = smartcrawl_get_array_value( $image, 0 );
+			$width = smartcrawl_get_array_value( $image, 1 );
+			$height = smartcrawl_get_array_value( $image, 2 );
 
-			if ( is_numeric( $value ) ) {
-				$attachment = wp_get_attachment_image_src( $value, 'full' );
-				if ( is_array( $attachment ) && count( $attachment ) >= 3 ) {
-					$url = $attachment[0];
-					$width = $attachment[1];
-					$height = $attachment[2];
-				}
-			} else {
-				$url = $value;
-				$attachment = smartcrawl_get_attachment_by_url( trim( $value ) );
+			if ( ! $width || ! $height ) {
+				$attachment = smartcrawl_get_attachment_by_url( trim( $url ) );
 				if ( $attachment ) {
 					$width = $attachment['width'];
 					$height = $attachment['height'];

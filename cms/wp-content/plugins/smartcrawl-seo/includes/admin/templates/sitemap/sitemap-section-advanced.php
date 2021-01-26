@@ -1,7 +1,10 @@
 <?php
-$engines = empty( $engines ) ? array() : $engines;
 $automatically_switched = empty( $automatically_switched ) ? false : $automatically_switched;
 $total_post_count = empty( $total_post_count ) ? 0 : $total_post_count;
+$option_name = empty( $_view['option_name'] ) ? '' : $_view['option_name'];
+$automatic_updates_disabled = ! empty( $_view['options']['sitemap-disable-automatic-regeneration'] );
+$ping_google = ! empty( $_view['options']['ping-google'] );
+$ping_bing = ! empty( $_view['options']['ping-bing'] );
 ?>
 
 <?php $this->_render( 'sitemap/sitemap-split-setting', array(
@@ -22,13 +25,39 @@ $this->_render( 'toggle-group', array(
 	),
 ) );
 
-$this->_render( 'toggle-group', array(
-	'label'       => esc_html__( 'Auto-notify search engines', 'wds' ),
-	'description' => esc_html__( 'Instead of waiting for search engines to crawl your website you can automatically submit your sitemap whenever it changes.', 'wds' ),
-	'separator'   => true,
-	'items'       => $engines,
-) );
+?>
+<div class="sui-box-settings-row">
+	<div class="sui-box-settings-col-1">
+		<label class="sui-settings-label">
+			<?php esc_html_e( 'Auto-notify search engines', 'wds' ); ?>
+		</label>
 
+		<span class="sui-description">
+			<?php esc_html_e( 'By default, SmartCrawl will auto-notify Google and Bing whenever your sitemap changes. Alternatively, you can manually notify search engines.', 'wds' ); ?>
+		</span>
+	</div>
+	<div class="sui-box-settings-col-2">
+		<?php
+		$this->_render( 'side-tabs', array(
+			'id'    => 'wds-auto-notify-engines-tabs',
+			'name'  => "{$option_name}[auto-notify-search-engines]",
+			'value' => $ping_google && $ping_bing ? '1' : '',
+			'tabs'  => array(
+				array(
+					'value' => '1',
+					'label' => esc_html__( 'Default', 'wds' ),
+				),
+				array(
+					'value'    => '',
+					'label'    => esc_html__( 'Manual', 'wds' ),
+					'template' => 'sitemap/sitemap-manually-notify-search-engines',
+				),
+			),
+		) );
+		?>
+	</div>
+</div>
+<?php
 $this->_render( 'toggle-group', array(
 	'label'       => esc_html__( 'Style sitemap', 'wds' ),
 	'description' => esc_html__( 'Adds some nice styling to your sitemap.', 'wds' ),
@@ -43,32 +72,36 @@ $this->_render( 'toggle-group', array(
 ) );
 ?>
 
-<?php
-$automatic_updates_disabled = ! empty( $_view['options']['sitemap-disable-automatic-regeneration'] );
-$automatic_updates_notice_class = 'sui-notice-warning';
-if ( ! $automatic_updates_disabled ) {
-	$automatic_updates_notice_class .= ' hidden';
-}
-?>
-<div class="wds-disable-updates">
-	<?php
-	$this->_render( 'toggle-group', array(
-		'label'       => esc_html__( 'Automatic sitemap updates', 'wds' ),
-		'description' => esc_html__( 'Choose whether or not you want SmartCrawl to update your Sitemap automatically when you publish new pages, posts, post types or taxonomies.', 'wds' ),
-		'separator'   => true,
-		'items'       => array(
-			'sitemap-disable-automatic-regeneration' => array(
-				'label'            => esc_html__( 'Automatically update my sitemap', 'wds' ),
-				'inverted'         => true,
-				'html_description' => $this->_load( 'notice', array(
-					'message' => esc_html__( "Your sitemap isn't being updated automatically. Click Save Settings below to regenerate your sitemap.", 'wds' ),
-					'class'   => $automatic_updates_notice_class,
-				) ),
+<div class="sui-box-settings-row">
+	<div class="sui-box-settings-col-1">
+		<label class="sui-settings-label">
+			<?php esc_html_e( 'Automatic sitemap updates', 'wds' ); ?>
+		</label>
+
+		<span class="sui-description">
+			<?php esc_html_e( 'By default, we will automatically update your sitemap but if you wish to update it manually, you can switch to manual mode.', 'wds' ); ?>
+		</span>
+	</div>
+	<div class="sui-box-settings-col-2">
+		<?php
+		$this->_render( 'side-tabs', array(
+			'id'    => 'wds-automatic-sitemap-updates-tabs',
+			'name'  => "{$option_name}[sitemap-disable-automatic-regeneration]",
+			'value' => empty( $automatic_updates_disabled ) ? '' : '1',
+			'tabs'  => array(
+				array(
+					'value' => '',
+					'label' => esc_html__( 'Default', 'wds' ),
+				),
+				array(
+					'value'    => '1',
+					'label'    => esc_html__( 'Manual', 'wds' ),
+					'template' => 'sitemap/sitemap-manual-update-button',
+				),
 			),
-		),
-	) );
-	?>
-	<div></div>
+		) );
+		?>
+	</div>
 </div>
 
 <?php $this->_render( 'sitemap/sitemap-deactivate-button', array(

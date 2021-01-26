@@ -8,6 +8,7 @@ $checkup_reporting_url = Smartcrawl_Settings_Admin::admin_url( Smartcrawl_Settin
 $checkup_freq = isset( $_view['options']['checkup-frequency'] ) ? $_view['options']['checkup-frequency'] : false;
 $checkup_freq_readable = smartcrawl_get_array_value( $frequencies, $checkup_freq );
 
+$sitemap_enabled = Smartcrawl_Settings::get_setting( 'sitemap' );
 $crawler_cron_enabled = ! empty( $_view['options']['crawler-cron-enable'] );
 $crawler_reporting_url = Smartcrawl_Settings_Admin::admin_url( Smartcrawl_Settings::TAB_SITEMAP ) . '&tab=tab_url_crawler_reporting';
 $crawler_freq = empty( $_view['options']['crawler-frequency'] ) ? false : $_view['options']['crawler-frequency'];
@@ -61,7 +62,7 @@ $crawler_freq_readable = smartcrawl_get_array_value( $frequencies, $crawler_freq
 				</td>
 
 				<td>
-					<?php if ( $crawler_cron_enabled ): ?>
+					<?php if ( $sitemap_enabled && $crawler_cron_enabled ): ?>
 						<span class="sui-tag sui-tag-sm sui-tag-blue"><?php echo esc_html( $crawler_freq_readable ); ?></span>
 					<?php else: ?>
 						<span class="sui-tag sui-tag-sm sui-tag-disabled"><?php esc_html_e( 'Inactive', 'wds' ); ?></span>
@@ -81,7 +82,7 @@ $crawler_freq_readable = smartcrawl_get_array_value( $frequencies, $crawler_freq
 			</tbody>
 		</table>
 
-		<p class="sui-description">
+		<p class="sui-description wds-documentation-link">
 			<?php echo smartcrawl_format_link(
 				esc_html__( 'You can also set up scheduled PDF reports for your clients via %s.', 'wds' ),
 				'https://premium.wpmudev.org/hub/',

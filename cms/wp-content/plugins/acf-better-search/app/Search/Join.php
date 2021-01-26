@@ -60,7 +60,7 @@
       }
 
       $join .= ' ' . implode(' ', $parts) . ' ';
-      return $join;
+      return apply_filters('acfbs_sql_join', $join, self::$wpdb);
     }
 
     private static function getPostmetaConditions()

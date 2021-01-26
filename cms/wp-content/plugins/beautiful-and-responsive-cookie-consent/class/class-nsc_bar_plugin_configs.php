@@ -13,7 +13,10 @@ class nsc_bar_plugin_configs
         $settings_for_options = $this->nsc_bar_return_plugin_settings_without_db_settings();
         foreach ($settings_for_options->setting_page_fields->tabs as $tab) {
             foreach ($tab->tabfields as $field) {
-                if ($field->field_slug == $option_slug) {
+                if (strpos($field->field_slug, $option_slug . "_") === 0) {
+                    $option_slug = $field->field_slug;
+                }
+                if ($field->field_slug == $option_slug || strpos($option_slug, "bannersettings_json_") === 0) {
                     $option_value = get_option($settings_for_options->plugin_prefix . $option_slug, $field->pre_selected_value);
                     break;
                 }
@@ -36,20 +39,7 @@ class nsc_bar_plugin_configs
         delete_option($option_name_with_prefix);
     }
 
-    public function nsc_bar_get_running_crawlrequest_datetime()
-    {
-        $settings_for_options = $this->nsc_bar_return_plugin_settings_without_db_settings();
-        return get_option($settings_for_options->plugin_prefix . "running_crawl_request", false);
-    }
-
-    public function nsc_bar_return_cookie_table_name()
-    {
-        global $wpdb;
-        $settings_for_options = $this->nsc_bar_return_plugin_settings_without_db_settings();
-        return $wpdb->prefix . $settings_for_options->plugin_prefix . "cookies";
-    }
-
-    public function return_plugin_settings()
+    public function nsc_bar_return_plugin_settings()
     {
         if (empty($this->settings_as_object)) {
             $this->settings_as_object = $this->nsc_bar_return_plugin_settings_without_db_settings();
@@ -66,20 +56,7 @@ class nsc_bar_plugin_configs
         return $this->settings_as_object_without_db->plugin_prefix;
     }
 
-    public function return_settings_field($searched_field_slug)
-    {
-        $this->return_plugin_settings();
-        foreach ($this->settings_as_object->setting_page_fields->tabs as $tab) {
-            $number_of_fields = count($tab->tabfields);
-            for ($i = 0; $i < $number_of_fields; $i++) {
-                if ($tab->tabfields[$i]->field_slug == $searched_field_slug) {
-                    return $tab->tabfields[$i];
-                }
-            }
-        }
-    }
-
-    public function return_settings_field_default_value($searched_field_slug)
+    public function nsc_bar_return_settings_field_default_value($searched_field_slug)
     {
         $settings_field = $this->return_settings_field($searched_field_slug);
         return $settings_field->pre_selected_value;
@@ -87,7 +64,7 @@ class nsc_bar_plugin_configs
 
     public function nsc_bar_replace_variables_in_config($varname, $replace_value)
     {
-        $configs = $this->return_plugin_settings();
+        $configs = $this->nsc_bar_return_plugin_settings();
         $configs_string = json_encode($configs);
         $configs_string = str_replace("{{" . $varname . "}}", $replace_value, $configs_string);
         $this->settings_as_object = json_decode($configs_string);
@@ -104,16 +81,17 @@ class nsc_bar_plugin_configs
         return $this->settings_as_object_without_db;
     }
 
-    public function nsc_bar_unixtimestamp_to_date($unix_timestamp, $dateformat = null, $timeformat = null)
+    private function return_settings_field($searched_field_slug)
     {
-        if (empty($dateformat)) {
-            $dateformat = get_option('date_format');
+        $this->nsc_bar_return_plugin_settings();
+        foreach ($this->settings_as_object->setting_page_fields->tabs as $tab) {
+            $number_of_fields = count($tab->tabfields);
+            for ($i = 0; $i < $number_of_fields; $i++) {
+                if ($tab->tabfields[$i]->field_slug == $searched_field_slug) {
+                    return $tab->tabfields[$i];
+                }
+            }
         }
-
-        if (empty($timeformat)) {
-            $timeformat = get_option('time_format');
-        }
-        return date_i18n($dateformat . " " . $timeformat, $unix_timestamp + get_option('gmt_offset') * 3600);
     }
 
     private function set_settings_as_object()
@@ -124,6 +102,11 @@ class nsc_bar_plugin_configs
         if (empty($settings)) {
             throw new Exception($this->settingsFile . " was not readable. Make sure it contains valid json.");
         }
+        if (class_exists("nsc_bara_addon_configs")) {
+            $bara = new nsc_bara_addon_configs;
+            $settings = $bara->nsc_bara_add_addon_settings($settings);
+        }
+
         return $settings;
     }
 
@@ -131,7 +114,7 @@ class nsc_bar_plugin_configs
     {
         $this->active_tab = "";
         if (isset($_GET["tab"])) {
-            $this->active_tab = $_GET["tab"];
+            $this->active_tab = sanitize_text_field($_GET["tab"]);
         } else {
             $this->active_tab = $this->settings_as_object->setting_page_fields->tabs[0]->tab_slug;
         }
@@ -170,14 +153,14 @@ class nsc_bar_plugin_configs
 
         $this->get_active_tab();
         $this->settings_as_object->setting_page_fields->active_tab_slug = $this->active_tab;
-        $numper_of_tabs = count($this->settings_as_object->setting_page_fields->tabs);
-        for ($t = 0; $t < $numper_of_tabs; $t++) {
-            $numper_of_fields_in_this_tab = count($this->settings_as_object->setting_page_fields->tabs[$t]->tabfields);
+        $number_of_tabs = count($this->settings_as_object->setting_page_fields->tabs);
+        for ($t = 0; $t < $number_of_tabs; $t++) {
+            $number_of_fields_in_this_tab = count($this->settings_as_object->setting_page_fields->tabs[$t]->tabfields);
             if ($this->active_tab == $this->settings_as_object->setting_page_fields->tabs[$t]->tab_slug) {
                 $this->settings_as_object->setting_page_fields->tabs[$t]->active = true;
                 $this->settings_as_object->setting_page_fields->active_tab_index = $t;
             }
-            for ($f = 0; $f < $numper_of_fields_in_this_tab; $f++) {
+            for ($f = 0; $f < $number_of_fields_in_this_tab; $f++) {
                 $default_value = $this->settings_as_object->setting_page_fields->tabs[$t]->tabfields[$f]->pre_selected_value;
                 $field_slug_without_prefix = $this->settings_as_object->setting_page_fields->tabs[$t]->tabfields[$f]->field_slug;
                 if ($this->settings_as_object->setting_page_fields->tabs[$t]->tabfields[$f]->save_in_db === false) {
@@ -197,7 +180,7 @@ class nsc_bar_plugin_configs
 
         foreach ($this->settings_as_object->setting_page_fields->tabs as $tabindex => $tab) {
             foreach ($tab->tabfields as $fieldindex => $field) {
-                if ($field->field_slug == "bannersettings_json") {
+                if ($field->field_slug === "bannersettings_json") {
                     //value from DB or default file:
                     $json_config = $banner_configs->nsc_bar_get_banner_config_string();
                     $this->settings_as_object->setting_page_fields->tabs[$tabindex]->tabfields[$fieldindex]->pre_selected_value = $json_config;

@@ -47,7 +47,7 @@ class nsc_bar_db_upgrader
         }
 
         if ($save) {
-            return $banner_configs->nsc_bar_save_banner_settings();
+            return $banner_configs->nsc_bar_save_banner_settings("xx");
         } else {
             return true;
         }
@@ -80,7 +80,7 @@ class nsc_bar_db_upgrader
         }
 
         if ($save) {
-            return $banner_configs->nsc_bar_save_banner_settings();
+            return $banner_configs->nsc_bar_save_banner_settings("xx");
         } else {
             return true;
         }

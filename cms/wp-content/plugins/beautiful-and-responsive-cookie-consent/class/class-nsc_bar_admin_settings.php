@@ -53,9 +53,21 @@ class nsc_bar_admin_settings
 
     public function nsc_bar_createAdminPage()
     {
-        $objSettings = $this->plugin_configs->return_plugin_settings();
+        $objSettings = $this->plugin_configs->nsc_bar_return_plugin_settings();
+        $objSettings->current_language = "xx";
+        $objSettings->addon_lang_description = "See <a href='https://beautiful-cookie-banner.com' target='_blank'>here</a> how to add multilanguage support to your banner.";
+        $objSettings->additional_tab_link_parameter = "";
+        if (class_exists("nsc_bara_languages") === true && class_exists("nsc_bara_admin_settings_addon") === true) {
+            $language_settings = new nsc_bara_languages();
+            $objSettings->current_language = $language_settings->nsc_bara_get_current_language();
+            $bara_admin_settings = new nsc_bara_admin_settings_addon();
+            $objSettings->additional_tab_link_parameter = $bara_admin_settings->nsc_bara_get_additonal_tab_link();
+            $objSettings->addon_lang_description = $bara_admin_settings->nsc_bara_get_addon_lang_description();
+        }
         $form_fields = new nsc_bar_html_formfields;
         require NSC_BAR_PLUGIN_DIR . "/admin/tpl/admin.php";
+        // for testing
+        return $objSettings;
     }
 
     public function nsc_bar_add_settings_link($links)

@@ -13,7 +13,6 @@ class Smartcrawl_Social_Front extends Smartcrawl_Base_Controller {
 		Smartcrawl_OpenGraph_Printer::run();
 		Smartcrawl_Twitter_Printer::run();
 		Smartcrawl_Pinterest_Printer::run();
-		Smartcrawl_Schema_Printer::run();
 	}
 
 	public static function get() {

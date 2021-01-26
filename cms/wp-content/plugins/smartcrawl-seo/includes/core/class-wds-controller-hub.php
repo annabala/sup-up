@@ -1,6 +1,6 @@
 <?php
 
-class Smartcrawl_Controller_Hub {
+class Smartcrawl_Controller_Hub extends Smartcrawl_Controller_Hub_Abstract {
 
 
 	private static $_instance;
@@ -54,125 +54,20 @@ class Smartcrawl_Controller_Hub {
 	 * Bind listening actions
 	 */
 	private function _add_hooks() {
-		// Passthrough.
+		add_filter( 'wdp_register_hub_action', array( $this, 'register_hub_actions' ) );
+
 		$this->_is_running = true;
 	}
 
-	/**
-	 * Registers Hub action listeners
-	 *
-	 * @param array $actions All the Hub actions registered this far
-	 *
-	 * @return array Augmented actions
-	 */
 	public function register_hub_actions( $actions ) {
-		// Passthrough.
+		if ( ! is_array( $actions ) ) {
+			return $actions;
+		}
+
+		$actions['wds-seo-summary'] = array( $this, 'json_seo_summary' );
+		$actions['wds-run-checkup'] = array( $this, 'json_run_checkup' );
+		$actions['wds-run-crawl'] = array( $this, 'json_run_crawl' );
+
 		return $actions;
-	}
-
-	/**
-	 * Fresh ignores from the Hub action handler
-	 *
-	 * Updates local ignores list when the Hub storage is updated.
-	 *
-	 * @param object $params Hub-provided parameters
-	 * @param string $action Action called
-	 *
-	 * @return bool Status
-	 */
-	public function sync_ignores_list( $params = array(), $action = '' ) {
-		return false; // Not in the free version.
-	}
-
-	/**
-	 * Fresh ignores from the Hub action handler
-	 *
-	 * Updates local ignores list when the Hub storage is updated.
-	 *
-	 * @param object $params Hub-provided parameters
-	 * @param string $action Action called
-	 */
-	public function json_sync_ignores_list( $params = array(), $action = '' ) {
-	}
-
-	/**
-	 * Purge ignores from the Hub action handler
-	 *
-	 * Purges local ignores list when the Hub storage is purged.
-	 *
-	 * @param object $params Hub-provided parameters
-	 * @param string $action Action called
-	 *
-	 * @return bool Status
-	 */
-	public function purge_ignores_list( $params = array(), $action = '' ) {
-		return false; // Not in the free version.
-	}
-
-	/**
-	 * Purge ignores from the Hub action handler
-	 *
-	 * Purges local ignores list when the Hub storage is purged.
-	 *
-	 * @param object $params Hub-provided parameters
-	 * @param string $action Action called
-	 */
-	public function json_purge_ignores_list( $params = array(), $action = '' ) {
-	}
-
-	/**
-	 * Fresh extras from the Hub action handler
-	 *
-	 * Updates local extra URLs list when the Hub storage is updated.
-	 *
-	 * @param object $params Hub-provided parameters
-	 * @param string $action Action called
-	 *
-	 * @return bool Status
-	 */
-	public function sync_extras_list( $params = array(), $action = '' ) {
-		return false; // Not in the free version.
-	}
-
-	/**
-	 * Fresh extras from the Hub action handler
-	 *
-	 * Updates local extra URLs list when the Hub storage is updated.
-	 *
-	 * @param object $params Hub-provided parameters
-	 * @param string $action Action called
-	 */
-	public function json_sync_extras_list( $params = array(), $action = '' ) {
-	}
-
-	/**
-	 * Purge extras from the Hub action handler
-	 *
-	 * Purges local extra URLs list when the Hub storage is updated.
-	 *
-	 * @param object $params Hub-provided parameters
-	 * @param string $action Action called
-	 *
-	 * @return bool Status
-	 */
-	public function purge_extras_list( $params = array(), $action = '' ) {
-		return false; // Not in the free version.
-	}
-
-	/**
-	 * Purge extras from the Hub action handler
-	 *
-	 * Purges local extra URLs list when the Hub storage is updated.
-	 *
-	 * @param object $params Hub-provided parameters
-	 * @param string $action Action called
-	 */
-	public function json_purge_extras_list( $params = array(), $action = '' ) {
-	}
-
-	public function json_seo_summary() {
-	}
-
-	public function json_run_checkup() {
 	}
 }

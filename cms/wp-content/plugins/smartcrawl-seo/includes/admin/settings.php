@@ -29,7 +29,7 @@ abstract class Smartcrawl_Settings_Admin extends Smartcrawl_Settings {
 	 *
 	 * @var string
 	 */
-	public $capability = 'list_users';
+	public $capability = 'manage_options';
 
 	/**
 	 * Name of the options corresponding to this page

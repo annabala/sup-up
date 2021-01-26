@@ -491,7 +491,7 @@
             "required": false,
             "extra_validation_name": false,
             "pre_selected_value": "Manage cookie settings",
-            "helpertext": "Text for link for showing the banner again. Nice to give user ability to manage their settings without displaying the settings tab. To display the link use this shortcode: [cc_show_cookie_banner_nsc_bar]",
+            "helpertext": "Text for link for showing the banner again. Nice to give user ability to manage their settings without displaying the 'Cookie Settings' tab. To display the link use this shortcode: [cc_show_cookie_banner_nsc_bar]",
             "name": "Shortcode: Link text 'show banner'",
             "save_in_db": true
           },
@@ -561,7 +561,7 @@
         ]
       },
       {
-        "tabname": "JSON Configuration",
+        "tabname": "Im & Export",
         "tab_description": "tab_jsonconfig_description.html",
         "tab_slug": "advanced_config",
         "active": false,

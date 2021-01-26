@@ -7,7 +7,7 @@
       <td>
         <input type="checkbox" name="acfbs_fields_types[]" value="<?= $value; ?>"
           id="acfbs-<?= $value; ?>" class="acfbsPage__checkbox" <?= $isChecked ? 'checked' : ''; ?>
-          <?= ($isLiteMode) ? 'disabled' : ''; ?>>
+          <?= (isset($config['lite_mode']) && $config['lite_mode']) ? 'disabled' : ''; ?>>
         <label for="acfbs-<?= $value; ?>"></label>
       </td>
       <td>

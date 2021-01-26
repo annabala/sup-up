@@ -254,7 +254,7 @@ class Smartcrawl_OnPage extends Smartcrawl_Base_Controller {
 			}
 		}
 
-		if ( ! empty( $canonical ) ) {
+		if ( ! empty( $canonical ) && ! is_wp_error( $canonical ) ) {
 			$this->print_html_tag( '<link rel="canonical" href="' . esc_attr( $canonical ) . '" />' . "\n" );
 		}
 

@@ -10,6 +10,8 @@ $automatically_switched = empty( $automatically_switched ) ? false : $automatica
 $total_post_count = empty( $total_post_count ) ? 0 : $total_post_count;
 $email_recipients = Smartcrawl_Sitemap_Settings::get_email_recipients();
 $override_native = empty( $override_native ) ? false : $override_native;
+$ping_google = ! empty( $_view['options']['ping-google'] );
+$ping_bing = ! empty( $_view['options']['ping-bing'] );
 ?>
 
 <?php $this->_render( 'before-page-container' ); ?>
@@ -22,7 +24,14 @@ $override_native = empty( $override_native ) ? false : $override_native;
 	) ); ?>
 
 	<?php $this->_render( 'floating-notices', array(
-		'keys' => array( 'wds-email-recipient-notice' ),
+		'message' => $ping_google || $ping_bing
+			? esc_html__( 'Your Sitemap is updated and Search Engines are being notified with changes.', 'wds' )
+			: esc_html__( 'Your sitemap has been updated.', 'wds' ),
+		'keys'    => array(
+			'wds-email-recipient-notice',
+			'wds-sitemap-manually-updated',
+			'wds-sitemap-manually-notify-search-engines',
+		),
 	) ); ?>
 	<?php $this->_render( 'sitemap/sitemap-notices' ); ?>
 
@@ -64,7 +73,6 @@ $override_native = empty( $override_native ) ? false : $override_native;
 						array(
 							'section_template' => 'sitemap/sitemap-section-advanced',
 							'section_args'     => array(
-								'engines'                => $engines,
 								'automatically_switched' => $automatically_switched,
 								'total_post_count'       => $total_post_count,
 							),

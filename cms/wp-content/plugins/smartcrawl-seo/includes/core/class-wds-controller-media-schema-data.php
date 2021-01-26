@@ -246,6 +246,7 @@ class Smartcrawl_Controller_Media_Schema_Data extends Smartcrawl_Base_Controller
 			'videopress.com',
 			'vine.com',
 			'youtube.com',
+			'youtu.be',
 		);
 	}
 }

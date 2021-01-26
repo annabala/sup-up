@@ -8,6 +8,7 @@ foreach ( $settings_errors as $settings_error ) {
 		$errors[ $code ] = smartcrawl_get_array_value( $settings_error, 'message' );
 	}
 }
+$message = empty( $message ) ? esc_html__( 'Settings updated', 'wds' ) : $message;
 ?>
 <div class="sui-floating-notices">
 	<?php
@@ -15,7 +16,7 @@ foreach ( $settings_errors as $settings_error ) {
 		$this->_render( 'floating-notice', array(
 			'code'      => 'wds-success-message',
 			'type'      => 'success',
-			'message'   => esc_html__( 'Settings updated', 'wds' ),
+			'message'   => $message,
 			'autoclose' => true,
 		) );
 	}

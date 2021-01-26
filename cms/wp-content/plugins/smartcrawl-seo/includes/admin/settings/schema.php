@@ -54,8 +54,96 @@ class Smartcrawl_Schema_Settings extends Smartcrawl_Settings_Admin {
 
 		add_action( 'wp_ajax_wds-change-schema-status', array( $this, 'change_schema_component_status' ) );
 		add_action( 'wp_ajax_wds-authorize-yt-api-key', array( $this, 'authorize_youtube_api_key' ) );
+		add_action( 'wp_ajax_wds-search-schema-post', array( $this, 'search_schema_post' ) );
+		add_action( 'wp_ajax_wds-search-schema-term', array( $this, 'search_schema_term' ) );
+		add_action( 'wp_ajax_wds-search-post-meta', array( $this, 'search_schema_post_meta' ) );
 
 		parent::init();
+	}
+
+	public function search_schema_post() {
+		$search_query = smartcrawl_get_array_value( $_GET, 'term' );
+		$post_type = smartcrawl_get_array_value( $_GET, 'type' );
+		$request_type = smartcrawl_get_array_value( $_GET, 'request_type' );
+		$post_id = smartcrawl_get_array_value( $_GET, 'id' );
+		$results = array();
+		if ( empty( $search_query ) && empty( $post_id ) ) {
+			wp_send_json( array( 'results' => $results ) );
+			return;
+		}
+
+		$args = array(
+			'post_status'         => $post_type === 'attachment' ? 'inherit' : 'publish',
+			'posts_per_page'      => 10,
+			'ignore_sticky_posts' => true,
+			'post_type'           => $post_type,
+			's'                   => $search_query,
+		);
+		if ( $request_type === 'single' && $post_id ) {
+			$args['post__in'] = array( $post_id );
+		}
+		$posts = get_posts( $args );
+		foreach ( $posts as $post ) {
+			$results[] = array(
+				'id'   => $post->ID,
+				'text' => $post->post_title,
+			);
+		}
+		wp_send_json( array( 'results' => $results ) );
+	}
+
+	public function search_schema_term() {
+		$search_query = smartcrawl_get_array_value( $_GET, 'term' );
+		$taxonomy = smartcrawl_get_array_value( $_GET, 'type' );
+		$request_type = smartcrawl_get_array_value( $_GET, 'request_type' );
+		$term_id = smartcrawl_get_array_value( $_GET, 'id' );
+		$results = array();
+		if ( empty( $search_query ) && empty( $term_id ) ) {
+			wp_send_json( array( 'results' => $results ) );
+			return;
+		}
+
+		/**
+		 * @var $terms WP_Term
+		 */
+		$args = array(
+			'hide_empty' => false,
+			'taxonomy'   => $taxonomy,
+		);
+		if ( $request_type === 'single' && $term_id ) {
+			$args['include'] = array( $term_id );
+			$args['number'] = 1;
+		} else {
+			$args['search'] = $search_query;
+			$args['number'] = 10;
+		}
+		$terms = get_terms( $args );
+		foreach ( $terms as $term ) {
+			$results[] = array(
+				'id'   => $term->term_id,
+				'text' => $term->name,
+			);
+		}
+		wp_send_json( array( 'results' => $results ) );
+	}
+
+	public function search_schema_post_meta() {
+		$search_query = smartcrawl_get_array_value( $_GET, 'term' );
+		$results = array();
+		if ( empty( $search_query ) ) {
+			wp_send_json( array( 'results' => $results ) );
+			return;
+		}
+
+		global $wpdb;
+		$meta_keys = $wpdb->get_col( $wpdb->prepare( "SELECT DISTINCT meta_key from {$wpdb->postmeta} WHERE meta_key LIKE %s", '%' . $wpdb->esc_like( $search_query ) . '%' ) );
+		foreach ( $meta_keys as $meta_key ) {
+			$results[] = array(
+				'id'   => $meta_key,
+				'text' => $meta_key,
+			);
+		}
+		wp_send_json( array( 'results' => $results ) );
 	}
 
 	public function change_schema_component_status() {
@@ -103,7 +191,14 @@ class Smartcrawl_Schema_Settings extends Smartcrawl_Settings_Admin {
 		);
 
 		wp_enqueue_script( Smartcrawl_Controller_Assets::SCHEMA_JS );
+		wp_enqueue_script( Smartcrawl_Controller_Assets::SCHEMA_TYPES_JS );
 		wp_enqueue_media();
+
+		wp_set_script_translations(
+			Smartcrawl_Controller_Assets::SCHEMA_TYPES_JS,
+			'wds',
+			dirname( SMARTCRAWL_PLUGIN_BASENAME ) . '/languages'
+		);
 
 		$this->_render_page( 'schema/schema-settings', $arguments );
 	}

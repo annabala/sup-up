@@ -67,7 +67,8 @@ class Smartcrawl_Init {
 		Smartcrawl_Controller_Media_Schema_Data::get()->run();
 		Smartcrawl_Controller_Upgrade_Page::get()->run();
 		Smartcrawl_Controller_Welcome::get()->run();
-		SmartCrawl_Controller_Black_Friday::get()->run();
+		Smartcrawl_Controller_Schema_Types::get()->run();
+		Smartcrawl_Schema_Printer::run();
 
 		if ( is_admin() ) {
 			Smartcrawl_Recommended_Plugins::get()->run();

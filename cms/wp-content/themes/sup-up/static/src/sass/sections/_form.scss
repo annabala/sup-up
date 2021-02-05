@@ -1,48 +1,142 @@
 .form {
   $root: &;
-  padding: 50px 70px;
   width: 375px;
+
+  @include rwd('small-tablet') {
+    max-width: 100%;
+  }
 
   &__field {
     position: relative;
-    display: inline-block;
+    display: block;
+    margin-bottom: 25px;
+
+    &--checkbox {
+      height: auto;
+      margin-bottom: 20px;
+
+      & label {
+        font-size: 16px;
+        line-height: 20px;
+        color: $c-black;
+        display: block;
+        position: relative;
+        padding-left: 3.8rem;
+      }
+    }
+
+    &--phone {
+
+      & #{$root}__inputLabel {
+        left: 7rem;
+      }
+    }
   }
 
   &__input {
+    font-size: 16px;
+    line-height: 22px;
     background-color: $c-white;
     border: 1px solid $c-grey-9;
+    box-shadow: 0 3px 6px rgba($c-black, 0.1);
     border-radius: 6px;
-    margin-top: 5px;
     padding-right: 15px;
     padding-left: 15px;
-    width: 375px;
+    width: 100%;
     height: 50px;
+    transition: border-color $tr;
+
+    &:focus {
+      outline: none;
+      border-color: $c-black;
+    }
+
+    &[type='tel'] {
+      &:-webkit-autofill {
+        padding-left: 7rem;
+      }
+    }
+
+    &:-webkit-autofill {
+      background-color: $c-white;
+    }
+
+    &.wpcf7-not-valid {
+      border-color: $c-red;
+    }
+  }
+
+  &__checkboxInput {
+    z-index: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 1px;
+    height: 0;
+    opacity: 0;
+
+    &:focus {
+      & ~ .wpcf7-list-item-label #{$root}__check {
+        border-color: rgba($c-black, 0.4);
+      }
+    }
+  }
+
+  &__checkboxCheck {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 20px;
+    height: 20px;
+    border: 1px solid $c-grey-9;
+    border-radius: 6px;
+    background-color: transparent;
+    cursor: pointer;
+    transition: border-color $tr;
+
+    &:before {
+      @include icomoon('checkmark');
+      display: none;
+      font-size: 10px;
+      line-height: 10px;
+      width: 10px;
+      height: 10px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-top: -4px;
+      margin-left: -6px;
+      color: $c-white;
+    }
+
+    #{$root}__checkboxInput:checked ~ .wpcf7-list-item-label & {
+      background-color: $c-blue-1;
+      border-color: transparent;
+
+      &:before {
+        display: block;
+      }
+    }
   }
 
   &__inputLabel {
-    font-size: 16px;
-    line-height: 22px;
-    color: $c-grey-9;
+    background-color: $c-white;
+    font-size: 1.6rem;
+    line-height: 2.2rem;
+    color: $c-grey-8;
     position: absolute;
-    left: 20px;
-    top: 20px;
-    z-index: 10;
-  }
+    top: 2.4rem;
+    left: 1.4rem;
+    padding: 0 2px;
+    transform: translate(0, -50%);
+    transition: top $tr, font-size $tr;
 
-  &__button {
-    cursor: pointer;
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    padding: 0 13px;
-    text-align: left;
-    color: inherit;
-
-    &:active,
-    &:focus {
-      box-shadow: -2px -2px $c-blue-1 inset;
+    &--moved {
+      top: 1px;
+      font-size: 1.2rem;
+      line-height: 1.8rem;
     }
   }
 
@@ -60,30 +154,95 @@
   }
 
   span.wpcf7-not-valid-tip {
-    font: 400 16px/21px Lato;
-  }
-
-  div.wpcf7-mail-sent-ng,
-  div.wpcf7-aborted,
-  div.wpcf7-validation-errors,
-  div.wpcf7-acceptance-missing {
-    border: 0;
-    font: 400 16px/21px Lato;
-    margin: 0;
-    margin-top: 15px;
-    padding: 0;
+    font-size: 1.4rem;
+    line-height: 1.8rem;
   }
 
   &__button {
     display: flex;
-    margin-left: auto;
-    margin-top: 20px;
-    padding: 10px 13px;
+    justify-content: center;
+    margin-top: 50px;
     position: relative;
-    min-width: 135px;
+    min-width: 300px;
+    padding: 0;
 
-    @include rwd('phone') {
-      margin-bottom: 20px;
+    @include rwd('small-tablet') {
+      max-width: 100%;
+      min-width: 100%;
     }
   }
+
+  &__submit {
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 1.8rem;
+    padding: 18px 50px;
+    min-width: 100%;
+    transition: transform $tr;
+
+    @include rwd('small-tablet') {
+      max-width: 100%;
+    }
+
+    &:hover {
+      transform: scale(1.1);
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+  }
+
+  &__phoneCode {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $c-grey-5;
+    border-right: 1px solid $c-grey-9;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+    color: $c-black;
+    font-size: 1.6rem;
+    line-height: 2.1rem;
+    position: absolute;
+    height: 48px;
+    width: 60px;
+    left: 1px;
+    top: 2.5rem;
+    transform: translate(0, -50%);
+    text-align: center;
+    z-index: 2;
+
+  }
+
+  &__dateMessage {
+    font: 400 16px/21px Lato;
+    color: #dc3232;
+    display: none;
+  }
+}
+
+div.wpcf7 .ajax-loader {
+  position: absolute;
+  bottom: 1.5rem;
+  right: -4rem;
+}
+
+.wpcf7 form.invalid .wpcf7-response-output, .wpcf7 form.unaccepted .wpcf7-response-output {
+  border-color: $c-yellow-1 !important;
+  background-color: rgba($c-yellow-1, .2);
+}
+
+.wpcf7 form.sent .wpcf7-response-output {
+  border-color: $c-green !important;
+  background-color: rgba($c-green, .2);
+}
+
+.wpcf7 form .wpcf7-response-output {
+  font-size: 1.4rem;
+  line-height: 1.8rem;
+  border-radius: 6px !important;
+  padding: 1rem !important;
+  max-width: 375px;
 }

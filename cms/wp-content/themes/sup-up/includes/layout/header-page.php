@@ -4,7 +4,7 @@
 ?>
 <div class="headerPage">
   <div class="headerPage__inner">
-    <?php if ($image) : ?>
+    <?php if ($image && (!is_archive('blog') || !is_archive('multimedia'))) : ?>
     <div class="headerPage__image">
       <img class="headerPage__imageElement" src="<?= $image['sizes']['1536x1536']; ?>" alt="<?= $image['alt']; ?>">
     </div>

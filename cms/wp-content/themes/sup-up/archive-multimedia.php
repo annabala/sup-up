@@ -19,11 +19,12 @@ $the_query = new WP_Query($args);
 
 <?php get_template_part('includes/layout/header-page', null, array(
   'post_type' => 'multimedia',
-  'title' => 'Multimedia'
 )); ?>
 
 <main>
-
+  <?php get_template_part('includes/components/page-title', null, array(
+    'title' => 'Multimedia',
+  )); ?>
   <section class="section section__blogList">
     <div class="blogList">
       <div class="blogList__inner container">
@@ -56,5 +57,4 @@ $the_query = new WP_Query($args);
     </div>
   </section>
 </main>
-<?php get_template_part('includes/components/wave'); ?>
 <?php get_footer(); ?>

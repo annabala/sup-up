@@ -5,6 +5,14 @@
     margin-top: 15rem;
     overflow: hidden;
     position: relative;
+
+    @include rwd('laptop') {
+      margin-top: 8.2rem;
+    }
+
+    @include rwd('tablet') {
+      margin-top: 0;
+    }
   }
 
   &__imageElement {

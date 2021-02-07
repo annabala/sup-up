@@ -8,6 +8,6 @@
         <?php the_field($args['post_type'] . '_content', 'option'); ?>
       </div>
     </div>
-
   </div>
+  <?php get_template_part('includes/components/scroll-top'); ?>
 </div>

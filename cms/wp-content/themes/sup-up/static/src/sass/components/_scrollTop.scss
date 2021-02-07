@@ -1,0 +1,49 @@
+.scrollTop {
+  $root: &;
+  position: absolute;
+  bottom: -10rem;
+  left: 50%;
+  transform: translate(-50%, 0);
+  z-index: 2;
+
+  &__button {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 80px;
+    height: 80px;
+    background-color: $c-yellow-1;
+    border-radius: 20px;
+    position: relative;
+
+    &:focus {
+      outline: none;
+      text-decoration: none;
+      border: 1px solid $c-black;
+    }
+
+    &::before,
+    &::after {
+      font-size: 3rem;
+    }
+
+    &::before {
+      color: $c-black;
+      margin-top: 1rem;
+    }
+
+    &::after {
+      @include icomoon('arrow-up');
+      margin-top: -12px;
+    }
+  }
+
+  &__buttonText {
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translate(-50%, 0);
+    width: 100%;
+  }
+}

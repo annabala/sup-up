@@ -1,4 +1,5 @@
 <footer class="footer">
+  <?php get_template_part('includes/components/scroll-top'); ?>
   <div class="footer__inner">
     <div class="container">
       <div class="footer__content">
@@ -18,16 +19,11 @@
           <?php
             endwhile;
             endif; ?>
-          <li class="footer__socials iconSocials">
+          <li class="footer__social iconSocials">
             <a href="mailto:<?php the_field('contact_mail', 'option'); ?>"
               class="footer__socialLink iconSocial iconSocial--bigger icon-email"></a>
           </li>
         </ul>
-      </div>
-      <div class="footer__text">
-        &copy;
-        <?= date("Y"); ?>
-        Sup-up.pl
       </div>
     </div>
   </div>

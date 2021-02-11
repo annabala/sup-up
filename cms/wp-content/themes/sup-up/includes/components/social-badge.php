@@ -7,7 +7,7 @@
   ?>
     <li class="socialBadge__icon">
       <a href="<?= the_sub_field('link'); ?>" target="_blank" rel="noopener noreferrer"
-        class="socialBadge__iconLink iconSocial iconSocial--black icon-<?= the_sub_field('icon'); ?>"></a>
+        class="socialBadge__iconLink iconSocial  iconSocial--hoverBlue iconSocial--black icon-<?= the_sub_field('icon'); ?>"></a>
     </li>
     <?php
     endwhile;

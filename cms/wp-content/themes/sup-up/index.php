@@ -17,19 +17,22 @@ $args = array(
 $the_query = new WP_Query($args);
 ?>
 
-<?php get_template_part('includes/layout/header-page'); ?>
+<?php get_template_part('includes/layout/header-page', null, array(
+  'post_type' => 'blog',
+)); ?>
 
 <main>
-
-<section class="section section__blogList">
-  <div class="blogList">
-    <div class="blogList__inner container">
-      <div class="blogList__container">
-        <ul class="blogList_items row">
+  <?php get_template_part('includes/components/page-title', null, array(
+    'title' => 'Blog',
+  )); ?>
+  <section class="section section__blogList">
+    <div class="blogList">
+      <div class="blogList__inner container">
+        <ul class="blogList__items masonryList">
           <?php
             while ( $the_query->have_posts() ) : $the_query->the_post();
           ?>
-          <li class="blogList__item col-lg-6 col-xl-4">
+          <li class="blogList__item">
             <?php get_template_part('includes/components/blog-item'); ?>
           </li>
           <?php
@@ -43,8 +46,8 @@ $the_query = new WP_Query($args);
                     'current'      => max( 1, get_query_var( 'paged' ) ),
                     'total'   => $the_query->max_num_pages,
                     'mid_size'        => 2,
-                    'prev_text'       => __('Poprzednia'),
-                    'next_text'       => __('Następna'),
+                    'prev_text'       => __(''),
+                    'next_text'       => __(''),
                 ) );
               ?>
           </div>
@@ -52,8 +55,6 @@ $the_query = new WP_Query($args);
         <?php wp_reset_postdata(); ?>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 </main>
-
 <?php get_footer(); ?>

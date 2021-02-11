@@ -1,8 +1,6 @@
 <?php
   $contact = is_page('Kontakt');
-
 ?>
-
 <div class="content">
   <div class="container">
     <div class="content__inner">

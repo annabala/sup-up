@@ -12,72 +12,37 @@
  * This will limit the width of all uploaded images and embeds.
  */
 if ( ! isset( $content_width ) )
-    $content_width = 800; /* pixels */
+    $content_width = 1200; /* pixels */
 
 if ( ! function_exists( 'sup_setup' ) ) :
-/**
- * Sets up theme defaults and registers support for various WordPress features.
- *
- * Note that this function is hooked into the after_setup_theme hook, which runs
- * before the init hook. The init hook is too late for some features, such as indicating
- * support post thumbnails.
- */
+
 function sup_setup() {
 
-  function add_theme_scripts() {
+  function supup_widgets_init() {
 
-    // wp_enqueue_style( 'style', get_template_directory_uri() . '/static/dist/css/core.css', array(), '1.1', 'all');
-
-    // wp_enqueue_script( 'vendors', get_template_directory_uri() . '/static/dist/js/vendors.js', array(), true);
-    // wp_enqueue_script( 'script', get_template_directory_uri() . '/main.bundle.js', array(), true);
-
-
-      // if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
-      //   wp_enqueue_script( 'comment-reply' );
-      // }
+    register_sidebar( array(
+        'name' => 'Social feed',
+        'id' => 'supup_social_feed',
+    ) );
   }
-  add_action( 'wp_enqueue_scripts', 'add_theme_scripts' );
+  add_action( 'widgets_init', 'supup_widgets_init' );
 
   // Disable wp-editor from all pages
+  add_action( 'init', function() {
+    remove_post_type_support( 'post', 'editor' );
+    remove_post_type_support( 'page', 'editor' );
+    remove_post_type_support( 'multimedia', 'editor' );
+    remove_post_type_support( 'blog', 'editor' );
+    }, 99);
 
-  // add_action('admin_head', 'remove_content_editor');
-  // /**
-  //  * Remove the content editor from ALL pages
-  //  */
-  // function remove_content_editor()
-  // {
-  //   remove_post_type_support( 'events', 'editor' );
-  //   remove_post_type_support( 'multimedia', 'editor' );
-  //   remove_post_type_support( 'page', 'editor' );
-  //   remove_post_type_support( 'post', 'editor' );
-  //   // remove_post_type_support( 'blog', 'editor' );
-  // }
-  /**
-  * Make theme available for translation.
-  * Translations can be placed in the /languages/ directory.
-  */
   load_theme_textdomain( 'sup', get_template_directory() . '/languages' );
 
-  /**
-  * Add support for two custom navigation menus.
-  */
   register_nav_menus( array(
     'primary'   => __( 'Primary Menu', 'sup' ),
     'secondary' => __( 'Secondary Menu', 'sup' )
   ) );
 
-  /**
-  * Enable support for the following post formats:
-  * aside, gallery, quote, image, and video
-  */
   add_theme_support( 'post-formats', array ( 'aside', 'gallery', 'quote', 'image', 'video' ) );
-
-  /**
-  * Create options page for ACF.
-  */
-  // if( function_exists('acf_add_options_page') ) {
-  //   acf_add_options_page();
-  // }
 
   add_action('acf/init', 'my_acf_op_init');
   function my_acf_op_init() {
@@ -91,12 +56,6 @@ function sup_setup() {
               'menu_title'  => __('Opcje strony'),
               'redirect'    => false,
           ));
-
-          $archive = acf_add_options_sub_page(array(
-            'page_title'  => __('Opcje stron archiwum'),
-            'menu_title'  => __('Opcje stron archiwum'),
-            'parent_slug' => $parent['menu_slug'],
-        ));
       }
   }
 }
@@ -113,5 +72,4 @@ function customprefix_remove_default_post_type_menu_item() {
 add_filter('wpcf7_autop_or_not', '__return_false');
 
 // Included files
-
 require_once('includes/page-config/custom-post/create-custom.php');

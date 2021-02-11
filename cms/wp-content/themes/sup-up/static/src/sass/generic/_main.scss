@@ -17,7 +17,8 @@ html {
 }
 
 body {
-  background-color: $c-grey-1;
+  // background-color: $c-grey-1;
+  background-color: #fbf8f7;
   font-family: 'Open Sans', sans-serif;
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
@@ -26,17 +27,14 @@ body {
 
 .pageWrapper {
   position: relative;
-  max-width: 1920px;
-  margin: 0 auto;
-
   @include rwd("tablet") {
     padding-top: 8.2rem;
   }
 }
 
-.sections {
-  overflow: hidden;
-}
+// .sections {
+//   overflow: hidden;
+// }
 
 a:focus {
   outline-width: thick;
@@ -51,6 +49,19 @@ button:focus {
 .archive {
   & .sections {
     margin-top: 15rem;
+
+    @include rwd("laptop") {
+      margin-top: 8.2rem;
+    }
+
+    @include rwd('tablet') {
+      margin-top: 0;
+    }
   }
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    opacity: 1;
 }
 

@@ -1,13 +1,12 @@
 .button {
   $root: &;
-
   font: 500 18px/29px 'Open Sans';
-  // border-radius: 20px;
   font-weight: 700;
   color: $c-black;
   text-decoration: none;
   text-transform: uppercase;
   padding: 5px 10px;
+  text-align: center;
   cursor: pointer;
 
   @include rwd("tablet") {

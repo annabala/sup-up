@@ -1,60 +1,60 @@
-h1, .h1 {
-  font: 500 48px/54px 'Open Sans';
+// h1, .h1 {
+//   font: 500 48px/54px 'Open Sans';
 
-  @include rwd('tablet') {
-    font: 500 30px/34px 'Open Sans';
-  }
-}
+//   @include rwd('tablet') {
+//     font: 500 30px/34px 'Open Sans';
+//   }
+// }
 
-h2, .h2 {
-  font: 500 48px/50px 'Open Sans';
+// h2, .h2 {
+//   font: 500 48px/50px 'Open Sans';
 
-  @include rwd('tablet') {
-    font: 500 30px/34px 'Open Sans';
-  }
-}
+//   @include rwd('tablet') {
+//     font: 500 30px/34px 'Open Sans';
+//   }
+// }
 
-h3, .h3 {
-  font: 500 30px/44px 'Open Sans';
+// h3, .h3 {
+//   font: 500 30px/44px 'Open Sans';
 
-  @include rwd('tablet') {
-    font: 500 24px/29px 'Open Sans';
-  }
-}
+//   @include rwd('tablet') {
+//     font: 500 24px/29px 'Open Sans';
+//   }
+// }
 
-h4, .h4 {
-  font: 500 26px/44px 'Open Sans';
+// h4, .h4 {
+//   font: 500 26px/44px 'Open Sans';
 
-  @include rwd('large-phone') {
-    font: 500 14px/20px 'Open Sans';
-  }
-}
+//   @include rwd('large-phone') {
+//     font: 500 14px/20px 'Open Sans';
+//   }
+// }
 
-h5, .h5 {
-  font: 500 24px/42px 'Open Sans';
-}
+// h5, .h5 {
+//   font: 500 24px/42px 'Open Sans';
+// }
 
-h6, .h6 {
-  font: 500 24px/40px 'Open Sans';
-}
+// h6, .h6 {
+//   font: 500 24px/40px 'Open Sans';
+// }
 
-.par {
-  font: 400 18px/27px Lato;
-}
+// .par {
+//   font: 400 18px/27px Lato;
+// }
 
-.grid {
-  &__heading {
-    color: $c-dark-2;
+// .grid {
+//   &__heading {
+//     color: $c-dark-2;
 
-    &--medium {
-      font: 500 26px/44px 'Open Sans';
-      letter-spacing: 0;
-    }
-  }
+//     &--medium {
+//       font: 500 26px/44px 'Open Sans';
+//       letter-spacing: 0;
+//     }
+//   }
 
-  &__paragraph {
-    color: $c-dark-1;
-    font: 400 18px/27px Lato;
-    letter-spacing: 0;
-  }
-}
+//   &__paragraph {
+//     color: $c-dark-1;
+//     font: 400 18px/27px Lato;
+//     letter-spacing: 0;
+//   }
+// }

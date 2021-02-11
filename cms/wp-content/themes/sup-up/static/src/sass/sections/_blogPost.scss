@@ -56,27 +56,27 @@
 
   }
 
-  &__headerDate {
-    font: 500 14px/20px Lato;
-    padding-bottom: 12px;
+  // &__headerDate {
+  //   font: 500 14px/20px Lato;
+  //   padding-bottom: 12px;
 
-    @include rwd('large-phone', true) {
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-    }
+  //   @include rwd('large-phone', true) {
+  //     display: flex;
+  //     align-items: center;
+  //     justify-content: flex-start;
+  //   }
 
-    &::before {
-      content: url('/wp-content/themes/fis/static/src/img/newspaper.svg');
-      display: inline-block;
-      height: 18px;
-      padding-right: 4px;
+  //   &::before {
+  //     content: url('/wp-content/themes/fis/static/src/img/newspaper.svg');
+  //     display: inline-block;
+  //     height: 18px;
+  //     padding-right: 4px;
 
-      @include rwd('small-tablet', true) {
-        padding-right: 8px;
-      }
-    }
-  }
+  //     @include rwd('small-tablet', true) {
+  //       padding-right: 8px;
+  //     }
+  //   }
+  // }
 
   &__headerTitle {
     position: absolute;

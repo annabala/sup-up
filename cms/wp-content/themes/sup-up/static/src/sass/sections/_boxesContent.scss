@@ -1,5 +1,8 @@
 .boxesContent {
   $root: &;
+  @include rwd("large-laptop") {
+    margin: 4rem 0;
+  }
 
   &__container {
     display: grid;
@@ -17,7 +20,7 @@
 
   &__box {
     cursor: pointer;
-    box-shadow: 6px 6px 10px rgba($c-black, 0.25);
+    box-shadow: 6px 6px 10px rgba($c-black, 0.15);
     background-color: $c-white;
     border-radius: 20px;
     display: flex;
@@ -52,37 +55,15 @@
       @include rwd("tablet") {
         align-items: center;
       }
+
+      #{$root}__content {
+        max-width: 70%;
+
+        @include rwd("large-tablet") {
+          max-width: 100%;
+        }
+      }
     }
-
-    // &--col4 {
-    //   flex: 0 0 33.333%;
-    //   max-width: calc(33.333% - 4rem);
-
-    //   @include rwd("large-tablet") {
-    //     flex: 0 0 50%;
-    //     max-width: calc(50% - 4rem);
-    //   }
-
-    //   @include rwd("tablet") {
-    //     flex: 0 0 100%;
-    //     max-width: calc(100% - 2rem);
-    //   }
-    // }
-
-    // &--col3 {
-    //   flex: 0 0 25%;
-    //   max-width: calc(25% - 4rem);
-
-    //   @include rwd("large-tablet") {
-    //     flex: 0 0 50%;
-    //     max-width: calc(50% - 4rem);
-    //   }
-
-    //   @include rwd("tablet") {
-    //     flex: 0 0 100%;
-    //     max-width: calc(100% - 2rem);
-    //   }
-    // }
   }
 
   &__title {
@@ -93,6 +74,66 @@
 
     @include rwd("tablet") {
       margin: 3.2rem 0 2rem 0;
+    }
+  }
+
+  &__images {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    @include rwd("large-tablet", true) {
+      display: inline-block;
+      position: absolute;
+      right: 4rem;
+      top: 5rem;
+      width: auto;
+    }
+  }
+
+  &__image {
+    border: 10px solid $c-blue-1;
+    box-shadow: 0 0 0px 10px rgba($c-blue-1, 0.4);
+    border-radius: 50%;
+    overflow: hidden;
+    width: 210px;
+    height: 210px;
+    opacity: 0;
+
+    @include rwd("tablet") {
+      width: 180px;
+      height: 180px;
+    }
+
+    & img {
+      margin-left: -6rem;
+      transition: transform $tr;
+      height: 100%;
+    }
+
+    &:first-of-type {
+      margin-right: 4rem;
+      width: 180px;
+      height: 180px;
+
+      @include rwd("large-tablet", true) {
+        margin-left: -4rem;
+        margin-bottom: 2rem;
+      }
+
+      @include rwd("tablet") {
+        width: 160px;
+        height: 160px;
+      }
+
+      @include rwd("large-phone") {
+        display: none;
+      }
+    }
+
+    &:hover {
+      & img {
+        transform: scale(1.1);
+      }
     }
   }
 

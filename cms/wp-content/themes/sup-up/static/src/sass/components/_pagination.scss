@@ -5,15 +5,23 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 64px;
+    padding: 3rem 0;
   }
 
   & .page-numbers {
     color: $c-black;
-    font: 500 18px/29px JostMedium;
-    padding: 18px 26px;
-    box-shadow: 2px 2px 20px rgba($c-black, .06);
+    font-size: 2rem;
+    line-height: 2rem;
+    padding: 2rem 2.6rem;
+    box-shadow: 2px 2px 10px rgba($c-black, .06);
     margin: 0 8px;
+    border-radius: 10px;
+    background-color: $c-white;
+    transition: color $tr;
+
+    &:hover {
+      color: $c-blue-1;
+    }
 
     &.current {
       background-color: $c-blue-1;
@@ -23,7 +31,6 @@
 
   & .next,
   & .prev {
-    font: 500 8px/12px JostMedium;
     letter-spacing: 0.16px;
     color: $c-black;
     text-transform: uppercase;
@@ -38,8 +45,8 @@
     right: -15px;
     top: 65%;
 
-    &::after {
-      content: url('/wp-content/themes/fis/static/src/img/arrow-blue.svg');
+    &::before {
+      @include icomoon('arrow-short');
     }
   }
 
@@ -47,8 +54,8 @@
     right: -15px;
     top: 65%;
 
-    &::after {
-      content: url('/wp-content/themes/fis/static/src/img/arrow-blue.svg');
+    &::before {
+      @include icomoon('arrow-short');
       transform: rotate(180deg);
     }
   }

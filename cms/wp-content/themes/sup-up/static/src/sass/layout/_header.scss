@@ -1,6 +1,10 @@
 .header {
   $root: &;
-  background:$c-grey-1;  /* fallback for old browsers */
+  // background: $c-grey-1;
+  background-color: #fbf8f7;
+  // background-color: #fffcfc;
+  // background-color: #F7FCFE;
+
   position: fixed;
   top: 0;
   right: 0;
@@ -8,8 +12,8 @@
   z-index: 5000;
 
   &--fixed {
-    @include rwd('large-tablet', true) {
-      border-bottom: 1px solid darken($c-grey-1, 10);
+    @include rwd('laptop', true) {
+      border-bottom: 1px solid darken(#fbf8f7, 4);
 
       & #{$root}__logoImg {
         max-width: 70px;
@@ -23,13 +27,13 @@
 
   }
 
-  @include rwd('large-tablet') {
+  @include rwd('laptop') {
     position: fixed;
     top: 0;
     right: 0;
     width: 100%;
     z-index: 5000;
-    border-bottom: 1px solid darken($c-grey-1, 10);
+    border-bottom: 1px solid darken(#fbf8f7, 4);
   }
 
   &__wrapper {
@@ -44,7 +48,7 @@
       padding: 2rem 2rem 0 2rem;
     }
 
-    @include rwd('large-tablet') {
+    @include rwd('laptop') {
       padding: 1rem 2rem;
       max-width: 100%;
     }
@@ -53,7 +57,7 @@
   &__top {
     width: 13rem;
 
-    @include rwd('large-tablet') {
+    @include rwd('laptop') {
       width: 100%;
       display: flex;
       justify-content: space-between;
@@ -70,7 +74,7 @@
       max-width: 75px;
     }
 
-    @include rwd('large-tablet') {
+    @include rwd('laptop') {
       max-width: 60px;
     }
   }
@@ -84,7 +88,7 @@
     align-items: center;
     justify-content: space-evenly;
 
-    @include rwd('large-tablet', true) {
+    @include rwd('laptop', true) {
       display: none;
     }
   }

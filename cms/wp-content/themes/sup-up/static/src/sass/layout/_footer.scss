@@ -1,31 +1,45 @@
 .footer {
   $root: &;
+  position: relative;
 
   &__inner {
-    background-color: $c-black;
-    padding: 11rem 0 10rem;
+    display: flex;
+    align-items: flex-end;
+    background-image: url('/wp-content/themes/sup-up/static/src/img/footer-waves.svg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 480px;
     overflow: hidden;
+    position: relative;
+    margin-top: 12rem;
 
     @include rwd('large-tablet') {
-      padding: 5rem 0;
+      padding: 2rem 0 0 0;
+      min-height: 350px;
+    }
+
+    @include rwd('phone') {
+      margin-top: 6rem;
     }
   }
 
   &__content {
-    @include flexSetup(row, center, center, nowrap);
+    @include flexSetup(row, center, center, wrap);
+    margin-bottom: 100px;
+
+    @include rwd('large-tablet') {
+      margin-bottom: 50px;
+    }
+
+    @include rwd('small-tablet') {
+      margin-bottom: 25px;
+    }
 
     @include rwd('phone') {
       flex-direction: column;
     }
   }
-
-  &__text {
-    font-size: 1.6rem;
-    margin-top: 2rem;
-    color: $c-white;
-    text-align: center;
-  }
-
 
   &__logo {
     margin-right: 2rem;
@@ -33,15 +47,10 @@
     @include rwd('large-phone') {
       margin-right: 0;
     }
-
-    @include rwd('phone') {
-      flex: 0 0 100%;
-      margin-bottom: 2rem;
-    }
   }
 
   &__logoImage {
-    width: 90px;
+    width: 110px;
     height: auto;
     transition: opacity $tr;
     cursor: pointer;
@@ -59,6 +68,7 @@
     @include flexSetup(row, center, center, nowrap);
     transition: opacity $tr, visibility $tr;
     z-index: 40;
+    margin-top: 1rem;
   }
 
   &__social {

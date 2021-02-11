@@ -7,7 +7,7 @@
   //   min-width: 90%;
   // }
 
-  @include rwd("large-tablet") {
+  @include rwd("laptop") {
     position: fixed;
     top: 8rem;
     bottom: 0;
@@ -25,7 +25,7 @@
   }
 
   &--scroll {
-    @include rwd("large-tablet") {
+    @include rwd("laptop") {
       height: auto;
       overflow: scroll;
     }
@@ -36,7 +36,7 @@
 
     @include flexSetup(row, center, center, nowrap);
 
-    @include rwd("large-tablet") {
+    @include rwd("laptop") {
       flex-direction: column;
       justify-content: flex-start;
       padding: 3rem 0;
@@ -48,7 +48,7 @@
     @include flexSetup(row, space-evenly, center, nowrap);
     transition: transform $tr;
 
-    @include rwd("large-tablet") {
+    @include rwd("laptop") {
       flex-direction: column;
       justify-content: start;
       width: 100%;
@@ -60,7 +60,7 @@
       cursor: pointer;
       text-align: center;
       // margin: 0 20px;
-      // @include rwd("large-tablet") {
+      // @include rwd("laptop") {
       //   width: 100%;
       // }
 
@@ -80,7 +80,7 @@
         box-shadow: 0 3px 6px rgba($c-black, .16);
         transition: opacity $tr, transform $tr;
 
-        @include rwd("large-tablet") {
+        @include rwd("laptop") {
           display: none;
         }
       }
@@ -110,7 +110,7 @@
           padding: 16px;
         }
 
-        @include rwd("large-tablet") {
+        @include rwd("laptop") {
           color: $c-white;
           padding: 4px;
           margin-bottom: 20px;
@@ -135,17 +135,14 @@
         border-bottom-right-radius: 20px;
         box-shadow: 0 3px 6px rgba($c-black, .16);
 
-        @include rwd("large-tablet") {
-          // position: static;
+        @include rwd("laptop") {
           left: auto;
           right: auto;
           top: auto;
           min-width: 100%;
           visibility: visible;
           opacity: 1;
-          // margin-top: 2rem;
           padding: 0;
-          // height: 0;
           transform: none;
           box-shadow: none;
         }
@@ -154,7 +151,7 @@
           text-align: left;
           margin: 0;
 
-          @include rwd("large-tablet") {
+          @include rwd("laptop") {
             text-align: center;
           }
 
@@ -180,7 +177,7 @@
               line-height: 2.2rem;
             }
 
-            @include rwd("large-tablet") {
+            @include rwd("laptop") {
               margin: 0;
             }
           }
@@ -188,15 +185,11 @@
           &:first-of-type {
             margin: 8.5rem 0 0;
 
-            @include rwd("large-tablet") {
+            @include rwd("laptop") {
               margin: 0;
             }
           }
         }
-
-        // &--active {
-        //   visibility: visible;
-        // }
       }
 
       &:hover {
@@ -217,7 +210,7 @@
       &.menu-item-has-children {
         &:hover {
           & > .sub-menu {
-            @include rwd("large-tablet", true) {
+            @include rwd("laptop", true) {
               visibility: visible;
               opacity: 1;
             }
@@ -227,7 +220,7 @@
     }
 
     & li.menu-item-has-children {
-      @include rwd("large-tablet") {
+      @include rwd("laptop") {
         overflow: hidden;
       }
     }
@@ -247,7 +240,7 @@
 
   &--active {
 
-    @include rwd("large-tablet") {
+    @include rwd("laptop") {
       opacity: 1;
       visibility: visible;
 
@@ -272,7 +265,7 @@
     z-index: 5000;
     transition: transform 1s;
 
-    @include rwd("large-tablet", true) {
+    @include rwd("laptop", true) {
       display: none;
     }
 

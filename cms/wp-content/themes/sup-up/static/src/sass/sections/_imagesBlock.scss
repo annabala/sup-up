@@ -1,0 +1,82 @@
+.imagesBlock {
+  $root: &;
+
+  &__inner {
+    position: relative;
+    margin: 5rem 0;
+  }
+
+  &__slider {
+    overflow: hidden;
+  }
+
+  &__imageWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    max-height: 244px;
+    overflow: hidden;
+    transition: opacity $tr;
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+
+  &__image {
+    display: inline-block;
+    max-width: 100%;
+    height: auto;
+    min-height: 244px;
+    object-fit: cover;
+    object-position: center;
+    width: 100%;
+  }
+
+  &__prev,
+  &__next {
+    cursor: pointer;
+    position: absolute;
+
+    @include rwd('tablet') {
+      z-index: 2;
+    }
+
+    &.swiper-button-disabled {
+      opacity: 0.2;
+      cursor: not-allowed;
+    }
+
+    &::before {
+      font-size: 3rem;
+      line-height: 3rem;
+      display: inline-block;
+      padding: 5px;
+      background-color: $c-white;
+    }
+  }
+
+  &__prev {
+    left: -4rem;
+    top: 50%;
+
+    @include rwd('tablet') {
+      left: 0;
+    }
+
+    &::before {
+      transform: translate(0, -50%) rotate(-180deg);
+    }
+  }
+
+  &__next {
+    right: -4rem;
+    top: 50%;
+    transform: translate(0, -50%);
+
+    @include rwd('tablet') {
+      right: 0;
+    }
+  }
+}

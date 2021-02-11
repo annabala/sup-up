@@ -11,12 +11,12 @@ export default class FloatingLabel {
       moved: 'form__inputLabel--moved',
       permanentMoved: 'form__inputLabel--permanent',
     };
+    this.form = document.querySelector('#wpcf7-f5-o1');
     this.inputWrappers = document.querySelectorAll(this.classes.inputWithLabel);
     this.inputs = document.querySelectorAll('.wpcf7-form-control.form__input--floatingLabel');
     this.labels = document.querySelectorAll('.form__inputLabel');
-    this.form = document.querySelector('#wpcf7-f5-o1');
 
-    if (!this.inputWrappers) return false;
+    if (!this.form) return false;
 
     return true;
   }

@@ -15,7 +15,7 @@ export default class MobileMenu {
     this.menuItems = document.querySelectorAll('.menu-item-has-children');
     this.subMenuItems = document.querySelectorAll('.sub-menu .menu-item');
 
-    const mediaMatch = window.matchMedia('(max-width: 1023px)');
+    const mediaMatch = window.matchMedia('(max-width: 1279px)');
     if (mediaMatch.matches) {
       this.mobile = true;
     }
@@ -29,7 +29,7 @@ export default class MobileMenu {
   setEvents() {
 
     document.addEventListener('resize', () => {
-      const mediaMatch = window.matchMedia('(max-width: 1023px)');
+      const mediaMatch = window.matchMedia('(max-width: 1279px)');
       if (mediaMatch.matches) {
         this.mobile = true;
       }

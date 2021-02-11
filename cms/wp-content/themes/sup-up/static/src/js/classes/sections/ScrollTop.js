@@ -50,10 +50,11 @@ export default class ScrollTop {
 
   scrollToTarget(targetEl) {
     this.scrollTo(targetEl);
+    console.log(targetEl);
   }
 
   scrollTo(targetEl) {
-    gsap.to(window, { duration: 1, scrollTo: targetEl });
+    gsap.to(window, { duration: 1.2, scrollTo: { y: targetEl, offsetY: 200 } });
 
   }
 }
